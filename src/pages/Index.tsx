@@ -1,14 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Layout } from '@/components/layout/Layout';
+import { Hero } from '@/components/home/Hero';
+import { BenefitsGrid } from '@/components/home/BenefitsGrid';
+import { FeaturedProducts } from '@/components/home/FeaturedProducts';
+import { CollectionsGrid } from '@/components/home/CollectionsGrid';
+import { HeatScaleSection } from '@/components/home/HeatScaleSection';
+import { ReviewsCarousel } from '@/components/home/ReviewsCarousel';
+import { BlogPreview } from '@/components/home/BlogPreview';
+import { BrandStory } from '@/components/home/BrandStory';
+import { EmailCapture } from '@/components/home/EmailCapture';
 
-const Index = () => {
+export default function Index() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <Layout>
+      <Hero />
+      <BenefitsGrid />
+      <FeaturedProducts />
+      <CollectionsGrid />
+      <HeatScaleSection />
+      <ReviewsCarousel />
+      <BrandStory />
+      <BlogPreview />
+      <EmailCapture />
+    </Layout>
   );
-};
-
-export default Index;
+}

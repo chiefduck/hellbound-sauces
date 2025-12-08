@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Flame, ChefHat, Gift } from 'lucide-react';
 import { collections } from '@/data/products';
+import { getCollectionImage } from '@/data/images';
 
 const collectionIcons = {
   'hot-sauces': Flame,
@@ -20,25 +21,33 @@ export function CollectionsGrid() {
         <div className="grid md:grid-cols-3 gap-6">
           {collections.map((collection, index) => {
             const Icon = collectionIcons[collection.handle as keyof typeof collectionIcons] || Flame;
+            const collectionImage = getCollectionImage(collection.handle);
             
             return (
               <Link
                 key={collection.id}
                 to={`/collections/${collection.handle}`}
-                className="group relative overflow-hidden rounded-xl bg-card border border-border hover:border-primary/50 transition-all duration-300 animate-fade-in-up"
+                className="group relative overflow-hidden rounded-xl border border-border hover:border-primary/50 transition-all duration-300 animate-fade-in-up"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div className="aspect-[4/3] relative">
-                  {/* Background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  {/* Background image */}
+                  <img 
+                    src={collectionImage} 
+                    alt={collection.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
                   
                   {/* Icon */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Icon className="h-20 w-20 text-primary/30 group-hover:text-primary/50 group-hover:scale-110 transition-all duration-300" />
+                  <div className="absolute top-4 right-4 p-3 rounded-full bg-primary/20 backdrop-blur-sm">
+                    <Icon className="h-6 w-6 text-primary" />
                   </div>
                   
                   {/* Content */}
-                  <div className="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-background via-background/50 to-transparent">
+                  <div className="absolute inset-0 p-6 flex flex-col justify-end">
                     <h3 className="font-display text-2xl lg:text-3xl mb-2 group-hover:text-primary transition-colors">
                       {collection.title}
                     </h3>
