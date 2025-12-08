@@ -7,6 +7,7 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { SEOHead } from '@/components/seo';
 
 const heatLevels = [
   {
@@ -258,6 +259,11 @@ function HeatQuiz() {
 export default function HeatGuidePage() {
   return (
     <Layout>
+      <SEOHead
+        title="Heat Guide | Scoville Scale & Spice Levels Explained"
+        description="Understand the Scoville scale and find your perfect heat level. Take our quiz, learn about pepper heat levels, and discover which Hellbound hot sauce matches your spice tolerance."
+        canonical="/heat-guide"
+      />
       {/* Hero */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />

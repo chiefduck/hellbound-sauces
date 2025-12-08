@@ -4,6 +4,7 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { getCollectionByHandle, getProductsInCollection } from '@/data/products';
 import { getCollectionImage } from '@/data/images';
 import { Flame } from 'lucide-react';
+import { SEOHead, CollectionSchema, BreadcrumbSchema } from '@/components/seo';
 
 export default function CollectionPage() {
   const { handle } = useParams<{ handle: string }>();
@@ -24,6 +25,16 @@ export default function CollectionPage() {
 
   return (
     <Layout>
+      <SEOHead
+        title={`${collection.title} | Shop Premium ${collection.title}`}
+        description={collection.description}
+        canonical={`/collections/${collection.handle}`}
+      />
+      <CollectionSchema collection={collection} products={products} />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: '/' },
+        { name: collection.title, url: `/collections/${collection.handle}` }
+      ]} />
       {/* Hero */}
       <section className="py-16 lg:py-24 relative overflow-hidden">
         <div className="absolute inset-0">

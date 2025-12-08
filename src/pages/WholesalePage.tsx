@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { SEOHead } from '@/components/seo';
 
 export default function WholesalePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,6 +25,11 @@ export default function WholesalePage() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Wholesale | Partner With Hellbound Hot Sauce"
+        description="Become a Hellbound Hot Sauce wholesale partner. Premium artisan hot sauces for retailers, restaurants, and distributors. Low minimums, fast shipping, and marketing support."
+        canonical="/wholesale"
+      />
       {/* Hero */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />

@@ -9,6 +9,7 @@ import { getProductByHandle, products } from '@/data/products';
 import { getProductImage } from '@/data/images';
 import { getReviewsByProductId } from '@/data/reviews';
 import { useToast } from '@/hooks/use-toast';
+import { SEOHead, ProductSchema, BreadcrumbSchema } from '@/components/seo';
 
 export default function ProductPage() {
   const { handle } = useParams<{ handle: string }>();
@@ -39,8 +40,24 @@ export default function ProductPage() {
     });
   };
 
+  const categoryLabel = product.category === 'hot-sauce' ? 'Hot Sauces' : product.category === 'rub' ? 'BBQ Rubs' : 'Bundles';
+  const categoryHandle = product.category === 'hot-sauce' ? 'hot-sauces' : product.category === 'rub' ? 'bbq-rubs' : 'bundles';
+
   return (
     <Layout>
+      <SEOHead
+        title={`${product.title} | ${categoryLabel}`}
+        description={product.longDescription || product.description}
+        canonical={`/products/${product.handle}`}
+        type="product"
+        image={productImage}
+      />
+      <ProductSchema product={product} />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: '/' },
+        { name: categoryLabel, url: `/collections/${categoryHandle}` },
+        { name: product.title, url: `/products/${product.handle}` }
+      ]} />
       <div className="container mx-auto px-4 lg:px-8 py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">

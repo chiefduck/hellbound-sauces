@@ -5,6 +5,7 @@ import { getBlogPostBySlug, getRecentPosts, blogPosts } from '@/data/blog';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
 import { useState, useEffect } from 'react';
+import { SEOHead, ArticleSchema, BreadcrumbSchema } from '@/components/seo';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -57,6 +58,23 @@ export default function BlogPostPage() {
 
   return (
     <Layout>
+      <SEOHead
+        title={post.title}
+        description={post.excerpt}
+        canonical={`/blog/${post.slug}`}
+        type="article"
+        image={post.image}
+        publishedTime={post.date}
+        author={post.author}
+        section={post.category}
+        tags={post.tags}
+      />
+      <ArticleSchema post={post} />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: '/' },
+        { name: 'Blog', url: '/blog' },
+        { name: post.title, url: `/blog/${post.slug}` }
+      ]} />
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-background/50 z-50">
         <div 
