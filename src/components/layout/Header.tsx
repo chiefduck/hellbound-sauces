@@ -5,13 +5,14 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const navigation = [
-  { name: 'Shop', href: '/collections/hot-sauces' },
+  { name: 'Shop', href: '/collections/all' },
   { name: 'Hot Sauces', href: '/collections/hot-sauces' },
   { name: 'BBQ Rubs', href: '/collections/bbq-rubs' },
   { name: 'Bundles', href: '/collections/bundles' },
   { name: 'Heat Guide', href: '/heat-guide' },
   { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export function Header() {

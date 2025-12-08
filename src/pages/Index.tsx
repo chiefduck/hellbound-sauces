@@ -11,7 +11,7 @@ import { EmailCapture } from '@/components/home/EmailCapture';
 
 export default function Index() {
   return (
-    <Layout>
+    <Layout showFooterNewsletter={false}>
       <Hero />
       <BenefitsGrid />
       <FeaturedProducts />
