@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SEOHead } from '@/components/seo';
 import { Layout } from '@/components/layout/Layout';
 import { Mail, Phone, MapPin, MessageSquare, Building } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -62,6 +63,11 @@ export default function ContactPage() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Contact Us | Get in Touch"
+        description="Have questions about Hellbound Hot Sauce? Contact our team for order support, wholesale inquiries, product information, or general feedback. We respond within 24 hours."
+        canonical="/contact"
+      />
       {/* Hero */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />

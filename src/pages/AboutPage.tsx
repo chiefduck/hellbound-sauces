@@ -1,9 +1,15 @@
 import { Layout } from '@/components/layout/Layout';
 import { Flame, Award, Users, Heart, Leaf } from 'lucide-react';
+import { SEOHead } from '@/components/seo';
 
 export default function AboutPage() {
   return (
     <Layout>
+      <SEOHead
+        title="About Us | Our Story & Mission"
+        description="Born from an obsession with heat and a commitment to craft, Hellbound Hot Sauce brings you the most flavorful fire on the planet. Learn about our small-batch artisan hot sauce journey."
+        canonical="/about"
+      />
       {/* Hero */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />

@@ -5,6 +5,7 @@ import { Search, ChevronDown, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { SEOHead, FAQSchema } from '@/components/seo';
 
 interface FAQItem {
   question: string;
@@ -207,8 +208,17 @@ export default function FAQPage() {
 
   const totalQuestions = faqData.reduce((sum, cat) => sum + cat.items.length, 0);
 
+  // Flatten all FAQs for schema
+  const allFAQItems = faqData.flatMap(cat => cat.items);
+
   return (
     <Layout>
+      <SEOHead
+        title="FAQ | Frequently Asked Questions"
+        description="Find answers to common questions about Hellbound Hot Sauce products, shipping, returns, heat levels, and more. Get help with orders and learn about our artisan hot sauces."
+        canonical="/faq"
+      />
+      <FAQSchema items={allFAQItems} />
       {/* Hero */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />

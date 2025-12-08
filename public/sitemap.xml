@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://hellboundhotsauce.com/</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Main Pages -->
+  <url>
+    <loc>https://hellboundhotsauce.com/about</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/heat-guide</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/wholesale</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/contact</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/faq</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://hellboundhotsauce.com/privacy</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/terms</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/shipping</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Collections -->
+  <url>
+    <loc>https://hellboundhotsauce.com/collections/all</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/collections/hot-sauces</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/collections/bbq-rubs</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/collections/bundles</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Products - Hot Sauces -->
+  <url>
+    <loc>https://hellboundhotsauce.com/products/devils-tongue</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/devils-tongue.jpg</image:loc>
+      <image:title>Devil's Tongue Hot Sauce</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/hellfire-habanero</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/hellfire-habanero.jpg</image:loc>
+      <image:title>Hellfire Habanero Hot Sauce</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/smoky-chipotle-inferno</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/smoky-chipotle.jpg</image:loc>
+      <image:title>Smoky Chipotle Inferno Hot Sauce</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/scorpion-sting</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/scorpion-sting.jpg</image:loc>
+      <image:title>Scorpion Sting Hot Sauce</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/garlic-ghost</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/garlic-ghost.jpg</image:loc>
+      <image:title>Garlic Ghost Hot Sauce</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/citrus-reaper</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/citrus-reaper.jpg</image:loc>
+      <image:title>Citrus Reaper Hot Sauce</image:title>
+    </image:image>
+  </url>
+  
+  <!-- Products - BBQ Rubs -->
+  <url>
+    <loc>https://hellboundhotsauce.com/products/hellbound-signature-rub</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/signature-rub.jpg</image:loc>
+      <image:title>Hellbound Signature BBQ Rub</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/reaper-rub</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/reaper-rub.jpg</image:loc>
+      <image:title>Carolina Reaper BBQ Rub</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/coffee-cocoa-rub</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/coffee-cocoa-rub.jpg</image:loc>
+      <image:title>Coffee Cocoa BBQ Rub</image:title>
+    </image:image>
+  </url>
+  
+  <!-- Products - Bundles -->
+  <url>
+    <loc>https://hellboundhotsauce.com/products/ultimate-heat-bundle</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/ultimate-bundle.jpg</image:loc>
+      <image:title>Ultimate Heat Bundle</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/bbq-masters-bundle</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/bbq-bundle.jpg</image:loc>
+      <image:title>BBQ Masters Bundle</image:title>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/products/starter-pack</loc>
+    <lastmod>2024-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hellboundhotsauce.com/images/starter-pack.jpg</image:loc>
+      <image:title>Hellbound Starter Pack</image:title>
+    </image:image>
+  </url>
+  
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/ultimate-guide-to-carolina-reapers</loc>
+    <lastmod>2024-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/perfect-bbq-brisket-guide</loc>
+    <lastmod>2024-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/scoville-scale-explained</loc>
+    <lastmod>2024-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/hot-sauce-food-pairings</loc>
+    <lastmod>2024-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/fermentation-process</loc>
+    <lastmod>2024-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/building-hot-sauce-tolerance</loc>
+    <lastmod>2024-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/history-of-hot-sauce</loc>
+    <lastmod>2024-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://hellboundhotsauce.com/blog/growing-your-own-peppers</loc>
+    <lastmod>2024-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

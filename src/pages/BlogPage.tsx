@@ -5,6 +5,7 @@ import { Clock, ArrowRight, Search, Tag } from 'lucide-react';
 import { blogPosts, getCategories, getFeaturedPosts, getAllTags } from '@/data/blog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { SEOHead } from '@/components/seo';
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -25,6 +26,11 @@ export default function BlogPage() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Blog | Hot Sauce Recipes, BBQ Tips & Heat Education"
+        description="Explore recipes, heat education, BBQ tips, and stories from the Hellbound kitchen. Learn about peppers, spice tolerance, food pairings, and artisan hot sauce crafting."
+        canonical="/blog"
+      />
       {/* Hero */}
       <section className="py-16 lg:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
