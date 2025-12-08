@@ -3,12 +3,16 @@ import { Flame, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
+interface FooterProps {
+  showNewsletter?: boolean;
+}
+
 const footerLinks = {
   shop: [
+    { name: 'All Products', href: '/collections/all' },
     { name: 'Hot Sauces', href: '/collections/hot-sauces' },
     { name: 'BBQ Rubs', href: '/collections/bbq-rubs' },
     { name: 'Bundles', href: '/collections/bundles' },
-    { name: 'Best Sellers', href: '/collections/best-sellers' },
   ],
   company: [
     { name: 'About Us', href: '/about' },
@@ -20,12 +24,11 @@ const footerLinks = {
     { name: 'Heat Guide', href: '/heat-guide' },
     { name: 'Blog', href: '/blog' },
     { name: 'FAQs', href: '/faq' },
-    { name: 'Shipping', href: '/shipping' },
+    { name: 'Shipping & Returns', href: '/shipping' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
-    { name: 'Refund Policy', href: '/refunds' },
   ],
 };
 
@@ -36,32 +39,34 @@ const socialLinks = [
   { name: 'Twitter', icon: Twitter, href: '#' },
 ];
 
-export function Footer() {
+export function Footer({ showNewsletter = true }: FooterProps) {
   return (
     <footer className="bg-charcoal border-t border-border">
       {/* Newsletter Section */}
-      <div className="border-b border-border">
-        <div className="container mx-auto px-4 lg:px-8 py-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="font-display text-3xl lg:text-4xl mb-3 text-gradient-fire">
-              Join the Hellbound Family
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Get exclusive recipes, early access to new products, and special offers.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-secondary border-border focus:border-primary"
-              />
-              <Button className="bg-gradient-fire hover:opacity-90 transition-opacity whitespace-nowrap">
-                Subscribe
-              </Button>
-            </form>
+      {showNewsletter && (
+        <div className="border-b border-border">
+          <div className="container mx-auto px-4 lg:px-8 py-12">
+            <div className="max-w-2xl mx-auto text-center">
+              <h3 className="font-display text-3xl lg:text-4xl mb-3 text-gradient-fire">
+                Join the Hellbound Family
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                Get exclusive recipes, early access to new products, and special offers.
+              </p>
+              <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="bg-secondary border-border focus:border-primary"
+                />
+                <Button className="bg-gradient-fire hover:opacity-90 transition-opacity whitespace-nowrap">
+                  Subscribe
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Footer */}
       <div className="container mx-auto px-4 lg:px-8 py-12">

@@ -265,10 +265,23 @@ export const getNewProducts = (): Product[] => {
 };
 
 export const getCollectionByHandle = (handle: string): Collection | undefined => {
+  if (handle === 'all') {
+    return {
+      id: 'all',
+      handle: 'all',
+      title: 'All Products',
+      description: 'Browse our complete collection of artisan hot sauces, BBQ rubs, and bundles.',
+      image: '/placeholder.svg',
+      products: products.map(p => p.id),
+    };
+  }
   return collections.find(c => c.handle === handle);
 };
 
 export const getProductsInCollection = (collectionHandle: string): Product[] => {
+  if (collectionHandle === 'all') {
+    return products;
+  }
   const collection = getCollectionByHandle(collectionHandle);
   if (!collection) return [];
   return collection.products.map(id => getProductById(id)).filter(Boolean) as Product[];
