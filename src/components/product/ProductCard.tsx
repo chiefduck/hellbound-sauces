@@ -1,0 +1,87 @@
+import { Link } from 'react-router-dom';
+import { ShoppingCart, Star } from 'lucide-react';
+import { Product } from '@/data/products';
+import { HeatLevel } from '@/components/ui/HeatLevel';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
+
+interface ProductCardProps {
+  product: Product;
+  className?: string;
+}
+
+export function ProductCard({ product, className }: ProductCardProps) {
+  return (
+    <div
+      className={cn(
+        "group relative bg-card rounded-lg overflow-hidden border border-border hover:border-primary/50 transition-all duration-300",
+        className
+      )}
+    >
+      {/* Badges */}
+      <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
+        {product.new && (
+          <Badge className="bg-accent text-accent-foreground font-heading text-xs">NEW</Badge>
+        )}
+        {product.bestSeller && (
+          <Badge className="bg-gold text-background font-heading text-xs">BEST SELLER</Badge>
+        )}
+        {product.compareAtPrice && (
+          <Badge className="bg-destructive text-destructive-foreground font-heading text-xs">
+            SAVE ${(product.compareAtPrice - product.price).toFixed(0)}
+          </Badge>
+        )}
+      </div>
+
+      {/* Image */}
+      <Link to={`/products/${product.handle}`} className="block relative aspect-square overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+        <img
+          src={product.images[0]}
+          alt={product.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+          <Button size="sm" className="bg-gradient-fire hover:opacity-90">
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Quick Add
+          </Button>
+        </div>
+      </Link>
+
+      {/* Content */}
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-2">
+          <HeatLevel level={product.heatLevel} size="sm" />
+          {product.reviews && (
+            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+              <Star className="h-3.5 w-3.5 fill-gold text-gold" />
+              <span>{product.reviews.rating}</span>
+              <span className="text-xs">({product.reviews.count})</span>
+            </div>
+          )}
+        </div>
+
+        <Link to={`/products/${product.handle}`}>
+          <h3 className="font-heading text-lg uppercase tracking-wide hover:text-primary transition-colors line-clamp-1">
+            {product.title}
+          </h3>
+        </Link>
+
+        <p className="text-muted-foreground text-sm mt-1 line-clamp-2">{product.description}</p>
+
+        <div className="flex items-center justify-between mt-4">
+          <div className="flex items-baseline gap-2">
+            <span className="font-heading text-xl text-primary">${product.price.toFixed(2)}</span>
+            {product.compareAtPrice && (
+              <span className="text-muted-foreground text-sm line-through">
+                ${product.compareAtPrice.toFixed(2)}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
