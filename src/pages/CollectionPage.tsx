@@ -2,12 +2,14 @@ import { useParams } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { getCollectionByHandle, getProductsInCollection } from '@/data/products';
+import { getCollectionImage } from '@/data/images';
 import { Flame } from 'lucide-react';
 
 export default function CollectionPage() {
   const { handle } = useParams<{ handle: string }>();
   const collection = handle ? getCollectionByHandle(handle) : undefined;
   const products = handle ? getProductsInCollection(handle) : [];
+  const collectionImage = handle ? getCollectionImage(handle) : '';
 
   if (!collection) {
     return (
@@ -24,7 +26,14 @@ export default function CollectionPage() {
     <Layout>
       {/* Hero */}
       <section className="py-16 lg:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+        <div className="absolute inset-0">
+          <img 
+            src={collectionImage} 
+            alt={collection.title}
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background to-background" />
+        </div>
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="flex items-center gap-2 text-primary font-heading text-sm uppercase tracking-widest mb-4">
             <Flame className="h-4 w-4" />
@@ -40,7 +49,6 @@ export default function CollectionPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex justify-between items-center mb-8">
             <p className="text-muted-foreground">{products.length} products</p>
-            {/* Filter/Sort placeholder */}
           </div>
           <ProductGrid products={products} columns={3} />
         </div>

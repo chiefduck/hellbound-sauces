@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Flame, Award, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { images } from '@/data/images';
 
 export function Hero() {
   return (
@@ -8,8 +9,13 @@ export function Hero() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-dark">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(var(--primary)/0.15)_0%,_transparent_70%)]" />
-        <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center opacity-10" />
-        {/* Animated flame particles */}
+        <img 
+          src={images.hero} 
+          alt="Hellbound Hot Sauce" 
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+        {/* Animated glow effects */}
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
         <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-accent/20 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
@@ -66,17 +72,18 @@ export function Hero() {
           </div>
 
           {/* Hero Image */}
-          <div className="relative animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+          <div className="relative animate-fade-in-up hidden lg:block" style={{ animationDelay: '300ms' }}>
             <div className="relative aspect-square max-w-lg mx-auto">
               {/* Glow effect */}
               <div className="absolute inset-0 bg-primary/30 rounded-full blur-[60px] animate-pulse-glow" />
               
-              {/* Product image placeholder */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-border bg-secondary/50 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <Flame className="h-24 w-24 text-primary mx-auto mb-4 animate-flame" />
-                  <p className="text-muted-foreground">Hero Product Image</p>
-                </div>
+              {/* Product image */}
+              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-border/50">
+                <img 
+                  src={images.hero} 
+                  alt="Premium Hot Sauce" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>

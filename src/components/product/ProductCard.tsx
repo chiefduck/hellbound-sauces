@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Star } from 'lucide-react';
 import { Product } from '@/data/products';
+import { getProductImage } from '@/data/images';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -12,6 +13,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, className }: ProductCardProps) {
+  const productImage = getProductImage(product.handle);
+
   return (
     <div
       className={cn(
@@ -38,7 +41,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       <Link to={`/products/${product.handle}`} className="block relative aspect-square overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
         <img
-          src={product.images[0]}
+          src={productImage}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />

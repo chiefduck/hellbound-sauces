@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Minus, Plus, ShoppingCart, Star, Truck, Shield, ArrowLeft } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, Star, Truck, Shield } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { getProductByHandle, products } from '@/data/products';
+import { getProductImage } from '@/data/images';
 import { getReviewsByProductId } from '@/data/reviews';
 import { useToast } from '@/hooks/use-toast';
 
@@ -28,6 +29,8 @@ export default function ProductPage() {
       </Layout>
     );
   }
+
+  const productImage = getProductImage(product.handle);
 
   const handleAddToCart = () => {
     toast({
@@ -53,8 +56,8 @@ export default function ProductPage() {
         <div className="grid lg:grid-cols-2 gap-12 mb-20">
           {/* Images */}
           <div className="relative">
-            <div className="aspect-square rounded-xl overflow-hidden border border-border bg-secondary/50">
-              <img src={product.images[0]} alt={product.title} className="w-full h-full object-cover" />
+            <div className="aspect-square rounded-xl overflow-hidden border border-border">
+              <img src={productImage} alt={product.title} className="w-full h-full object-cover" />
             </div>
           </div>
 
