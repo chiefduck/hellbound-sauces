@@ -8,6 +8,7 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { getProductByHandle, products } from '@/data/products';
 import { getProductImage } from '@/data/images';
 import { getReviewsByProductId } from '@/data/reviews';
+import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { SEOHead, ProductSchema, BreadcrumbSchema } from '@/components/seo';
 
@@ -18,6 +19,7 @@ export default function ProductPage() {
   const relatedProducts = products.filter(p => p.id !== product?.id && p.category === product?.category).slice(0, 4);
   
   const [quantity, setQuantity] = useState(1);
+  const { addItem } = useCart();
   const { toast } = useToast();
 
   if (!product) {
@@ -34,10 +36,12 @@ export default function ProductPage() {
   const productImage = getProductImage(product.handle);
 
   const handleAddToCart = () => {
+    addItem(product, quantity);
     toast({
       title: "Added to cart!",
       description: `${quantity}x ${product.title} added to your cart.`,
     });
+    setQuantity(1);
   };
 
   const categoryLabel = product.category === 'hot-sauce' ? 'Hot Sauces' : product.category === 'rub' ? 'BBQ Rubs' : 'Bundles';
@@ -201,6 +205,41 @@ export default function ProductPage() {
           </section>
         )}
       </div>
+
+      {/* Mobile Sticky Add to Cart */}
+      <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-background/95 backdrop-blur-md border-t border-border p-4 z-40">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center border border-border rounded-lg">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-10 w-10"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            >
+              <Minus className="h-4 w-4" />
+            </Button>
+            <span className="w-10 text-center font-heading">{quantity}</span>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-10 w-10"
+              onClick={() => setQuantity(quantity + 1)}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+          <Button 
+            onClick={handleAddToCart} 
+            className="flex-1 bg-gradient-fire hover:opacity-90 font-heading text-base h-12"
+          >
+            <ShoppingCart className="mr-2 h-5 w-5" />
+            Add to Cart - ${(product.price * quantity).toFixed(2)}
+          </Button>
+        </div>
+      </div>
+
+      {/* Spacer for mobile sticky bar */}
+      <div className="h-20 lg:hidden" />
     </Layout>
   );
 }

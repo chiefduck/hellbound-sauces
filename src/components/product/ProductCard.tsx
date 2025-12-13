@@ -5,6 +5,8 @@ import { getProductImage } from '@/data/images';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 interface ProductCardProps {
@@ -14,6 +16,18 @@ interface ProductCardProps {
 
 export function ProductCard({ product, className }: ProductCardProps) {
   const productImage = getProductImage(product.handle);
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
+  const handleQuickAdd = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(product, 1);
+    toast({
+      title: "Added to cart!",
+      description: `${product.title} added to your cart.`,
+    });
+  };
 
   return (
     <div
@@ -46,12 +60,26 @@ export function ProductCard({ product, className }: ProductCardProps) {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-          <Button size="sm" className="bg-gradient-fire hover:opacity-90">
+          <Button 
+            size="sm" 
+            className="bg-gradient-fire hover:opacity-90"
+            onClick={handleQuickAdd}
+          >
             <ShoppingCart className="h-4 w-4 mr-2" />
             Quick Add
           </Button>
         </div>
       </Link>
+
+      {/* Mobile Quick Add Button */}
+      <Button
+        size="icon"
+        className="absolute bottom-20 right-3 z-10 lg:hidden bg-gradient-fire hover:opacity-90 h-10 w-10 rounded-full shadow-lg"
+        onClick={handleQuickAdd}
+        aria-label={`Add ${product.title} to cart`}
+      >
+        <ShoppingCart className="h-4 w-4" />
+      </Button>
 
       {/* Content */}
       <div className="p-4">
