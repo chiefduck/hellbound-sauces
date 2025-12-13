@@ -1,9 +1,9 @@
-import { X, Minus, Plus, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
+import { Minus, Plus, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { getProductImage } from '@/data/images';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -15,22 +15,15 @@ export function CartDrawer() {
     <Sheet open={isOpen} onOpenChange={(open) => !open && closeCart()}>
       <SheetContent className="w-full sm:max-w-lg flex flex-col p-0">
         <SheetHeader className="px-4 sm:px-6 py-4 border-b border-border">
-          <div className="flex items-center justify-between">
-            <SheetTitle className="font-display text-xl sm:text-2xl flex items-center gap-2">
-              <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-              Your Cart
-              {itemCount > 0 && (
-                <span className="text-sm font-heading text-muted-foreground">
-                  ({itemCount} {itemCount === 1 ? 'item' : 'items'})
-                </span>
-              )}
-            </SheetTitle>
-            <SheetClose asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <X className="h-5 w-5" />
-              </Button>
-            </SheetClose>
-          </div>
+          <SheetTitle className="font-display text-xl sm:text-2xl flex items-center gap-2">
+            <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            Your Cart
+            {itemCount > 0 && (
+              <span className="text-sm font-heading text-muted-foreground">
+                ({itemCount} {itemCount === 1 ? 'item' : 'items'})
+              </span>
+            )}
+          </SheetTitle>
         </SheetHeader>
 
         {items.length === 0 ? (
