@@ -74,7 +74,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
           <h1 className="font-display text-5xl lg:text-7xl mb-6">Contact Us</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have questions, feedback, or interested in wholesale? We'd love to hear from you.
+            Whether you have questions about our bold flavors, need help with an order, or want to share your spicy adventures, we're here and ready to connect.
           </p>
         </div>
       </section>
@@ -91,25 +91,11 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-heading uppercase tracking-wide mb-1">Email</h3>
-                  <a href="mailto:hello@hellboundhs.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    hello@hellboundhs.com
+                  <a href="mailto:scott@hellboundsauces.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    scott@hellboundsauces.com
                   </a>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Wholesale: wholesale@hellboundhs.com
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <Phone className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-heading uppercase tracking-wide mb-1">Phone</h3>
-                  <a href="tel:+15551234567" className="text-muted-foreground hover:text-primary transition-colors">
-                    (555) 123-4567
-                  </a>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Mon-Fri 9am-5pm CST
+                    We respond within 24 hours
                   </p>
                 </div>
               </div>
@@ -120,7 +106,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-heading uppercase tracking-wide mb-1">Location</h3>
                   <p className="text-muted-foreground">
-                    Austin, Texas<br />United States
+                    United States
                   </p>
                 </div>
               </div>

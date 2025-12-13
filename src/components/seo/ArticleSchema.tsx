@@ -11,7 +11,7 @@ export function ArticleSchema({ post }: ArticleSchemaProps) {
     "@id": `https://hellboundhotsauce.com/blog/${post.slug}#article`,
     "headline": post.title,
     "description": post.excerpt,
-    "image": post.image || "https://hellboundhotsauce.com/og-image.jpg",
+    "image": post.image || "https://hellboundhotsauce.com/logo.png",
     "datePublished": post.date,
     "dateModified": post.date,
     "author": {

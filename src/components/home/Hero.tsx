@@ -76,13 +76,13 @@ export function Hero() {
             <div className="relative aspect-square max-w-lg mx-auto">
               {/* Glow effect */}
               <div className="absolute inset-0 bg-primary/30 rounded-full blur-[60px] animate-pulse-glow" />
-              
-              {/* Product image */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-border/50">
-                <img 
-                  src={images.hero} 
-                  alt="Premium Hot Sauce" 
-                  className="w-full h-full object-cover"
+
+              {/* Logo image */}
+              <div className="relative w-full h-full flex items-center justify-center">
+                <img
+                  src="/logo.png"
+                  alt="HellBound Sauces Logo"
+                  className="w-3/4 h-3/4 object-contain"
                 />
               </div>
             </div>

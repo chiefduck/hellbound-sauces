@@ -1,23 +1,40 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, User, Search, Flame } from 'lucide-react';
+import { Menu, X, ShoppingCart, User, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
 import { cn } from '@/lib/utils';
 
 const navigation = [
-  { name: 'Shop', href: '/collections/all' },
-  { name: 'Hot Sauces', href: '/collections/hot-sauces' },
-  { name: 'BBQ Rubs', href: '/collections/bbq-rubs' },
-  { name: 'Bundles', href: '/collections/bundles' },
+  {
+    name: 'Shop',
+    href: '/collections/all',
+    submenu: [
+      { name: 'All Products', href: '/collections/all' },
+      { name: 'Hot Sauces', href: '/collections/hot-sauces' },
+      { name: 'BBQ Rubs', href: '/collections/bbq-rubs' },
+      { name: 'Bundles', href: '/collections/bundles' },
+      { name: 'Merch', href: '/collections/merch' },
+    ]
+  },
+  { name: 'Artwork', href: '/artwork' },
+  { name: 'Recipes', href: '/recipes' },
   { name: 'Heat Guide', href: '/heat-guide' },
-  { name: 'About', href: '/about' },
-  { name: 'Blog', href: '/blog' },
+  {
+    name: 'About',
+    href: '/about',
+    submenu: [
+      { name: 'Our Story', href: '/about' },
+      { name: 'Blog', href: '/blog' },
+    ]
+  },
+  { name: 'Wholesale', href: '/wholesale' },
   { name: 'Contact', href: '/contact' },
 ];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const location = useLocation();
   const { openCart, itemCount } = useCart();
 
@@ -28,7 +45,11 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <div className="relative">
-              <Flame className="h-8 w-8 text-primary transition-all duration-300 group-hover:scale-110 group-hover:text-accent" />
+              <img
+                src="/logo.png"
+                alt="Hellbound Hot Sauce Logo"
+                className="h-10 w-10 lg:h-12 lg:w-12 transition-all duration-300 group-hover:scale-110 object-contain"
+              />
               <div className="absolute inset-0 blur-lg bg-primary/30 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="font-display text-2xl lg:text-3xl tracking-wider text-foreground">
@@ -37,28 +58,55 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {navigation.map((item) => (
-              <Link
+              <div
                 key={item.name}
-                to={item.href}
-                className={cn(
-                  "font-heading text-sm tracking-wide uppercase transition-colors duration-200 link-underline",
-                  location.pathname === item.href
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
+                className="relative group"
               >
-                {item.name}
-              </Link>
+                <div
+                  onMouseEnter={() => item.submenu && setOpenSubmenu(item.name)}
+                  onMouseLeave={() => item.submenu && setOpenSubmenu(null)}
+                >
+                  <Link
+                    to={item.href}
+                    className={cn(
+                      "font-heading text-sm tracking-wide uppercase transition-colors duration-200 flex items-center gap-1",
+                      location.pathname === item.href
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    {item.name}
+                    {item.submenu && <ChevronDown className="h-3 w-3" />}
+                  </Link>
+
+                  {/* Submenu */}
+                  {item.submenu && openSubmenu === item.name && (
+                    <div
+                      className="absolute top-full left-0 mt-1 w-48 bg-card border border-border rounded-lg shadow-lg py-2 z-50"
+                      onMouseEnter={() => setOpenSubmenu(item.name)}
+                      onMouseLeave={() => setOpenSubmenu(null)}
+                    >
+                      {item.submenu.map((subitem) => (
+                        <Link
+                          key={subitem.name}
+                          to={subitem.href}
+                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                          onClick={() => setOpenSubmenu(null)}
+                        >
+                          {subitem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="hidden lg:flex">
-              <Search className="h-5 w-5" />
-            </Button>
             <Button variant="ghost" size="icon" asChild>
               <Link to="/account">
                 <User className="h-5 w-5" />
@@ -98,24 +146,47 @@ export function Header() {
         <div
           className={cn(
             "lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
-            mobileMenuOpen ? "max-h-96 pb-6" : "max-h-0"
+            mobileMenuOpen ? "max-h-[600px] pb-6" : "max-h-0"
           )}
         >
-          <div className="flex flex-col gap-4 pt-4 border-t border-border">
+          <div className="flex flex-col gap-2 pt-4 border-t border-border">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={cn(
-                  "font-heading text-lg tracking-wide uppercase transition-colors",
-                  location.pathname === item.href
-                    ? "text-primary"
-                    : "text-muted-foreground"
+              <div key={item.name}>
+                <Link
+                  to={item.href}
+                  className={cn(
+                    "font-heading text-lg tracking-wide uppercase transition-colors flex items-center justify-between py-2",
+                    location.pathname === item.href
+                      ? "text-primary"
+                      : "text-muted-foreground"
+                  )}
+                  onClick={(e) => {
+                    if (item.submenu) {
+                      e.preventDefault();
+                      setOpenSubmenu(openSubmenu === item.name ? null : item.name);
+                    } else {
+                      setMobileMenuOpen(false);
+                    }
+                  }}
+                >
+                  {item.name}
+                  {item.submenu && <ChevronDown className={cn("h-4 w-4 transition-transform", openSubmenu === item.name && "rotate-180")} />}
+                </Link>
+                {item.submenu && openSubmenu === item.name && (
+                  <div className="pl-4 flex flex-col gap-2 mt-2">
+                    {item.submenu.map((subitem) => (
+                      <Link
+                        key={subitem.name}
+                        to={subitem.href}
+                        className="text-sm text-muted-foreground hover:text-foreground py-1"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {subitem.name}
+                      </Link>
+                    ))}
+                  </div>
                 )}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
+              </div>
             ))}
           </div>
         </div>

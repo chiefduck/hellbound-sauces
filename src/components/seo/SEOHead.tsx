@@ -19,7 +19,7 @@ export function SEOHead({
   description,
   canonical,
   type = 'website',
-  image = 'https://hellboundhotsauce.com/og-image.jpg',
+  image = 'https://hellboundhotsauce.com/logo.png',
   publishedTime,
   modifiedTime,
   author,

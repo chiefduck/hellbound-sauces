@@ -13,12 +13,13 @@ export function BrandStory() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image */}
           <div className="relative animate-fade-in-up">
-            <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border bg-secondary/50">
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="text-center p-8">
-                  <Flame className="h-16 w-16 text-primary/50 mx-auto mb-4" />
-                  <p className="text-muted-foreground">Brand Story Image</p>
-                </div>
+            <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border bg-gradient-to-br from-secondary/80 to-secondary/40 backdrop-blur">
+              <div className="w-full h-full flex items-center justify-center p-8">
+                <img
+                  src="/logo.png"
+                  alt="Hellbound Hot Sauce - Premium Artisan Hot Sauces"
+                  className="max-w-[70%] max-h-[70%] object-contain drop-shadow-2xl"
+                />
               </div>
             </div>
             {/* Decorative elements */}
@@ -29,23 +30,22 @@ export function BrandStory() {
           {/* Content */}
           <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <span className="text-primary font-heading text-sm uppercase tracking-widest">Our Story</span>
-            <h2 className="font-display text-4xl lg:text-5xl mt-2 mb-6">Born From a Passion for Heat</h2>
-            
+            <h2 className="font-display text-4xl lg:text-5xl mt-2 mb-6">Born From a Passion for Bold Flavors</h2>
+
             <div className="space-y-4 text-muted-foreground">
               <p>
-                Hellbound Hot Sauce started in a small kitchen in 2018, born from an obsession with 
-                the world's hottest peppers and a belief that extreme heat could also deliver 
-                extraordinary flavor.
+                HellBound Sauces originated from Scott's kitchen experiments with hot sauce ingredients.
+                What started as a personal passion project—sharing small-batch creations with loved ones—evolved
+                into a commercial venture after overwhelming positive feedback and numerous requests from friends and family.
               </p>
               <p>
-                Today, we craft each batch by hand using time-honored fermentation techniques, 
-                aging our sauces for months to develop complex flavor profiles that go far beyond 
-                simple heat.
+                Scott's approach prioritized balance over mere heat intensity, creating sauces that complement
+                food, delivering bold flavors with just the right kick, rather than simply maximizing spice levels.
               </p>
               <p>
-                From our signature Devil's Tongue to our competition-winning BBQ rubs, every 
-                product is a testament to our commitment to quality, craftsmanship, and the 
-                pursuit of the perfect burn.
+                Partnering with talented artist Aldo Gallegos, they developed HellBound's distinctive
+                striking, tattoo-inspired artwork that perfectly captures the brand's daring and creative essence—from
+                Pineapple Mango to Cucumber Madness and Sweet Heat.
               </p>
             </div>
 
