@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Minus, Plus, ShoppingCart, Star, Truck, Shield } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, Star, Truck, Shield, Loader2 } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { ProductGrid } from '@/components/product/ProductGrid';
-import { getProductByHandle, products } from '@/data/products';
-import { getProductImage } from '@/data/images';
+import { useShopifyProduct, useShopifyProducts } from '@/hooks/useShopifyProducts';
 import { getReviewsByProductId } from '@/data/reviews';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
@@ -14,13 +13,37 @@ import { SEOHead, ProductSchema, BreadcrumbSchema } from '@/components/seo';
 
 export default function ProductPage() {
   const { handle } = useParams<{ handle: string }>();
-  const product = handle ? getProductByHandle(handle) : undefined;
+  const { product, loading, error } = useShopifyProduct(handle || '');
+  const { products: allProducts } = useShopifyProducts();
   const reviews = product ? getReviewsByProductId(product.id) : [];
-  const relatedProducts = products.filter(p => p.id !== product?.id && p.category === product?.category).slice(0, 4);
-  
+  const relatedProducts = allProducts.filter(p => p.id !== product?.id && p.category === product?.category).slice(0, 4);
+
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
   const { toast } = useToast();
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-20 flex flex-col items-center justify-center min-h-[60vh]">
+          <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
+          <p className="text-muted-foreground">Loading product from Shopify...</p>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (error) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-20 text-center">
+          <h1 className="font-display text-4xl mb-4 text-red-500">Error Loading Product</h1>
+          <p className="text-muted-foreground mb-4">{error.message}</p>
+          <p className="text-sm text-muted-foreground">Check browser console for details</p>
+        </div>
+      </Layout>
+    );
+  }
 
   if (!product) {
     return (
@@ -33,7 +56,9 @@ export default function ProductPage() {
     );
   }
 
-  const productImage = getProductImage(product.handle);
+  // Use Shopify images
+  const productImages = product.images || ['/placeholder.svg'];
+  const mainImage = productImages[0];
 
   const handleAddToCart = () => {
     addItem(product, quantity);
@@ -54,7 +79,7 @@ export default function ProductPage() {
         description={product.longDescription || product.description}
         canonical={`/products/${product.handle}`}
         type="product"
-        image={productImage}
+        image={mainImage}
       />
       <ProductSchema product={product} />
       <BreadcrumbSchema items={[
@@ -78,18 +103,20 @@ export default function ProductPage() {
           {/* Images */}
           <div className="relative">
             <div className="aspect-square rounded-xl overflow-hidden border border-border">
-              <img src={productImage} alt={product.title} className="w-full h-full object-cover" />
+              <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
             </div>
           </div>
 
           {/* Product Info */}
           <div>
-            <div className="flex items-center gap-4 mb-4">
-              <HeatLevel level={product.heatLevel} showLabel size="lg" />
-              {product.scoville && (
-                <span className="text-sm text-muted-foreground">({product.scoville})</span>
-              )}
-            </div>
+            {product.heatLevel && (
+              <div className="flex items-center gap-4 mb-4">
+                <HeatLevel level={product.heatLevel} showLabel size="lg" />
+                {product.scoville && (
+                  <span className="text-sm text-muted-foreground">({product.scoville})</span>
+                )}
+              </div>
+            )}
 
             <h1 className="font-display text-4xl lg:text-5xl mb-4">{product.title}</h1>
 
@@ -113,7 +140,9 @@ export default function ProductPage() {
               )}
             </div>
 
-            <p className="text-lg text-muted-foreground mb-8">{product.longDescription || product.description}</p>
+            <div className="text-lg text-muted-foreground mb-8 whitespace-pre-line leading-relaxed">
+              {product.longDescription || product.description}
+            </div>
 
             {/* Quantity & Add to Cart */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">

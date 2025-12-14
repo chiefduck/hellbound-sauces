@@ -1,7 +1,6 @@
 import { Minus, Plus, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
-import { getProductImage } from '@/data/images';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -9,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
 export function CartDrawer() {
-  const { items, isOpen, closeCart, removeItem, updateQuantity, itemCount, subtotal, clearCart } = useCart();
+  const { items, isOpen, closeCart, removeItem, updateQuantity, itemCount, subtotal, clearCart, proceedToCheckout, isCheckingOut } = useCart();
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && closeCart()}>
@@ -103,12 +102,10 @@ export function CartDrawer() {
               {/* Checkout Button */}
               <Button
                 className="w-full h-12 sm:h-14 bg-gradient-fire hover:opacity-90 font-heading text-base sm:text-lg uppercase tracking-wider"
-                onClick={() => {
-                  // TODO: Integrate with Shopify checkout
-                  closeCart();
-                }}
+                onClick={proceedToCheckout}
+                disabled={isCheckingOut}
               >
-                Proceed to Checkout
+                {isCheckingOut ? 'Processing...' : 'Proceed to Checkout'}
               </Button>
 
               {/* Continue Shopping */}
@@ -137,7 +134,8 @@ interface CartItemProps {
 }
 
 function CartItem({ item, onRemove, onUpdateQuantity }: CartItemProps) {
-  const productImage = getProductImage(item.product.handle);
+  // Use Shopify image if available, fallback to placeholder
+  const productImage = item.product.images?.[0] || '/placeholder.svg';
 
   return (
     <div className="flex gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg bg-secondary/30 border border-border">

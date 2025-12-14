@@ -7,8 +7,8 @@ export interface Product {
   price: number;
   compareAtPrice?: number;
   images: string[];
-  category: 'hot-sauce' | 'rub' | 'bundle';
-  heatLevel: 1 | 2 | 3 | 4 | 5;
+  category: 'hot-sauce' | 'rub' | 'bundle' | 'merch';
+  heatLevel?: 1 | 2 | 3 | 4 | 5; // Optional for non-food items like merch
   scoville?: string;
   ingredients?: string[];
   pairings?: string[];
@@ -17,6 +17,7 @@ export interface Product {
   new?: boolean;
   variants?: { id: string; title: string; price: number }[];
   reviews?: { rating: number; count: number };
+  shopifyVariantId?: string; // Shopify variant ID for checkout
 }
 
 export interface Collection {
@@ -257,8 +258,8 @@ export const collections: Collection[] = [
     products: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
   },
   {
-    id: 'hot-sauces',
-    handle: 'hot-sauces',
+    id: 'hot-sauce',
+    handle: 'hot-sauce',
     title: 'Hot Sauces',
     description: 'Artisan hot sauces crafted with bold flavors that complement food. Featuring unique flavors from Sweet Heat to Cucumber Madness.',
     image: '/placeholder.svg',
@@ -281,10 +282,10 @@ export const collections: Collection[] = [
     products: ['13', '14', '15']
   },
   {
-    id: 'merch',
-    handle: 'merch',
+    id: 'merch-and-apparel',
+    handle: 'merch-and-apparel',
     title: 'Merchandise',
-    description: 'Coming soon: HellBound Sauces apparel and accessories featuring our striking tattoo-inspired artwork. Will be available when Shopify is connected.',
+    description: 'HellBound Sauces apparel and accessories featuring our striking tattoo-inspired artwork.',
     image: '/placeholder.svg',
     products: []
   }

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Star } from 'lucide-react';
 import { Product } from '@/data/products';
-import { getProductImage } from '@/data/images';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,7 +14,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, className }: ProductCardProps) {
-  const productImage = getProductImage(product.handle);
+  // Use Shopify image if available, fallback to placeholder
+  const productImage = product.images?.[0] || '/placeholder.svg';
   const { addItem } = useCart();
   const { toast } = useToast();
 
@@ -84,7 +84,11 @@ export function ProductCard({ product, className }: ProductCardProps) {
       {/* Content */}
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">
-          <HeatLevel level={product.heatLevel} size="sm" />
+          {product.heatLevel ? (
+            <HeatLevel level={product.heatLevel} size="sm" />
+          ) : (
+            <div className="h-6" />
+          )}
           {product.reviews && (
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <Star className="h-3.5 w-3.5 fill-gold text-gold" />
@@ -100,7 +104,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
           </h3>
         </Link>
 
-        <p className="text-muted-foreground text-sm mt-1 line-clamp-2">{product.description}</p>
+        <p className="text-muted-foreground text-sm mt-1 line-clamp-2 whitespace-pre-line leading-relaxed">{product.description}</p>
 
         <div className="flex items-center justify-between mt-4">
           <div className="flex items-baseline gap-2">

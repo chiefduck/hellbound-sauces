@@ -25,6 +25,7 @@ import AldoGallegosPage from "./pages/artists/AldoGallegosPage";
 import ElmoBoydPage from "./pages/artists/ElmoBoydPage";
 import TonyCiavarroPage from "./pages/artists/TonyCiavarroPage";
 import KrisMastersonPage from "./pages/artists/KrisMastersonPage";
+import ShopifyTestPage from "./pages/ShopifyTestPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/shipping" element={<ShippingPage />} />
+            <Route path="/shopify-test" element={<ShopifyTestPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

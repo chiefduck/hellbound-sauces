@@ -11,10 +11,10 @@ const navigation = [
     href: '/collections/all',
     submenu: [
       { name: 'All Products', href: '/collections/all' },
-      { name: 'Hot Sauces', href: '/collections/hot-sauces' },
+      { name: 'Hot Sauces', href: '/collections/hot-sauce' },
       { name: 'BBQ Rubs', href: '/collections/bbq-rubs' },
       { name: 'Bundles', href: '/collections/bundles' },
-      { name: 'Merch', href: '/collections/merch' },
+      { name: 'Merch', href: '/collections/merch-and-apparel' },
     ]
   },
   { name: 'Artwork', href: '/artwork' },
@@ -35,8 +35,24 @@ const navigation = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
   const { openCart, itemCount } = useCart();
+
+  const handleMouseEnter = (itemName: string) => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      setHoverTimeout(null);
+    }
+    setOpenSubmenu(itemName);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setOpenSubmenu(null);
+    }, 150); // Small delay before closing
+    setHoverTimeout(timeout);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50">
@@ -53,7 +69,7 @@ export function Header() {
               <div className="absolute inset-0 blur-lg bg-primary/30 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="font-display text-2xl lg:text-3xl tracking-wider text-foreground">
-              HELLBOUND
+              HELLBOUND SAUCES
             </span>
           </Link>
 
@@ -63,31 +79,26 @@ export function Header() {
               <div
                 key={item.name}
                 className="relative group"
+                onMouseEnter={() => item.submenu && handleMouseEnter(item.name)}
+                onMouseLeave={() => item.submenu && handleMouseLeave()}
               >
-                <div
-                  onMouseEnter={() => item.submenu && setOpenSubmenu(item.name)}
-                  onMouseLeave={() => item.submenu && setOpenSubmenu(null)}
+                <Link
+                  to={item.href}
+                  className={cn(
+                    "font-heading text-sm tracking-wide uppercase transition-colors duration-200 flex items-center gap-1",
+                    location.pathname === item.href
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
                 >
-                  <Link
-                    to={item.href}
-                    className={cn(
-                      "font-heading text-sm tracking-wide uppercase transition-colors duration-200 flex items-center gap-1",
-                      location.pathname === item.href
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {item.name}
-                    {item.submenu && <ChevronDown className="h-3 w-3" />}
-                  </Link>
+                  {item.name}
+                  {item.submenu && <ChevronDown className="h-3 w-3" />}
+                </Link>
 
-                  {/* Submenu */}
-                  {item.submenu && openSubmenu === item.name && (
-                    <div
-                      className="absolute top-full left-0 mt-1 w-48 bg-card border border-border rounded-lg shadow-lg py-2 z-50"
-                      onMouseEnter={() => setOpenSubmenu(item.name)}
-                      onMouseLeave={() => setOpenSubmenu(null)}
-                    >
+                {/* Submenu */}
+                {item.submenu && openSubmenu === item.name && (
+                  <div className="absolute top-full left-0 pt-2 w-48 z-50">
+                    <div className="bg-card border border-border rounded-lg shadow-lg py-2">
                       {item.submenu.map((subitem) => (
                         <Link
                           key={subitem.name}
@@ -99,8 +110,8 @@ export function Header() {
                         </Link>
                       ))}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

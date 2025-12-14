@@ -1,11 +1,27 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { getFeaturedProducts } from '@/data/products';
+import { ArrowRight, Loader2 } from 'lucide-react';
+import { useShopifyProducts } from '@/hooks/useShopifyProducts';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { Button } from '@/components/ui/button';
 
 export function FeaturedProducts() {
-  const products = getFeaturedProducts();
+  const { products: allProducts, loading } = useShopifyProducts();
+
+  // Filter for featured products (tagged with 'featured' in Shopify)
+  const products = allProducts.filter(p => p.featured).slice(0, 6);
+
+  if (loading) {
+    return (
+      <section className="py-20 lg:py-28">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="flex flex-col items-center justify-center py-20">
+            <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
+            <p className="text-muted-foreground">Loading featured products...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 lg:py-28">
@@ -16,7 +32,7 @@ export function FeaturedProducts() {
             <h2 className="font-display text-4xl lg:text-5xl mt-2">Featured Products</h2>
           </div>
           <Button asChild variant="ghost" className="font-heading tracking-wide group">
-            <Link to="/collections/hot-sauces">
+            <Link to="/collections/all">
               View All
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
