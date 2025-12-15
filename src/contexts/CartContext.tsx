@@ -118,14 +118,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     try {
       // Map cart items to Shopify line items
-      const lineItems = items.map(item => ({
-        variantId: item.variantId || '', // Will need to be set when products are loaded from Shopify
-        quantity: item.quantity,
-        title: item.product.title,
-        price: item.product.price,
-        image: item.product.images?.[0],
-        handle: item.product.handle,
-      }));
+      const lineItems = items.map(item => {
+        const variantId = item.variantId || item.product.shopifyVariantId;
+
+        if (!variantId) {
+          console.error('Missing variant ID for product:', item.product);
+          throw new Error(`Missing variant ID for ${item.product.title}`);
+        }
+
+        return {
+          variantId,
+          quantity: item.quantity,
+          title: item.product.title,
+          price: item.product.price,
+          image: item.product.images?.[0],
+          handle: item.product.handle,
+        };
+      });
 
       // Create checkout
       const checkout = await createCheckout(lineItems);
