@@ -2,7 +2,7 @@ import { Minus, Plus, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -23,6 +23,9 @@ export function CartDrawer() {
               </span>
             )}
           </SheetTitle>
+          <SheetDescription className="sr-only">
+            Review your cart items and proceed to checkout
+          </SheetDescription>
         </SheetHeader>
 
         {items.length === 0 ? (
@@ -78,26 +81,24 @@ export function CartDrawer() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Shipping</span>
-                  <span className="font-heading text-green-500">
-                    {subtotal >= 50 ? 'FREE' : '$5.99'}
+                  <span className="font-heading text-muted-foreground text-xs">
+                    Calculated at checkout
                   </span>
                 </div>
-                {subtotal < 50 && (
-                  <p className="text-xs text-muted-foreground">
-                    Add ${(50 - subtotal).toFixed(2)} more for free shipping!
-                  </p>
-                )}
               </div>
 
               <Separator />
 
               {/* Total */}
               <div className="flex justify-between items-baseline">
-                <span className="font-heading uppercase tracking-wide">Total</span>
+                <span className="font-heading uppercase tracking-wide">Subtotal</span>
                 <span className="font-display text-2xl text-primary">
-                  ${(subtotal + (subtotal >= 50 ? 0 : 5.99)).toFixed(2)}
+                  ${subtotal.toFixed(2)}
                 </span>
               </div>
+              <p className="text-xs text-muted-foreground text-center">
+                Tax and shipping calculated at checkout
+              </p>
 
               {/* Checkout Button */}
               <Button

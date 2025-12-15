@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { Product } from '@/data/products';
 import { createCheckout, redirectToCheckout } from '@/lib/shopifyCheckout';
 import { useToast } from '@/hooks/use-toast';
@@ -32,6 +32,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const { toast } = useToast();
+
+  // Reset checkout state when page becomes visible (user returns from Shopify)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && isCheckingOut) {
+        // Reset checkout state when user returns to the page
+        setIsCheckingOut(false);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isCheckingOut]);
+
+  // Reset checkout state on page load/mount
+  useEffect(() => {
+    setIsCheckingOut(false);
+  }, []);
 
   const addItem = useCallback((product: Product, quantity: number = 1, variantId?: string) => {
     setItems((prevItems) => {
@@ -90,6 +111,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     setIsCheckingOut(true);
 
+    // Safety timeout: reset state after 10 seconds if redirect doesn't happen
+    const timeoutId = setTimeout(() => {
+      setIsCheckingOut(false);
+    }, 10000);
+
     try {
       // Map cart items to Shopify line items
       const lineItems = items.map(item => ({
@@ -105,12 +131,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const checkout = await createCheckout(lineItems);
 
       if (checkout?.webUrl) {
-        // Redirect to Shopify checkout
+        // Redirect to Shopify checkout (this will navigate away from the page)
         redirectToCheckout(checkout.webUrl);
+        // Note: State will be reset via visibility change or page reload when user returns
       } else {
+        clearTimeout(timeoutId);
         throw new Error('Failed to create checkout');
       }
     } catch (error) {
+      clearTimeout(timeoutId);
       console.error('Checkout error:', error);
       toast({
         title: "Checkout failed",

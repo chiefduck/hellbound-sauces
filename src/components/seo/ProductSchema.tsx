@@ -32,11 +32,6 @@ export function ProductSchema({ product }: ProductSchemaProps) {
       },
       "shippingDetails": {
         "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "5.99",
-          "currency": "USD"
-        },
         "shippingDestination": {
           "@type": "DefinedRegion",
           "addressCountry": "US"

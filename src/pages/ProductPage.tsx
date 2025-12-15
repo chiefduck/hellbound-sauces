@@ -166,8 +166,8 @@ export default function ProductPage() {
               <div className="flex items-center gap-3">
                 <Truck className="h-5 w-5 text-primary" />
                 <div className="text-sm">
-                  <p className="font-medium">Free Shipping</p>
-                  <p className="text-muted-foreground">On orders over $50</p>
+                  <p className="font-medium">Shipping</p>
+                  <p className="text-muted-foreground">Calculated at checkout</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
