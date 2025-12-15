@@ -70,7 +70,7 @@ export default function ProductPage() {
   };
 
   const categoryLabel = product.category === 'hot-sauce' ? 'Hot Sauces' : product.category === 'rub' ? 'BBQ Rubs' : 'Bundles';
-  const categoryHandle = product.category === 'hot-sauce' ? 'hot-sauces' : product.category === 'rub' ? 'bbq-rubs' : 'bundles';
+  const categoryHandle = product.category === 'hot-sauce' ? 'hot-sauce' : product.category === 'rub' ? 'bbq-rubs' : 'bundles';
 
   return (
     <Layout>
@@ -92,7 +92,7 @@ export default function ProductPage() {
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
           <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
-          <Link to={`/collections/${product.category === 'hot-sauce' ? 'hot-sauces' : product.category === 'rub' ? 'bbq-rubs' : 'bundles'}`} className="hover:text-foreground transition-colors capitalize">
+          <Link to={`/collections/${product.category === 'hot-sauce' ? 'hot-sauce' : product.category === 'rub' ? 'bbq-rubs' : 'bundles'}`} className="hover:text-foreground transition-colors capitalize">
             {product.category === 'hot-sauce' ? 'Hot Sauces' : product.category === 'rub' ? 'BBQ Rubs' : 'Bundles'}
           </Link>
           <span>/</span>

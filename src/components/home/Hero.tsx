@@ -37,12 +37,12 @@ export function Hero() {
             
             <p className="text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
               Premium hot sauces and BBQ rubs crafted with the world's hottest peppers. 
-              Aged to perfection. Built for flavor.
+              Built for flavor.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up" style={{ animationDelay: '400ms' }}>
               <Button asChild size="lg" className="bg-gradient-fire hover:opacity-90 text-lg font-heading tracking-wide group">
-                <Link to="/collections/hot-sauces">
+                <Link to="/collections/hot-sauce">
                   Shop Hot Sauces
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>

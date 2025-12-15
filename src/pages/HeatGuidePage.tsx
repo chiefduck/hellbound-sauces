@@ -554,7 +554,7 @@ export default function HeatGuidePage() {
             Explore our full collection of handcrafted hot sauces and find your perfect match.
           </p>
           <Button asChild size="lg" variant="secondary" className="font-heading text-lg">
-            <Link to="/collections/hot-sauces">
+            <Link to="/collections/hot-sauce">
               Shop Hot Sauces <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

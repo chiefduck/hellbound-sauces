@@ -35,7 +35,7 @@ Contrary to what you might expect, the Carolina Reaper actually has a pleasant f
 
 ## How We Use Reapers at Hellbound
 
-At Hellbound Hot Sauce, we source our Carolina Reapers from certified organic farms in South Carolina. We ferment them for a minimum of 6 weeks to develop complex flavors that complement the heat. Our Devil's Tongue Reaper sauce showcases the pepper's natural fruitiness while delivering the extreme heat that thrill-seekers crave.
+At Hellbound Hot Sauce, we source our Carolina Reapers from certified organic farms in South Carolina. We craft them in small batches to develop complex flavors that complement the heat. Our Devil's Tongue Reaper sauce showcases the pepper's natural fruitiness while delivering the extreme heat that thrill-seekers crave.
 
 ## Safety Tips
 
@@ -265,68 +265,14 @@ When in doubt, start with less. You can always add more hot sauce, but you can't
     readTime: 7,
     tags: ['pairing', 'recipes', 'tips', 'cooking'],
   },
+  // REMOVED: Fermentation blog post - sauces are not fermented
+  /*
   {
     id: '5',
     slug: 'fermentation-process',
     title: 'The Art of Fermentation in Hot Sauce',
     excerpt: 'How we ferment our peppers for months to develop complex flavors.',
-    content: `At Hellbound, fermentation isn't just a process—it's our philosophy. While mass-produced hot sauces rely on vinegar and heat treatment, we take the slow road to develop flavors you simply can't get any other way.
-
-## Why Ferment?
-
-Fermentation transforms the raw heat of peppers into something more nuanced. The process:
-
-1. **Develops complex flavors** - Natural sugars convert to acids, creating depth
-2. **Mellows harsh heat** - Makes the burn more approachable
-3. **Creates umami** - Adds savory richness
-4. **Preserves naturally** - No artificial preservatives needed
-5. **Increases nutrition** - Produces beneficial probiotics and vitamins
-
-## Our Process
-
-### Harvest
-We source peppers at peak ripeness from partner farms. Timing matters—too early and you miss sugars; too late and you lose brightness.
-
-### Preparation
-Peppers are washed, stemmed, and roughly chopped. We keep the seeds and membranes—that's where the heat and flavor concentrate.
-
-### The Mash
-Peppers are ground with 2-3% sea salt by weight. Salt draws out moisture, creates brine, and controls bacterial growth. This mash goes into food-grade fermentation vessels.
-
-### The Wait
-Here's where patience pays off. Our sauces ferment for 4-6 weeks minimum, some for 6 months or more. During this time:
-
-- Lactobacillus bacteria convert sugars to lactic acid
-- pH drops, creating that characteristic tang
-- Complex flavor compounds develop
-- Colors deepen and intensify
-
-We monitor pH, temperature, and taste throughout. Every batch is unique.
-
-### Finishing
-After fermentation, we blend with other ingredients—vinegar for stability, additional peppers for heat adjustment, spices for complexity. Then slow cooking melds everything together.
-
-## Fermented vs. Cooked
-
-Most commercial hot sauces are made by cooking peppers with vinegar. It's fast but sacrifices complexity. Compare:
-
-**Cooked Sauce:**
-- Bright, sharp acidity
-- One-dimensional heat
-- Shelf-stable quickly
-- Consistent but flat flavor
-
-**Fermented Sauce:**
-- Rounded, complex acidity
-- Layered, building heat
-- Natural preservation
-- Depth that keeps you coming back
-
-## The Proof is in the Taste
-
-Pick up any Hellbound sauce and you'll notice the difference immediately. That depth, that complexity, that "what is that delicious thing?"—that's fermentation at work.
-
-It takes longer. It costs more. It's worth it.`,
+    content: `...`,
     image: '/assets/blog/the_art_of_fermentation.webp',
     author: 'Chef Marcus',
     date: '2024-10-28',
@@ -334,6 +280,7 @@ It takes longer. It costs more. It's worth it.`,
     readTime: 9,
     tags: ['fermentation', 'process', 'craft', 'education'],
   },
+  */
   {
     id: '6',
     slug: 'building-hot-sauce-tolerance',
@@ -450,7 +397,7 @@ Edmund McIlhenny created Tabasco sauce in Louisiana, establishing what would bec
 ## The Craft Revolution
 
 ### 2000s-2010s: Small Batch Explosion
-The farm-to-table movement extended to condiments. Small producers began creating artisan sauces with unique ingredients and careful fermentation.
+The farm-to-table movement extended to condiments. Small producers began creating artisan sauces with unique ingredients and bold flavor profiles.
 
 ### Hot Ones Effect
 The YouTube show "Hot Ones" (launched 2015) brought craft hot sauce to mainstream attention. Suddenly, everyone wanted to try the sauces that made celebrities cry.
@@ -460,12 +407,12 @@ We're living in the best time ever for hot sauce lovers:
 - Thousands of craft producers worldwide
 - Every heat level imaginable
 - Innovative ingredients (fruits, chocolate, coffee)
-- Fermentation renaissance
+- Small-batch artisan production
 - Direct-to-consumer access
 
 ## Hellbound's Place in History
 
-We founded Hellbound in Austin, Texas in 2019, joining a proud tradition of Texas sauce makers. Our focus on fermentation connects us to ancient practices while our flavor innovation pushes the art form forward.
+We founded Hellbound in Austin, Texas in 2019, joining a proud tradition of Texas sauce makers. Our focus on bold, unique flavors and small-batch craftsmanship connects us to artisan practices while our flavor innovation pushes the art form forward.
 
 Every bottle we make continues a story that spans 9,000 years. That's the history you're tasting with every drop.`,
     image: '/assets/blog/fiery_history_of_hot_sauce.webp',

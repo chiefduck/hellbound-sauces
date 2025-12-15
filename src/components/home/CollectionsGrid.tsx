@@ -4,7 +4,7 @@ import { collections } from '@/data/products';
 import { getCollectionImage } from '@/data/images';
 
 const collectionIcons = {
-  'hot-sauces': Flame,
+  'hot-sauce': Flame,
   'bbq-rubs': ChefHat,
   'bundles': Gift,
 };

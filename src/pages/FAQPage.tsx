@@ -71,7 +71,7 @@ const faqData: FAQCategory[] = [
       },
       {
         question: 'What makes your hot sauces different?',
-        answer: 'Every Hellbound sauce is crafted in small batches using traditional fermentation methods. We ferment our peppers for 4-6 weeks to develop complex flavors, not just heat. No artificial preservatives, colors, or flavors—ever.'
+        answer: 'Every Hellbound sauce is crafted in small batches with premium ingredients and bold flavor profiles. We focus on developing complex flavors that complement food, not just heat. No artificial preservatives, colors, or flavors—ever.'
       },
     ],
   },

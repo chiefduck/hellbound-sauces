@@ -24,7 +24,7 @@ export const images = {
     'starter-pack': productBundle,
   },
   collections: {
-    'hot-sauces': collectionHotSauces,
+    'hot-sauce': collectionHotSauces,
     'bbq-rubs': collectionBbqRubs,
     'bundles': productBundle,
   },

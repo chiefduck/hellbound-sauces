@@ -145,7 +145,7 @@ export default function AldoGallegosPage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" className="bg-gradient-fire">
-                <Link to="/collections/hot-sauces">
+                <Link to="/collections/hot-sauce">
                   Shop Series 1
                 </Link>
               </Button>

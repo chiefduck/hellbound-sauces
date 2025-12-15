@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Flame, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
+import { Flame, Instagram, Facebook, Youtube } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -12,7 +12,7 @@ interface FooterProps {
 const footerLinks = {
   shop: [
     { name: 'All Products', href: '/collections/all' },
-    { name: 'Hot Sauces', href: '/collections/hot-sauces' },
+    { name: 'Hot Sauces', href: '/collections/hot-sauce' },
     { name: 'BBQ Rubs', href: '/collections/bbq-rubs' },
     // { name: 'Bundles', href: '/collections/bundles' }, // Hidden for now - may use in future
   ],
@@ -37,10 +37,9 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: 'Instagram', icon: Instagram, href: '#' },
-  { name: 'Facebook', icon: Facebook, href: '#' },
-  { name: 'YouTube', icon: Youtube, href: '#' },
-  { name: 'Twitter', icon: Twitter, href: '#' },
+  { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/hellbound_sauces/' },
+  { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/HellBoundSauces' },
+  { name: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@HellBoundSauces' },
 ];
 
 export function Footer({ showNewsletter = true }: FooterProps) {

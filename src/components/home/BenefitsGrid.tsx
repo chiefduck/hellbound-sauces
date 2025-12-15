@@ -13,8 +13,8 @@ const benefits = [
   },
   {
     icon: Clock,
-    title: 'Aged to Perfection',
-    description: 'Our sauces are fermented and aged for months to develop complex flavors.',
+    title: 'Small Batch Crafted',
+    description: 'Carefully crafted in small batches to develop bold, complex flavors.',
   },
   {
     icon: Award,
@@ -29,7 +29,7 @@ const benefits = [
   {
     icon: Truck,
     title: 'Fast Shipping',
-    description: 'Orders ship within 24 hours. Free shipping on orders over $50.',
+    description: 'Orders ship within 1-2 business days. Shipping calculated at checkout.',
   },
 ];
 
