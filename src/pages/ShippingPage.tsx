@@ -1,5 +1,5 @@
 import { Layout } from '@/components/layout/Layout';
-import { Truck, Clock, Globe, Package, RefreshCw, Shield } from 'lucide-react';
+import { Truck, Clock, Globe, Package, RefreshCw, Shield, MapPin, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 export default function ShippingPage() {
@@ -9,43 +9,57 @@ export default function ShippingPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="font-display text-5xl lg:text-6xl mb-6">Shipping & Returns</h1>
+              <h1 className="font-display text-5xl lg:text-6xl mb-6">Shipping Policy</h1>
               <p className="text-xl text-muted-foreground">
-                Fast, reliable shipping and hassle-free returns on all orders.
+                We're dedicated to delivering our fiery hot sauces to your doorstep quickly and efficiently.
               </p>
             </div>
 
-            {/* Shipping Options */}
+            {/* Processing Time */}
             <div className="mb-16">
-              <h2 className="font-display text-3xl mb-8">Shipping Options</h2>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="flex items-center gap-4 mb-6">
+                <Clock className="h-8 w-8 text-primary" />
+                <h2 className="font-display text-3xl">Processing Time</h2>
+              </div>
+              <div className="bg-card rounded-xl border border-border p-8">
+                <p className="text-muted-foreground">
+                  Orders are typically processed within <strong className="text-foreground">1-2 business days</strong>. Note that during peak seasons or promotional events, processing times may be longer.
+                </p>
+              </div>
+            </div>
+
+            {/* Shipping Methods */}
+            <div className="mb-16">
+              <h2 className="font-display text-3xl mb-6">Shipping Methods and Timelines</h2>
+              <p className="text-muted-foreground mb-8">
+                We offer various shipping options to suit your needs. Delivery times can vary depending on location and other factors.
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
                 <Card className="bg-card border-border">
-                  <CardContent className="p-6 text-center">
-                    <Truck className="h-10 w-10 text-primary mx-auto mb-4" />
-                    <h3 className="font-heading uppercase tracking-wide mb-2">Standard</h3>
-                    <p className="text-muted-foreground text-sm mb-2">3-5 Business Days</p>
-                    <p className="text-lg font-bold">$5.99</p>
-                    <p className="text-sm text-muted-foreground mt-1">Free over $50</p>
+                  <CardContent className="p-6">
+                    <Truck className="h-10 w-10 text-primary mb-4" />
+                    <h3 className="font-heading uppercase tracking-wide mb-2 text-lg">Standard Shipping</h3>
+                    <p className="text-muted-foreground mb-4">Expected delivery in <strong className="text-foreground">3-5 business days</strong> post-processing.</p>
+                    <p className="text-sm text-primary font-medium">Free Standard Shipping available for orders surpassing a certain amount.</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-card border-border">
-                  <CardContent className="p-6 text-center">
-                    <Clock className="h-10 w-10 text-primary mx-auto mb-4" />
-                    <h3 className="font-heading uppercase tracking-wide mb-2">Expedited</h3>
-                    <p className="text-muted-foreground text-sm mb-2">2-3 Business Days</p>
-                    <p className="text-lg font-bold">$12.99</p>
-                    <p className="text-sm text-muted-foreground mt-1">Priority handling</p>
+                  <CardContent className="p-6">
+                    <Package className="h-10 w-10 text-primary mb-4" />
+                    <h3 className="font-heading uppercase tracking-wide mb-2 text-lg">Expedited Shipping</h3>
+                    <p className="text-muted-foreground mb-4">Expected delivery in <strong className="text-foreground">1-3 business days</strong> post-processing.</p>
+                    <p className="text-sm text-muted-foreground">For faster delivery when you need it.</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-card border-border">
-                  <CardContent className="p-6 text-center">
-                    <Package className="h-10 w-10 text-primary mx-auto mb-4" />
-                    <h3 className="font-heading uppercase tracking-wide mb-2">Overnight</h3>
-                    <p className="text-muted-foreground text-sm mb-2">1 Business Day</p>
-                    <p className="text-lg font-bold">$24.99</p>
-                    <p className="text-sm text-muted-foreground mt-1">Order by 2pm CST</p>
-                  </CardContent>
-                </Card>
+              </div>
+              <div className="mt-6 bg-secondary/30 rounded-xl border border-border p-6">
+                <h4 className="font-heading uppercase tracking-wide mb-3 flex items-center gap-2">
+                  <AlertCircle className="h-5 w-5 text-primary" />
+                  Shipping Costs
+                </h4>
+                <p className="text-muted-foreground">
+                  Shipping fees are determined based on your order's weight and the chosen shipping method.
+                </p>
               </div>
             </div>
 
@@ -56,75 +70,80 @@ export default function ShippingPage() {
                 <h2 className="font-display text-3xl">International Shipping</h2>
               </div>
               <div className="bg-card rounded-xl border border-border p-8">
-                <p className="text-muted-foreground mb-6">
-                  We ship to over 30 countries worldwide! International shipping rates and delivery 
-                  times vary by destination.
+                <p className="text-muted-foreground">
+                  Delivery times may vary based on destination.
                 </p>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="font-heading uppercase tracking-wide mb-3">Estimated Delivery Times</h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>Canada: 5-7 business days</li>
-                      <li>Europe: 7-14 business days</li>
-                      <li>Australia/NZ: 10-14 business days</li>
-                      <li>Other regions: 14-21 business days</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-heading uppercase tracking-wide mb-3">Important Notes</h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>Customs duties may apply</li>
-                      <li>Tracking provided for all orders</li>
-                      <li>Some restrictions may apply</li>
-                      <li>Rates calculated at checkout</li>
-                    </ul>
-                  </div>
-                </div>
               </div>
             </div>
 
-            {/* Returns Policy */}
+            {/* Order Tracking */}
+            <div className="mb-16">
+              <div className="flex items-center gap-4 mb-6">
+                <MapPin className="h-8 w-8 text-primary" />
+                <h2 className="font-display text-3xl">Order Tracking</h2>
+              </div>
+              <div className="bg-card rounded-xl border border-border p-8">
+                <p className="text-muted-foreground">
+                  You will receive a tracking number via email once your order is dispatched.
+                </p>
+              </div>
+            </div>
+
+            {/* Delivery Issues */}
+            <div className="mb-16">
+              <div className="flex items-center gap-4 mb-6">
+                <AlertCircle className="h-8 w-8 text-primary" />
+                <h2 className="font-display text-3xl">Delivery Issues</h2>
+              </div>
+              <div className="bg-card rounded-xl border border-border p-8">
+                <p className="text-muted-foreground">
+                  In case of delivery issues, such as missing or damaged packages, contact us right away at{' '}
+                  <a href="mailto:Scott@HellBoundSauces.com" className="text-primary hover:underline font-medium">
+                    Scott@HellBoundSauces.com
+                  </a>
+                  . We'll strive to resolve the issue promptly.
+                </p>
+              </div>
+            </div>
+
+            {/* Address Accuracy */}
+            <div className="mb-16">
+              <div className="bg-secondary/30 rounded-xl border border-border p-8">
+                <h3 className="font-heading uppercase tracking-wide mb-4 flex items-center gap-2 text-lg">
+                  <Shield className="h-6 w-6 text-primary" />
+                  Address Accuracy
+                </h3>
+                <p className="text-muted-foreground">
+                  Please verify your shipping address before order confirmation. We are not accountable for orders sent to incorrect addresses provided by the customer.
+                </p>
+              </div>
+            </div>
+
+            {/* Returns and Exchanges */}
             <div className="mb-16">
               <div className="flex items-center gap-4 mb-6">
                 <RefreshCw className="h-8 w-8 text-primary" />
-                <h2 className="font-display text-3xl">Returns & Refunds</h2>
+                <h2 className="font-display text-3xl">Returns and Exchanges</h2>
               </div>
-              <div className="bg-card rounded-xl border border-border p-8 space-y-6">
-                <div>
-                  <h4 className="font-heading uppercase tracking-wide mb-2">30-Day Satisfaction Guarantee</h4>
-                  <p className="text-muted-foreground">
-                    Not happy with your purchase? No problem. We offer full refunds or exchanges 
-                    within 30 days of delivery. Simply contact us to start the process.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-heading uppercase tracking-wide mb-2">How to Return</h4>
-                  <ol className="list-decimal pl-6 text-muted-foreground space-y-2">
-                    <li>Email hello@hellboundhs.com with your order number</li>
-                    <li>Describe the issue or reason for return</li>
-                    <li>We'll provide a prepaid return label (for defective items)</li>
-                    <li>Ship the product back in its original packaging</li>
-                    <li>Refund processed within 5-10 business days of receipt</li>
-                  </ol>
-                </div>
-                <div>
-                  <h4 className="font-heading uppercase tracking-wide mb-2">Damaged or Defective Items</h4>
-                  <p className="text-muted-foreground">
-                    If your order arrives damaged, take photos immediately and contact us within 48 
-                    hours. We'll send a replacement at no additional cost.
-                  </p>
-                </div>
+              <div className="bg-card rounded-xl border border-border p-8">
+                <p className="text-muted-foreground">
+                  For returns or exchanges, kindly refer to our Return and Refund Policy.
+                </p>
               </div>
             </div>
 
-            {/* Guarantee */}
+            {/* Contact Us */}
             <div className="bg-gradient-to-br from-primary/20 to-accent/10 rounded-xl border border-primary/30 p-8 text-center">
-              <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h3 className="font-display text-2xl mb-4">Our Promise to You</h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Every bottle of Hellbound Hot Sauce is crafted with care and backed by our commitment 
-                to quality. If you're ever unsatisfied with a purchase, we'll make it right. 
-                That's the Hellbound guarantee.
+              <h3 className="font-display text-2xl mb-4">Contact Us</h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+                For any inquiries regarding your order or our shipping policies, please contact us at{' '}
+                <a href="mailto:Scott@HellBoundSauces.com" className="text-primary hover:underline font-medium">
+                  Scott@HellBoundSauces.com
+                </a>
+                .
+              </p>
+              <p className="text-foreground font-medium">
+                Thank you for choosing HellBound Sauces for your hot sauce adventure. We can't wait to spice up your meals! 🌶️
               </p>
             </div>
           </div>

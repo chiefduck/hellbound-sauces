@@ -48,17 +48,47 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    toast({
-      title: "Message Sent!",
-      description: inquiryType === 'wholesale' 
-        ? "Our wholesale team will get back to you within 1-2 business days."
-        : "We'll get back to you within 24 hours.",
-    });
-    setIsSubmitting(false);
-    setInquiryType('');
-    setTopic('');
-    (e.target as HTMLFormElement).reset();
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      type: 'contact',
+      inquiryType,
+      topic,
+      name: formData.get('name'),
+      email: formData.get('email'),
+      company: formData.get('company'),
+      phone: formData.get('phone'),
+      orderNumber: formData.get('orderNumber'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('Failed to send message');
+
+      toast({
+        title: "Message Sent!",
+        description: inquiryType === 'wholesale'
+          ? "Our wholesale team will get back to you within 1-2 business days."
+          : "We'll get back to you within 24 hours.",
+      });
+      setInquiryType('');
+      setTopic('');
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -170,11 +200,11 @@ export default function ContactPage() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Name *</Label>
-                    <Input placeholder="Your name" required className="bg-secondary border-border" />
+                    <Input name="name" placeholder="Your name" required className="bg-secondary border-border" />
                   </div>
                   <div className="space-y-2">
                     <Label>Email *</Label>
-                    <Input type="email" placeholder="your@email.com" required className="bg-secondary border-border" />
+                    <Input name="email" type="email" placeholder="your@email.com" required className="bg-secondary border-border" />
                   </div>
                 </div>
 
@@ -182,11 +212,11 @@ export default function ContactPage() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>Company Name *</Label>
-                      <Input placeholder="Your company" required className="bg-secondary border-border" />
+                      <Input name="company" placeholder="Your company" required className="bg-secondary border-border" />
                     </div>
                     <div className="space-y-2">
                       <Label>Phone</Label>
-                      <Input type="tel" placeholder="(555) 123-4567" className="bg-secondary border-border" />
+                      <Input name="phone" type="tel" placeholder="(555) 123-4567" className="bg-secondary border-border" />
                     </div>
                   </div>
                 )}
@@ -194,19 +224,20 @@ export default function ContactPage() {
                 {inquiryType === 'consumer' && topic === 'order-status' && (
                   <div className="space-y-2">
                     <Label>Order Number</Label>
-                    <Input placeholder="e.g., #HB12345" className="bg-secondary border-border" />
+                    <Input name="orderNumber" placeholder="e.g., #HB12345" className="bg-secondary border-border" />
                   </div>
                 )}
 
                 <div className="space-y-2">
                   <Label>Message *</Label>
-                  <Textarea 
-                    placeholder={inquiryType === 'wholesale' 
+                  <Textarea
+                    name="message"
+                    placeholder={inquiryType === 'wholesale'
                       ? "Tell us about your business and how you'd like to partner with us..."
                       : "How can we help you today?"
-                    } 
-                    required 
-                    className="bg-secondary border-border min-h-[160px]" 
+                    }
+                    required
+                    className="bg-secondary border-border min-h-[160px]"
                   />
                 </div>
 

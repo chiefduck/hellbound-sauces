@@ -1,0 +1,211 @@
+import { useParams, Link, Navigate } from 'react-router-dom';
+import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/seo';
+import { getRecipeById } from '@/data/recipes';
+import { Clock, Users, ChefHat, ArrowLeft, Flame } from 'lucide-react';
+
+export default function RecipeDetailPage() {
+  const { id } = useParams<{ id: string }>();
+  const recipe = id ? getRecipeById(id) : undefined;
+
+  if (!recipe) {
+    return <Navigate to="/recipes" replace />;
+  }
+
+  return (
+    <Layout>
+      <SEOHead
+        title={`${recipe.title} | HellBound Sauces Recipes`}
+        description={recipe.description}
+        canonical={`/recipes/${recipe.id}`}
+      />
+
+      {/* Hero Section */}
+      <section className="py-12 lg:py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          {/* Back Button */}
+          <Link
+            to="/recipes"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to All Recipes
+          </Link>
+
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* Recipe Image */}
+            <div className="rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+
+            {/* Recipe Info */}
+            <div>
+              {recipe.featured && (
+                <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-heading uppercase tracking-wider mb-4">
+                  Featured Recipe
+                </span>
+              )}
+              <h1 className="font-display text-4xl lg:text-5xl mb-4">
+                {recipe.title}
+              </h1>
+              <p className="text-lg text-muted-foreground mb-6">
+                {recipe.description}
+              </p>
+
+              {/* Recipe Meta */}
+              <div className="flex flex-wrap gap-6 mb-6 pb-6 border-b border-border">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Prep + Cook Time</p>
+                    <p className="font-medium">{recipe.time}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Servings</p>
+                    <p className="font-medium">{recipe.servings}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ChefHat className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Difficulty</p>
+                    <p className="font-medium">{recipe.difficulty}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hellbound Product */}
+              {recipe.hellboundProduct && (
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Flame className="h-5 w-5 text-primary" />
+                    <p className="font-heading uppercase tracking-wide text-sm">
+                      Featured Product
+                    </p>
+                  </div>
+                  <p className="text-lg font-medium">{recipe.hellboundProduct}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ingredients & Instructions */}
+      <section className="py-12 lg:py-16">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Ingredients */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-8">
+                <h2 className="font-display text-3xl mb-6">Ingredients</h2>
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <ul className="space-y-3">
+                    {recipe.ingredients.map((ingredient, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <span className="text-primary mt-1">•</span>
+                        <span className="flex-1">{ingredient}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Instructions */}
+            <div className="lg:col-span-2">
+              <h2 className="font-display text-3xl mb-6">Instructions</h2>
+              <div className="space-y-6">
+                {recipe.instructions.map((instruction) => (
+                  <div
+                    key={instruction.step}
+                    className="bg-card border border-border rounded-xl p-6"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <span className="font-heading text-primary font-bold">
+                          {instruction.step}
+                        </span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-heading text-xl uppercase tracking-wide mb-3">
+                          {instruction.title}
+                        </h3>
+                        <ul className="space-y-2">
+                          {instruction.details.map((detail, index) => (
+                            <li key={index} className="text-muted-foreground">
+                              {detail}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pairing Suggestions */}
+      {recipe.pairingSuggestions && (
+        <section className="py-12 lg:py-16 bg-charcoal">
+          <div className="container mx-auto px-4 lg:px-8">
+            <h2 className="font-display text-3xl mb-6 text-center">
+              Pairing Suggestions
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {recipe.pairingSuggestions.wine && (
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <h3 className="font-heading text-lg uppercase tracking-wide mb-3 text-primary">
+                    Wine Pairing
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {recipe.pairingSuggestions.wine}
+                  </p>
+                </div>
+              )}
+              {recipe.pairingSuggestions.sides && (
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <h3 className="font-heading text-lg uppercase tracking-wide mb-3 text-primary">
+                    Recommended Sides
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {recipe.pairingSuggestions.sides}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
+      <section className="py-16 lg:py-20">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-display text-4xl mb-6">Ready to Cook?</h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Get the HellBound Sauces products you need to make this recipe.
+            </p>
+            <Link
+              to="/collections/all"
+              className="inline-flex items-center justify-center px-8 h-12 rounded-lg bg-gradient-fire hover:opacity-90 font-heading tracking-wide transition-all"
+            >
+              Shop All Products
+            </Link>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+}

@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Flame, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface FooterProps {
   showNewsletter?: boolean;
@@ -24,11 +26,13 @@ const footerLinks = {
     { name: 'Heat Guide', href: '/heat-guide' },
     { name: 'Blog', href: '/blog' },
     { name: 'FAQs', href: '/faq' },
-    { name: 'Shipping & Returns', href: '/shipping' },
+    { name: 'Shipping', href: '/shipping' },
+    { name: 'Returns & Refunds', href: '/refund' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
+    { name: 'Cancellation Policy', href: '/cancellation' },
   ],
 };
 
@@ -40,6 +44,44 @@ const socialLinks = [
 ];
 
 export function Footer({ showNewsletter = true }: FooterProps) {
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const { toast } = useToast();
+
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      type: 'newsletter',
+      email: formData.get('email'),
+    };
+
+    try {
+      const response = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('Failed to subscribe');
+
+      toast({
+        title: "Welcome to the Family!",
+        description: "You've been added to our newsletter. Check your email for exclusive content!",
+      });
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to subscribe. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
   return (
     <footer className="bg-charcoal border-t border-border">
       {/* Newsletter Section */}
@@ -53,14 +95,17 @@ export function Footer({ showNewsletter = true }: FooterProps) {
               <p className="text-muted-foreground mb-6">
                 Get exclusive recipes, early access to new products, and special offers.
               </p>
-              <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <Input
+                  name="email"
                   type="email"
                   placeholder="Enter your email"
+                  required
+                  disabled={isSubscribing}
                   className="bg-secondary border-border focus:border-primary"
                 />
-                <Button className="bg-gradient-fire hover:opacity-90 transition-opacity whitespace-nowrap">
-                  Subscribe
+                <Button type="submit" disabled={isSubscribing} className="bg-gradient-fire hover:opacity-90 transition-opacity whitespace-nowrap">
+                  {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                 </Button>
               </form>
             </div>

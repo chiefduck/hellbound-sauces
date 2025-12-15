@@ -12,6 +12,7 @@ import ProductPage from "./pages/ProductPage";
 import AboutPage from "./pages/AboutPage";
 import ArtworkPage from "./pages/ArtworkPage";
 import RecipesPage from "./pages/RecipesPage";
+import RecipeDetailPage from "./pages/RecipeDetailPage";
 import HeatGuidePage from "./pages/HeatGuidePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
@@ -21,6 +22,8 @@ import FAQPage from "./pages/FAQPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import ShippingPage from "./pages/ShippingPage";
+import CancellationPage from "./pages/CancellationPage";
+import RefundPage from "./pages/RefundPage";
 import AldoGallegosPage from "./pages/artists/AldoGallegosPage";
 import ElmoBoydPage from "./pages/artists/ElmoBoydPage";
 import TonyCiavarroPage from "./pages/artists/TonyCiavarroPage";
@@ -50,6 +53,7 @@ const App = () => (
             <Route path="/artists/tony-ciavarro" element={<TonyCiavarroPage />} />
             <Route path="/artists/kris-masterson" element={<KrisMastersonPage />} />
             <Route path="/recipes" element={<RecipesPage />} />
+            <Route path="/recipes/:id" element={<RecipeDetailPage />} />
             <Route path="/heat-guide" element={<HeatGuidePage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
@@ -59,6 +63,8 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/shipping" element={<ShippingPage />} />
+            <Route path="/cancellation" element={<CancellationPage />} />
+            <Route path="/refund" element={<RefundPage />} />
             <Route path="/shopify-test" element={<ShopifyTestPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

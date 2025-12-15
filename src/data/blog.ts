@@ -51,7 +51,7 @@ If you're brave enough to try a raw Reaper, here are some tips:
 Eating a Carolina Reaper is an experience unlike any other. The heat builds slowly over about 30 seconds, peaks intensely for several minutes, and then gradually subsides over 15-30 minutes. Many people experience hiccups, sweating, and an endorphin rush often described as a "runner's high."
 
 Ready to experience the Reaper? Try our Devil's Tongue Reaper sauce—all the thrill with the artisan flavor Hellbound is known for.`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/the_ultimate_guide_to_carolina_reapers.webp',
     author: 'Chef Marcus',
     date: '2024-11-20',
     category: 'Pepper Guide',
@@ -118,7 +118,7 @@ This is crucial. Rest your brisket for at least 1 hour, ideally 2-4 hours. Wrap 
 Just before serving, lightly brush slices with our Smoky Chipotle sauce thinned with a bit of beef broth. The chipotle adds depth without overwhelming the smoky beef flavor.
 
 Master this technique and you'll be the legend of your neighborhood cookouts. Tag us @HellboundHS when you nail it!`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/the_perfect_bbq_brisket_a_complete_guide.webp',
     author: 'Pitmaster John',
     date: '2024-11-15',
     category: 'BBQ Tips',
@@ -186,7 +186,7 @@ At Hellbound, we rate all our sauces on a 1-5 flame scale:
 - 🔥🔥🔥🔥🔥 Extreme: Enter at your own risk
 
 Take our Heat Quiz on the Heat Guide page to find your perfect level!`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/the_scoville_scale_explained.webp',
     author: 'Dr. Spice',
     date: '2024-11-10',
     category: 'Education',
@@ -258,7 +258,7 @@ Toss with melted butter and a tablespoon of your favorite sauce for addictive mo
 ## The Universal Rule
 
 When in doubt, start with less. You can always add more hot sauce, but you can't take it away. And remember—the best pairing is the one you enjoy most!`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/hot_sauce_food_pairings.webp',
     author: 'Chef Marcus',
     date: '2024-11-05',
     category: 'Food Pairing',
@@ -327,7 +327,7 @@ Most commercial hot sauces are made by cooking peppers with vinegar. It's fast b
 Pick up any Hellbound sauce and you'll notice the difference immediately. That depth, that complexity, that "what is that delicious thing?"—that's fermentation at work.
 
 It takes longer. It costs more. It's worth it.`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/the_art_of_fermentation.webp',
     author: 'Chef Marcus',
     date: '2024-10-28',
     category: 'Behind the Scenes',
@@ -411,7 +411,7 @@ Building spice tolerance isn't just about bragging rights:
 Once you've built tolerance, maintain it with regular spicy meals. Skip spice for a few weeks and you'll notice some regression—though you'll rebuild faster the second time.
 
 Ready to start your journey? Begin with our Smoky Chipotle sauce—approachable heat with incredible flavor to keep you motivated.`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/building_spice_tolerance.webp',
     author: 'Dr. Spice',
     date: '2024-10-20',
     category: 'Education',
@@ -468,7 +468,7 @@ We're living in the best time ever for hot sauce lovers:
 We founded Hellbound in Austin, Texas in 2019, joining a proud tradition of Texas sauce makers. Our focus on fermentation connects us to ancient practices while our flavor innovation pushes the art form forward.
 
 Every bottle we make continues a story that spans 9,000 years. That's the history you're tasting with every drop.`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/fiery_history_of_hot_sauce.webp',
     author: 'Chef Marcus',
     date: '2024-10-12',
     category: 'Behind the Scenes',
@@ -558,7 +558,7 @@ Transplants are easier for beginners. If starting from seed:
 - **Fermented**: Make your own hot sauce!
 
 Growing your own peppers connects you to the source of everything we do at Hellbound. There's nothing quite like sauce made from peppers you grew yourself.`,
-    image: '/placeholder.svg',
+    image: '/assets/blog/growing_peppers_at_home.webp',
     author: 'Garden Team',
     date: '2024-10-05',
     category: 'Tips & Tricks',

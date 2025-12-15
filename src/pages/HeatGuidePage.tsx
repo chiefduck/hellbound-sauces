@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
-import { Flame, ChevronRight, Thermometer, Beaker, Award, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
-import { products } from '@/data/products';
+import { Flame, ChevronRight, Thermometer, Beaker, Award, AlertTriangle, CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { useShopifyProducts } from '@/hooks/useShopifyProducts';
 import { ProductCard } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -122,7 +122,11 @@ const quizQuestions: QuizQuestion[] = [
   },
 ];
 
-function HeatQuiz() {
+interface HeatQuizProps {
+  products: any[];
+}
+
+function HeatQuiz({ products }: HeatQuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
@@ -141,14 +145,19 @@ function HeatQuiz() {
 
   const getRecommendation = () => {
     const totalPoints = answers.reduce((sum, points) => sum + points, 0);
-    const maxPoints = quizQuestions.length * 3;
-    const percentage = (totalPoints / maxPoints) * 100;
+    // Max points: 12 (4 questions × 3 points)
+    // Point ranges:
+    // 0-2 points = Level 1 (Mild) - New to hot sauce, avoid spice
+    // 3-5 points = Level 2 (Medium) - Casual user, Tabasco/Sriracha level
+    // 6-8 points = Level 3 (Hot) - Enthusiast, seeks out hot sauces
+    // 9-10 points = Level 4 (Extra Hot) - Advanced, loves serious heat
+    // 11-12 points = Level 5 (Extreme) - Ghost peppers are fun
 
-    if (percentage <= 20) return { level: 1, name: 'Mild' };
-    if (percentage <= 40) return { level: 2, name: 'Medium' };
-    if (percentage <= 60) return { level: 3, name: 'Hot' };
-    if (percentage <= 80) return { level: 4, name: 'Extra Hot' };
-    return { level: 5, name: 'Extreme' };
+    if (totalPoints <= 2) return { level: 1, name: 'Mild', points: totalPoints };
+    if (totalPoints <= 5) return { level: 2, name: 'Medium', points: totalPoints };
+    if (totalPoints <= 8) return { level: 3, name: 'Hot', points: totalPoints };
+    if (totalPoints <= 10) return { level: 4, name: 'Extra Hot', points: totalPoints };
+    return { level: 5, name: 'Extreme', points: totalPoints };
   };
 
   const resetQuiz = () => {
@@ -186,7 +195,7 @@ function HeatQuiz() {
 
   if (showResult && recommendation) {
     const levelData = heatLevels.find(l => l.level === recommendation.level)!;
-    
+
     return (
       <Card className="bg-gradient-to-br from-primary/20 to-accent/10 border-primary/30">
         <CardContent className="p-8">
@@ -202,14 +211,45 @@ function HeatQuiz() {
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto">{levelData.description}</p>
           </div>
 
-          {recommendedProducts.length > 0 && (
+          {recommendedProducts.length > 0 ? (
             <div className="mb-8">
-              <h4 className="font-heading text-lg uppercase tracking-wide mb-4 text-center">Recommended For You</h4>
+              <h4 className="font-heading text-lg uppercase tracking-wide mb-4 text-center">
+                Perfect Sauces For Your Heat Level
+              </h4>
+
+              {/* Product Names List */}
+              <div className="bg-card/50 border border-border rounded-lg p-4 mb-6">
+                <p className="text-sm text-muted-foreground text-center mb-3">We recommend these hot sauces:</p>
+                <ul className="space-y-2">
+                  {recommendedProducts.map((product, index) => (
+                    <li key={product.id} className="flex items-center justify-center gap-2 text-center">
+                      <Flame className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span className="font-heading text-base">
+                        {product.title}
+                      </span>
+                      <span className="text-muted-foreground text-sm">
+                        ${product.price.toFixed(2)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Product Cards */}
               <div className="grid sm:grid-cols-3 gap-4">
                 {recommendedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
+            </div>
+          ) : (
+            <div className="mb-8 text-center">
+              <p className="text-muted-foreground mb-4">
+                We don't currently have products at this exact heat level in stock.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Browse all products to find your perfect match!
+              </p>
             </div>
           )}
 
@@ -257,6 +297,43 @@ function HeatQuiz() {
 }
 
 export default function HeatGuidePage() {
+  const { products, loading, error } = useShopifyProducts();
+
+  // Show loading state
+  if (loading) {
+    return (
+      <Layout>
+        <SEOHead
+          title="Heat Guide | Scoville Scale & Spice Levels Explained"
+          description="Understand the Scoville scale and find your perfect heat level. Take our quiz, learn about pepper heat levels, and discover which Hellbound hot sauce matches your spice tolerance."
+          canonical="/heat-guide"
+        />
+        <div className="container mx-auto px-4 py-20 flex flex-col items-center justify-center min-h-[60vh]">
+          <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
+          <p className="text-muted-foreground">Loading products from Shopify...</p>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <Layout>
+        <SEOHead
+          title="Heat Guide | Scoville Scale & Spice Levels Explained"
+          description="Understand the Scoville scale and find your perfect heat level. Take our quiz, learn about pepper heat levels, and discover which Hellbound hot sauce matches your spice tolerance."
+          canonical="/heat-guide"
+        />
+        <div className="container mx-auto px-4 py-20 text-center">
+          <h1 className="font-display text-4xl mb-4 text-red-500">Error Loading Products</h1>
+          <p className="text-muted-foreground mb-4">{error.message}</p>
+          <p className="text-sm text-muted-foreground">Please try refreshing the page</p>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <SEOHead
@@ -271,7 +348,7 @@ export default function HeatGuidePage() {
           <Flame className="h-12 w-12 text-primary mx-auto mb-6" />
           <h1 className="font-display text-5xl lg:text-7xl mb-6">Heat Guide</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Understanding the Scoville scale and finding your perfect heat level. 
+            Understanding the Scoville scale and finding your perfect heat level.
             From mild everyday sauces to extreme heat challenges.
           </p>
         </div>
@@ -281,7 +358,7 @@ export default function HeatGuidePage() {
       <section className="pb-16">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-2xl mx-auto">
-            <HeatQuiz />
+            <HeatQuiz products={products} />
           </div>
         </div>
       </section>
@@ -409,7 +486,7 @@ export default function HeatGuidePage() {
           <div className="space-y-16">
             {heatLevels.map((level) => {
               const levelProducts = products.filter(p => p.heatLevel === level.level && p.category === 'hot-sauce');
-              
+
               return (
                 <div key={level.level} className={`p-8 rounded-xl bg-card border-l-4 ${level.borderColor}`}>
                   <div className="flex flex-wrap items-center gap-4 mb-6">

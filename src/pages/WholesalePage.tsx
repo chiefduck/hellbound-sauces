@@ -14,13 +14,39 @@ export default function WholesalePage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    toast({
-      title: "Application Received!",
-      description: "We'll review your application and get back to you within 48 hours.",
-    });
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      type: 'wholesale',
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('Failed to send message');
+
+      toast({
+        title: "Application Received!",
+        description: "We'll review your application and get back to you within 48 hours.",
+      });
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send application. Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -106,11 +132,12 @@ export default function WholesalePage() {
             </p>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
-                <Input placeholder="Name *" required className="bg-secondary border-border" />
-                <Input type="email" placeholder="Email *" required className="bg-secondary border-border" />
+                <Input name="name" placeholder="Name *" required className="bg-secondary border-border" />
+                <Input name="email" type="email" placeholder="Email *" required className="bg-secondary border-border" />
               </div>
-              <Input type="tel" placeholder="Phone Number" className="bg-secondary border-border" />
+              <Input name="phone" type="tel" placeholder="Phone Number" className="bg-secondary border-border" />
               <Textarea
+                name="message"
                 placeholder="Tell us about your business and how you'd like to stock HellBound Sauces..."
                 required
                 className="bg-secondary border-border min-h-[140px]"

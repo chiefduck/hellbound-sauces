@@ -1,79 +1,49 @@
 import { Layout } from '@/components/layout/Layout';
-import { ChefHat, Clock, Users, Flame } from 'lucide-react';
+import { ChefHat, Clock, Users, Flame, Utensils, Egg, Salad, ArrowRight } from 'lucide-react';
 import { SEOHead } from '@/components/seo';
 import { Link } from 'react-router-dom';
+import { recipes, getRecipesByCategory, getFeaturedRecipes } from '@/data/recipes';
+import { useState } from 'react';
 
-// Placeholder recipes - to be populated with real recipes
 const recipeCategories = [
-  {
-    name: 'Appetizers & Snacks',
-    description: 'Spice up your starters',
-    icon: ChefHat,
-    recipes: [
-      {
-        title: 'Spicy Wings with Sweet Heat',
-        description: 'Crispy chicken wings glazed with our Sweet Heat sauce for the perfect balance of sweet and spicy.',
-        time: '45 min',
-        servings: '4-6',
-        difficulty: 'Easy',
-        featured: true,
-      },
-      {
-        title: 'Cucumber Madness Salsa',
-        description: 'Fresh cucumber salsa featuring our unique Cucumber Madness sauce.',
-        time: '15 min',
-        servings: '6-8',
-        difficulty: 'Easy',
-      },
-    ],
-  },
-  {
-    name: 'Main Dishes',
-    description: 'Bold flavors for your main course',
-    icon: Flame,
-    recipes: [
-      {
-        title: 'Pineapple-Mango Glazed Salmon',
-        description: 'Grilled salmon with a tropical glaze made with our Pineapple-Mango sauce.',
-        time: '30 min',
-        servings: '4',
-        difficulty: 'Medium',
-        featured: true,
-      },
-      {
-        title: 'Wide Awake Breakfast Tacos',
-        description: 'Morning tacos with a kick featuring Wide Awake hot sauce.',
-        time: '25 min',
-        servings: '2-4',
-        difficulty: 'Easy',
-      },
-    ],
-  },
   {
     name: 'BBQ & Grilling',
     description: 'Fire up the grill',
     icon: Flame,
-    recipes: [
-      {
-        title: 'Wildwood Maple Ribs',
-        description: 'Fall-off-the-bone ribs rubbed with Wildwood Maple BBQ Rub.',
-        time: '3 hours',
-        servings: '4-6',
-        difficulty: 'Medium',
-        featured: true,
-      },
-      {
-        title: "Beekeeper's Blend Brisket",
-        description: 'Slow-smoked brisket with our honey-based Beekeepers Blend rub.',
-        time: '8-10 hours',
-        servings: '8-10',
-        difficulty: 'Hard',
-      },
-    ],
+    category: 'bbq-grilling' as const,
+  },
+  {
+    name: 'Main Dishes',
+    description: 'Bold flavors for your main course',
+    icon: Utensils,
+    category: 'main-dishes' as const,
+  },
+  {
+    name: 'Breakfast',
+    description: 'Start your day with heat',
+    icon: Egg,
+    category: 'breakfast' as const,
+  },
+  {
+    name: 'Sides & Salads',
+    description: 'Perfect accompaniments',
+    icon: Salad,
+    category: 'sides' as const,
   },
 ];
 
 export default function RecipesPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const featuredRecipes = getFeaturedRecipes();
+  const totalRecipes = recipes.length;
+
+  const getFilteredRecipes = () => {
+    if (selectedCategory === 'all') return recipes;
+    return getRecipesByCategory(selectedCategory as any);
+  };
+
+  const filteredRecipes = getFilteredRecipes();
+
   return (
     <Layout>
       <SEOHead
@@ -81,118 +51,147 @@ export default function RecipesPage() {
         description="Discover delicious recipes using HellBound Sauces hot sauces and BBQ rubs. From appetizers to main dishes, explore bold flavors that complement your cooking."
         canonical="/recipes"
       />
+
       {/* Hero */}
-      <section className="py-20 lg:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
-        <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
-          <ChefHat className="h-12 w-12 text-primary mx-auto mb-6" />
-          <h1 className="font-display text-5xl lg:text-7xl mb-6">
+      <section className="py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 lg:px-8 text-center max-w-4xl">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-6xl mb-3 sm:mb-4">
             <span className="text-gradient-fire">Recipes</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Bold flavors deserve bold recipes. Discover delicious ways to cook with
-            HellBound Sauces and take your meals to the next level.
+          <p className="text-base sm:text-lg text-muted-foreground">
+            Explore {totalRecipes} bold recipes featuring HellBound Sauces
           </p>
         </div>
       </section>
 
-      {/* Coming Soon Notice */}
-      <section className="py-12 bg-primary/5 border-y border-primary/20">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg">
-              <span className="font-heading uppercase tracking-wide text-primary">Coming Soon:</span>{' '}
-              <span className="text-muted-foreground">
-                We're cooking up an amazing collection of recipes featuring our sauces and rubs.
-                Check back soon for detailed recipes, cooking tips, and flavor pairings!
-              </span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Recipe Categories Preview */}
-      <section className="py-16 lg:py-24">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="space-y-16">
-            {recipeCategories.map((category, categoryIndex) => {
+      {/* Category Filter */}
+      <section className="border-y border-border bg-card/50">
+        <div className="container mx-auto px-4 lg:px-8 py-4 sm:py-6">
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
+                selectedCategory === 'all'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-background border border-border hover:border-primary/50'
+              }`}
+            >
+              All
+            </button>
+            {recipeCategories.map((category) => {
               const Icon = category.icon;
+              const count = getRecipesByCategory(category.category).length;
               return (
-                <div key={category.name}>
-                  <div className="flex items-center gap-3 mb-8">
-                    <Icon className="h-8 w-8 text-primary" />
-                    <div>
-                      <h2 className="font-display text-3xl">{category.name}</h2>
-                      <p className="text-muted-foreground">{category.description}</p>
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {category.recipes.map((recipe, recipeIndex) => (
-                      <div
-                        key={recipeIndex}
-                        className={`rounded-xl border border-border bg-card p-6 hover:border-primary/50 transition-all ${
-                          recipe.featured ? 'lg:col-span-2' : ''
-                        }`}
-                      >
-                        <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                          <div className="flex-1">
-                            <h3 className="font-heading text-xl uppercase tracking-wide mb-2">
-                              {recipe.title}
-                            </h3>
-                            <p className="text-muted-foreground">{recipe.description}</p>
-                          </div>
-                          {recipe.featured && (
-                            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-heading uppercase tracking-wider">
-                              Featured
-                            </span>
-                          )}
-                        </div>
-
-                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
-                            <span>{recipe.time}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Users className="h-4 w-4" />
-                            <span>{recipe.servings}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <ChefHat className="h-4 w-4" />
-                            <span>{recipe.difficulty}</span>
-                          </div>
-                        </div>
-
-                        <div className="mt-4 pt-4 border-t border-border">
-                          <span className="text-sm text-muted-foreground italic">
-                            Full recipe coming soon...
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <button
+                  key={category.category}
+                  onClick={() => setSelectedCategory(category.category)}
+                  className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
+                    selectedCategory === category.category
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-background border border-border hover:border-primary/50'
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="hidden xs:inline">{category.name}</span>
+                  <span className="xs:hidden">{category.name.split(' ')[0]}</span>
+                  <span className="opacity-60">({count})</span>
+                </button>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 lg:py-20 bg-charcoal">
+      {/* Recipes Grid */}
+      <section className="py-12 lg:py-16">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-display text-4xl mb-6">Get Cooking</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Stock up on HellBound Sauces and BBQ rubs to create amazing meals.
-              Our bold flavors complement any dish.
+          {filteredRecipes.length === 0 ? (
+            <div className="text-center py-16">
+              <ChefHat className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
+              <p className="text-lg text-muted-foreground">No recipes found in this category</p>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredRecipes.map((recipe) => (
+                <Link
+                  key={recipe.id}
+                  to={`/recipes/${recipe.id}`}
+                  className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all block"
+                >
+                  {/* Recipe Image */}
+                  <div className="aspect-[4/3] overflow-hidden bg-muted relative">
+                    <img
+                      src={recipe.image}
+                      alt={recipe.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {recipe.featured && (
+                      <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-primary text-white text-xs font-heading uppercase tracking-wider">
+                        Featured
+                      </span>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+
+                  {/* Recipe Content */}
+                  <div className="p-5">
+                    <h3 className="font-heading text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                      {recipe.title}
+                    </h3>
+
+                    {/* Recipe Meta */}
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-3.5 w-3.5" />
+                        <span>{recipe.time}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Users className="h-3.5 w-3.5" />
+                        <span>{recipe.servings}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <ChefHat className="h-3.5 w-3.5" />
+                        <span>{recipe.difficulty}</span>
+                      </div>
+                    </div>
+
+                    {/* Hellbound Product */}
+                    {recipe.hellboundProduct && (
+                      <div className="flex items-center gap-1.5 text-xs text-primary font-medium mb-3">
+                        <Flame className="h-3.5 w-3.5" />
+                        <span>{recipe.hellboundProduct}</span>
+                      </div>
+                    )}
+
+                    {/* View Recipe Link */}
+                    <div className="flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                      <span>View Recipe</span>
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 lg:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="font-display text-3xl lg:text-4xl mb-4">
+              Ready to Cook?
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Get the HellBound Sauces products featured in these recipes
             </p>
             <Link
               to="/collections/all"
-              className="inline-flex items-center justify-center px-8 h-12 rounded-lg bg-gradient-fire hover:opacity-90 font-heading tracking-wide transition-all"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-fire hover:opacity-90 font-heading tracking-wide transition-all"
             >
               Shop All Products
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

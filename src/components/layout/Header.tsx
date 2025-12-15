@@ -119,19 +119,22 @@ export function Header() {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild>
-              <Link to="/account">
+              <a
+                href="https://shopify.com/67414655227/account"
+                aria-label="Customer Account"
+              >
                 <User className="h-5 w-5" />
-              </Link>
+              </a>
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="relative"
               onClick={openCart}
               aria-label={`Open cart with ${itemCount} items`}
             >
               <ShoppingCart className="h-5 w-5" />
-              <span 
+              <span
                 className={cn(
                   "absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-bold flex items-center justify-center text-primary-foreground transition-transform",
                   itemCount > 0 ? "scale-100" : "scale-0"
