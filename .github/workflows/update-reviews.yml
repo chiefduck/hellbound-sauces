@@ -22,16 +22,31 @@ jobs:
 
       - name: Fetch Judge.me Reviews
         env:
-          JUDGEME_PUBLIC_TOKEN: ${{ secrets.VITE_JUDGEME_PUBLIC_TOKEN }}
+          JUDGEME_PRIVATE_TOKEN: ${{ secrets.JUDGEME_PRIVATE_TOKEN }}
           JUDGEME_SHOP_DOMAIN: ${{ secrets.VITE_JUDGEME_SHOP_DOMAIN }}
         run: |
           echo "Fetching Judge.me reviews..."
 
-          # Fetch reviews from Judge.me API
-          curl -f "https://judge.me/api/v1/reviews?shop_domain=${JUDGEME_SHOP_DOMAIN}&api_token=${JUDGEME_PUBLIC_TOKEN}&published=true&per_page=50" \
-            -o src/data/judgeme-reviews-raw.json
+          # Verify secrets are available
+          if [ -z "$JUDGEME_PRIVATE_TOKEN" ] || [ -z "$JUDGEME_SHOP_DOMAIN" ]; then
+            echo "Error: Required secrets are not set"
+            echo "Please add JUDGEME_PRIVATE_TOKEN and VITE_JUDGEME_SHOP_DOMAIN to repository secrets"
+            exit 1
+          fi
 
-          echo "Reviews fetched successfully"
+          echo "Shop domain: $JUDGEME_SHOP_DOMAIN"
+
+          # Fetch reviews from Judge.me API using private token
+          HTTP_CODE=$(curl -w "%{http_code}" -o src/data/judgeme-reviews-raw.json \
+            "https://judge.me/api/v1/reviews?shop_domain=${JUDGEME_SHOP_DOMAIN}&api_token=${JUDGEME_PRIVATE_TOKEN}&published=true&per_page=50")
+
+          if [ "$HTTP_CODE" -ne 200 ]; then
+            echo "Error: Judge.me API returned HTTP $HTTP_CODE"
+            cat src/data/judgeme-reviews-raw.json
+            exit 1
+          fi
+
+          echo "Reviews fetched successfully (HTTP $HTTP_CODE)"
 
       - name: Transform reviews to app format
         run: |
