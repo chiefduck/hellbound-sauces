@@ -14,7 +14,7 @@ const footerLinks = {
     { name: 'All Products', href: '/collections/all' },
     { name: 'Hot Sauces', href: '/collections/hot-sauces' },
     { name: 'BBQ Rubs', href: '/collections/bbq-rubs' },
-    { name: 'Bundles', href: '/collections/bundles' },
+    // { name: 'Bundles', href: '/collections/bundles' }, // Hidden for now - may use in future
   ],
   company: [
     { name: 'About Us', href: '/about' },
