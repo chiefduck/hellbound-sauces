@@ -1,5 +1,5 @@
 # Hellbound Hot Sauce - robots.txt
-# https://hellboundhotsauce.com
+# https://hellboundsauces.com
 
 # Allow all crawlers
 User-agent: *
@@ -54,7 +54,7 @@ User-agent: DuckDuckBot
 Allow: /
 
 # Sitemap location
-Sitemap: https://hellboundhotsauce.com/sitemap.xml
+Sitemap: https://hellboundsauces.com/sitemap.xml
 
 # Host
-Host: https://hellboundhotsauce.com
+Host: https://hellboundsauces.com

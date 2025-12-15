@@ -8,10 +8,10 @@ export function ProductSchema({ product }: ProductSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "@id": `https://hellboundhotsauce.com/products/${product.handle}#product`,
+    "@id": `https://hellboundsauces.com/products/${product.handle}#product`,
     "name": product.title,
     "description": product.longDescription || product.description,
-    "image": product.images?.[0] || "https://hellboundhotsauce.com/placeholder.svg",
+    "image": product.images?.[0] || "https://hellboundsauces.com/placeholder.svg",
     "sku": product.id,
     "mpn": `HB-${product.id}`,
     "brand": {
@@ -21,7 +21,7 @@ export function ProductSchema({ product }: ProductSchemaProps) {
     "category": product.category === 'hot-sauce' ? 'Hot Sauce' : product.category === 'rub' ? 'BBQ Rub' : 'Bundle',
     "offers": {
       "@type": "Offer",
-      "url": `https://hellboundhotsauce.com/products/${product.handle}`,
+      "url": `https://hellboundsauces.com/products/${product.handle}`,
       "priceCurrency": "USD",
       "price": product.price.toFixed(2),
       "priceValidUntil": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],

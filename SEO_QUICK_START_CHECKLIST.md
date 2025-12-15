@@ -7,13 +7,13 @@
 
 1. Go to: https://search.google.com/search-console
 2. Click "Start Now"
-3. Add property: `hellboundhotsauce.com`
+3. Add property: `hellboundsauces.com`
 4. Verify ownership:
    - **Option A (Recommended):** Domain verification via DNS
    - **Option B:** HTML file upload to your site
 5. Once verified, submit sitemap:
    - Click "Sitemaps" in left menu
-   - Enter: `https://hellboundhotsauce.com/sitemap.xml`
+   - Enter: `https://hellboundsauces.com/sitemap.xml`
    - Click "Submit"
 
 **Why:** Google needs to know your site exists and where to find your pages.
@@ -31,7 +31,7 @@
    - Category: **Food Products** or **Food Manufacturer**
    - Address: **6883 Oak Way, Arvada, CO 80004**
    - Phone: Your business phone
-   - Website: **https://hellboundhotsauce.com**
+   - Website: **https://hellboundsauces.com**
 5. Verify your business (postcard or phone)
 6. Complete profile:
    - Add logo
@@ -78,9 +78,9 @@ git push
 
 1. Go to: https://www.bing.com/webmasters
 2. Sign in with Microsoft account
-3. Add site: `https://hellboundhotsauce.com`
+3. Add site: `https://hellboundsauces.com`
 4. Verify ownership
-5. Submit sitemap: `https://hellboundhotsauce.com/sitemap.xml`
+5. Submit sitemap: `https://hellboundsauces.com/sitemap.xml`
 
 **Why:** Bing powers ~30% of desktop searches (including Yahoo, DuckDuckGo).
 
@@ -93,34 +93,34 @@ Run these tests:
 
 **A. Rich Results Test**
 1. Go to: https://search.google.com/test/rich-results
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Expected: ✅ Multiple schemas detected (Organization, LocalBusiness, etc.)
 
 **B. Mobile-Friendly Test**
 1. Go to: https://search.google.com/test/mobile-friendly
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Expected: ✅ Page is mobile-friendly
 
 **C. PageSpeed Insights**
 1. Go to: https://pagespeed.web.dev
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Check mobile and desktop scores
 4. Note any Core Web Vitals issues
 
 **D. Schema Validator**
 1. Go to: https://validator.schema.org
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Expected: ✅ 9 valid schemas with no errors
 
 **E. Facebook Sharing**
 1. Go to: https://developers.facebook.com/tools/debug/
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Click "Debug"
 4. Expected: ✅ Logo shows, title and description appear
 
 **F. Twitter Card**
 1. Go to: https://cards-dev.twitter.com/validator
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Expected: ✅ Large image card with logo
 
 ---
@@ -234,15 +234,15 @@ For each product/blog image:
 ### Immediate Actions (5 minutes each)
 
 1. **Verify Sitemap Exists**
-   - After building, check: `https://hellboundhotsauce.com/sitemap.xml`
+   - After building, check: `https://hellboundsauces.com/sitemap.xml`
    - Should load an XML file with all your pages
 
 2. **Verify Robots.txt**
-   - Check: `https://hellboundhotsauce.com/robots.txt`
+   - Check: `https://hellboundsauces.com/robots.txt`
    - Should show crawler directives
 
 3. **Test Logo Loading**
-   - Check: `https://hellboundhotsauce.com/logo.png`
+   - Check: `https://hellboundsauces.com/logo.png`
    - Should display your logo (512×512)
 
 4. **Social Share Test**
@@ -296,7 +296,7 @@ Scott Walker
 Founder, HellBound Sauces
 Artisan Hot Sauces & BBQ Rubs
 
-🌶️ Shop: https://hellboundhotsauce.com
+🌶️ Shop: https://hellboundsauces.com
 📧 Email: scott@hellboundsauces.com
 📍 Based in Arvada, Colorado
 ⭐ 5.0 Rating | Bold Flavors, Perfect Balance

@@ -4,7 +4,7 @@
 import { products } from '../src/data/products';
 import { blogPosts } from '../src/data/blog';
 
-const SITE_URL = 'https://hellboundhotsauce.com';
+const SITE_URL = 'https://hellboundsauces.com';
 
 interface SitemapEntry {
   loc: string;

@@ -9,10 +9,10 @@ export function CollectionSchema({ collection, products }: CollectionSchemaProps
   const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "@id": `https://hellboundhotsauce.com/collections/${collection.handle}#collection`,
+    "@id": `https://hellboundsauces.com/collections/${collection.handle}#collection`,
     "name": collection.title,
     "description": collection.description,
-    "url": `https://hellboundhotsauce.com/collections/${collection.handle}`,
+    "url": `https://hellboundsauces.com/collections/${collection.handle}`,
     "mainEntity": {
       "@type": "ItemList",
       "name": collection.title,
@@ -23,7 +23,7 @@ export function CollectionSchema({ collection, products }: CollectionSchemaProps
         "position": index + 1,
         "item": {
           "@type": "Product",
-          "@id": `https://hellboundhotsauce.com/products/${product.handle}`,
+          "@id": `https://hellboundsauces.com/products/${product.handle}`,
           "name": product.title,
           "description": product.description,
           "image": product.images?.[0],
@@ -38,7 +38,7 @@ export function CollectionSchema({ collection, products }: CollectionSchemaProps
     },
     "publisher": {
       "@type": "Organization",
-      "@id": "https://hellboundhotsauce.com/#organization"
+      "@id": "https://hellboundsauces.com/#organization"
     }
   };
 

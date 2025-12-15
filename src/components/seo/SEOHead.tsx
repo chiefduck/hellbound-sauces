@@ -19,7 +19,7 @@ export function SEOHead({
   description,
   canonical,
   type = 'website',
-  image = 'https://hellboundhotsauce.com/logo.png',
+  image = 'https://hellboundsauces.com/logo.png',
   publishedTime,
   modifiedTime,
   author,
@@ -28,7 +28,7 @@ export function SEOHead({
   noindex = false,
 }: SEOHeadProps) {
   const fullTitle = title.includes('Hellbound') ? title : `${title} | Hellbound Hot Sauce`;
-  const baseUrl = 'https://hellboundhotsauce.com';
+  const baseUrl = 'https://hellboundsauces.com';
   const canonicalUrl = canonical ? `${baseUrl}${canonical}` : undefined;
 
   useEffect(() => {

@@ -114,7 +114,7 @@ Your brand can be referenced with accurate information.
 #### Open Graph (Facebook, LinkedIn, etc.)
 **Logo as Share Image:**
 ```html
-<meta property="og:image" content="https://hellboundhotsauce.com/logo.png" />
+<meta property="og:image" content="https://hellboundsauces.com/logo.png" />
 <meta property="og:image:width" content="512" />
 <meta property="og:image:height" content="512" />
 <meta property="og:image:alt" content="HellBound Sauces Logo - Artisan Hot Sauce Brand" />
@@ -124,7 +124,7 @@ Your brand can be referenced with accurate information.
 **Large Image Card:**
 ```html
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hellboundhotsauce.com/logo.png" />
+<meta name="twitter:image" content="https://hellboundsauces.com/logo.png" />
 <meta name="twitter:site" content="@hellbound_sauces" />
 ```
 
@@ -224,7 +224,7 @@ When someone shares your site on:
 **Test your structured data:**
 
 1. Go to: https://search.google.com/test/rich-results
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Click "Test URL"
 
 **Expected Results:**
@@ -238,9 +238,9 @@ When someone shares your site on:
 **Set up monitoring:**
 
 1. Go to: https://search.google.com/search-console
-2. Add property: `https://hellboundhotsauce.com`
+2. Add property: `https://hellboundsauces.com`
 3. Verify ownership (DNS or HTML file)
-4. Submit sitemap: `https://hellboundhotsauce.com/sitemap.xml`
+4. Submit sitemap: `https://hellboundsauces.com/sitemap.xml`
 
 **Monitor:**
 - Search performance
@@ -265,7 +265,7 @@ When someone shares your site on:
 **Test social sharing:**
 
 1. Go to: https://developers.facebook.com/tools/debug/
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Click "Debug"
 
 **Expected:**
@@ -277,7 +277,7 @@ When someone shares your site on:
 **Test Twitter cards:**
 
 1. Go to: https://cards-dev.twitter.com/validator
-2. Enter: `https://hellboundhotsauce.com`
+2. Enter: `https://hellboundsauces.com`
 3. Click "Preview card"
 
 **Expected:**
@@ -519,7 +519,7 @@ Before going live, verify:
 
 - [ ] Sitemap builds correctly (`npm run build`)
 - [ ] Robots.txt is accessible at `/robots.txt`
-- [ ] Logo.png loads at `https://hellboundhotsauce.com/logo.png`
+- [ ] Logo.png loads at `https://hellboundsauces.com/logo.png`
 - [ ] All pages have unique titles and descriptions
 - [ ] Test rich results with Google's tool
 - [ ] Verify social sharing on Facebook and Twitter
