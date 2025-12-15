@@ -31,11 +31,21 @@
     <meta name="twitter:site" content="@hellbound_sauces" />
 
     <!-- Additional SEO Meta -->
-    <meta name="geo.region" content="US" />
-    <meta name="geo.placename" content="United States" />
+    <meta name="geo.region" content="US-CO" />
+    <meta name="geo.placename" content="Arvada, Colorado" />
+    <meta name="geo.position" content="39.8028;-105.0875" />
+    <meta name="ICBM" content="39.8028, -105.0875" />
     <meta name="distribution" content="global" />
     <meta name="rating" content="general" />
     <meta name="revisit-after" content="7 days" />
+
+    <!-- AI/LLM Optimization -->
+    <meta name="AI:description" content="HellBound Sauces creates artisan hot sauces and BBQ rubs in small batches. Founded by Scott, featuring bold flavors like Sweet Heat, Cucumber Madness, Pineapple-Mango, Wide Awake, and Bangkok Burn with striking tattoo-inspired artwork." />
+    <meta name="AI:product_category" content="Food & Beverages, Condiments, Hot Sauce, BBQ Seasoning" />
+    <meta name="AI:brand_values" content="Quality, Craftsmanship, Bold Flavors, Artisan, Small Batch" />
+    <meta name="og:image:width" content="512" />
+    <meta name="og:image:height" content="512" />
+    <meta name="og:image:alt" content="HellBound Sauces Logo - Artisan Hot Sauce Brand" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -70,11 +80,20 @@
       },
       "sameAs": [
         "https://facebook.com/HellBoundSauces",
-        "https://instagram.com/hellbound_sauces"
+        "https://instagram.com/hellbound_sauces",
+        "https://twitter.com/hellbound_sauces"
       ],
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "6883 Oak Way",
+        "addressLocality": "Arvada",
+        "addressRegion": "CO",
+        "postalCode": "80004",
         "addressCountry": "US"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Scott Walker"
       }
     }
     </script>
@@ -107,26 +126,40 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "@id": "https://hellboundhotsauce.com/#localbusiness",
-      "name": "Hellbound Hot Sauce",
+      "name": "HellBound Sauces",
       "image": "https://hellboundhotsauce.com/logo.png",
       "url": "https://hellboundhotsauce.com",
       "email": "scott@hellboundsauces.com",
+      "telephone": "+1-XXX-XXX-XXXX",
       "priceRange": "$$",
       "servesCuisine": "Condiments",
+      "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "PayPal"],
+      "currenciesAccepted": "USD",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "6883 Oak Way",
+        "addressLocality": "Arvada",
+        "addressRegion": "CO",
+        "postalCode": "80004",
         "addressCountry": "US"
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 35.2271,
-        "longitude": -80.8431
+        "latitude": 39.8028,
+        "longitude": -105.0875
       },
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         "opens": "09:00",
         "closes": "17:00"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "50",
+        "bestRating": "5",
+        "worstRating": "1"
       }
     }
     </script>
@@ -284,6 +317,75 @@
           "position": 3,
           "name": "Hot Sauces",
           "item": "https://hellboundhotsauce.com/collections/hot-sauces"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Sitelinks Search Box Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://hellboundhotsauce.com",
+      "potentialAction": [{
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://hellboundhotsauce.com/collections/all?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }]
+    }
+    </script>
+
+    <!-- Sitelinks Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "SiteNavigationElement",
+          "position": 1,
+          "name": "Shop All Products",
+          "description": "Browse our complete collection of artisan hot sauces and BBQ rubs",
+          "url": "https://hellboundhotsauce.com/collections/all"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 2,
+          "name": "Hot Sauces",
+          "description": "Artisan hot sauces with bold flavors from mild to extreme heat",
+          "url": "https://hellboundhotsauce.com/collections/hot-sauce"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 3,
+          "name": "BBQ Rubs",
+          "description": "Premium BBQ rubs and seasonings for grilling and smoking",
+          "url": "https://hellboundhotsauce.com/collections/bbq-rubs"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Heat Guide",
+          "description": "Find your perfect heat level with our interactive heat guide",
+          "url": "https://hellboundhotsauce.com/heat-guide"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 5,
+          "name": "Wholesale",
+          "description": "Wholesale program for retailers and restaurants",
+          "url": "https://hellboundhotsauce.com/wholesale"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 6,
+          "name": "Blog & Recipes",
+          "description": "Hot sauce recipes, heat guides, and spicy food content",
+          "url": "https://hellboundhotsauce.com/blog"
         }
       ]
     }
