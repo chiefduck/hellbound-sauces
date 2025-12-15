@@ -6,15 +6,18 @@
  * Writes to src/data/judgeme-reviews.json
  */
 
-const fs = require('fs');
-const path = require('path');
+import { readFileSync, writeFileSync, unlinkSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const RAW_FILE = path.join(__dirname, '..', 'src', 'data', 'judgeme-reviews-raw.json');
-const OUTPUT_FILE = path.join(__dirname, '..', 'src', 'data', 'judgeme-reviews.json');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const RAW_FILE = join(__dirname, '..', 'src', 'data', 'judgeme-reviews-raw.json');
+const OUTPUT_FILE = join(__dirname, '..', 'src', 'data', 'judgeme-reviews.json');
 
 try {
   console.log('Reading raw reviews from Judge.me API...');
-  const rawData = JSON.parse(fs.readFileSync(RAW_FILE, 'utf8'));
+  const rawData = JSON.parse(readFileSync(RAW_FILE, 'utf8'));
 
   if (!rawData.reviews || rawData.reviews.length === 0) {
     console.warn('No reviews found in API response');
@@ -44,11 +47,11 @@ try {
   };
 
   // Write transformed reviews
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2));
+  writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2));
   console.log(`✅ Successfully transformed ${reviews.length} reviews to ${OUTPUT_FILE}`);
 
   // Clean up raw file
-  fs.unlinkSync(RAW_FILE);
+  unlinkSync(RAW_FILE);
   console.log('Cleaned up raw API response file');
 
 } catch (error) {
