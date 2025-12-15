@@ -90,16 +90,12 @@ export function useShopifyCollection(handle: string) {
 
       try {
         setLoading(true);
-        console.log('Fetching collection with handle:', handle);
         const response = await getCollectionByHandle(handle);
-        console.log('Collection response:', response);
 
         if (response.data?.collection) {
           const transformed = transformShopifyCollection(response.data.collection);
-          console.log('Transformed collection:', transformed);
           setCollection(transformed);
         } else {
-          console.log('No collection found for handle:', handle);
           setCollection(null);
         }
         setError(null);

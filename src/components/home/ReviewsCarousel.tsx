@@ -1,9 +1,54 @@
 import { Star, Quote } from 'lucide-react';
 import { getFeaturedReviews } from '@/data/reviews';
 import { getProductById } from '@/data/products';
+import judgemeReviews from '@/data/judgeme-reviews.json';
+
+/**
+ * Get a consistent seed based on current day
+ * This ensures the same reviews show all day, but change daily
+ */
+function getDailySeed(): number {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const day = today.getDate();
+  return year * 10000 + month * 100 + day;
+}
+
+/**
+ * Shuffle array using a seeded random number generator
+ * This ensures consistent results for the same seed (same day)
+ */
+function shuffleWithSeed<T>(array: T[], seed: number): T[] {
+  const shuffled = [...array];
+  let currentSeed = seed;
+
+  // Simple seeded random number generator
+  const seededRandom = () => {
+    currentSeed = (currentSeed * 9301 + 49297) % 233280;
+    return currentSeed / 233280;
+  };
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(seededRandom() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
 
 export function ReviewsCarousel() {
-  const reviews = getFeaturedReviews();
+  // Use cached Judge.me reviews if available, otherwise fall back to static reviews
+  const hasJudgemeReviews = judgemeReviews.reviews && judgemeReviews.reviews.length > 0;
+  const reviewSource = hasJudgemeReviews ? judgemeReviews.reviews : getFeaturedReviews();
+
+  // Use daily rotation to show different reviews each day
+  const dailySeed = getDailySeed();
+  const shuffled = shuffleWithSeed(reviewSource, dailySeed);
+  const visibleReviews = shuffled.slice(0, 6);
+
+  // Note: Reviews are automatically updated monthly via GitHub Actions
+  // See .github/workflows/update-reviews.yml for the automation
 
   return (
     <section className="py-20 lg:py-28">
@@ -14,9 +59,9 @@ export function ReviewsCarousel() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {reviews.map((review, index) => {
+          {visibleReviews.map((review, index) => {
             const product = getProductById(review.productId);
-            
+
             return (
               <div
                 key={review.id}
@@ -24,7 +69,7 @@ export function ReviewsCarousel() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                
+
                 {/* Stars */}
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (

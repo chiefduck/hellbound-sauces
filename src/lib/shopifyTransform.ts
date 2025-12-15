@@ -86,23 +86,16 @@ export function transformShopifyProduct(shopifyProduct: any): Product & { shopif
  * Transform Shopify collection data
  */
 export function transformShopifyCollection(shopifyCollection: any) {
-  console.log('Transforming collection:', shopifyCollection.handle);
-  console.log('Raw products in collection:', shopifyCollection.products);
-
   const products = shopifyCollection.products?.edges?.map((edge: any) =>
     transformShopifyProduct(edge.node)
   ) || [];
-
-  console.log('Transformed products count:', products.length);
 
   // Format collection description same as product descriptions
   let formattedDescription = '';
   if (shopifyCollection.descriptionHtml) {
     formattedDescription = formatShopifyHtml(shopifyCollection.descriptionHtml);
-    console.log('Collection description (from HTML):', formattedDescription);
   } else if (shopifyCollection.description) {
     formattedDescription = shopifyCollection.description;
-    console.log('Collection description (plain text):', formattedDescription);
   }
 
   return {

@@ -1,0 +1,57 @@
+name: Update Judge.me Reviews
+
+on:
+  schedule:
+    # Run at midnight on the 1st of each month
+    - cron: '0 0 1 * *'
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  update-reviews:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch Judge.me Reviews
+        env:
+          JUDGEME_PUBLIC_TOKEN: ${{ secrets.VITE_JUDGEME_PUBLIC_TOKEN }}
+          JUDGEME_SHOP_DOMAIN: ${{ secrets.VITE_JUDGEME_SHOP_DOMAIN }}
+        run: |
+          echo "Fetching Judge.me reviews..."
+
+          # Fetch reviews from Judge.me API
+          curl -f "https://judge.me/api/v1/reviews?shop_domain=${JUDGEME_SHOP_DOMAIN}&api_token=${JUDGEME_PUBLIC_TOKEN}&published=true&per_page=50" \
+            -o src/data/judgeme-reviews-raw.json
+
+          echo "Reviews fetched successfully"
+
+      - name: Transform reviews to app format
+        run: |
+          echo "Transforming reviews..."
+          node scripts/transform-reviews.js
+          echo "Reviews transformed successfully"
+
+      - name: Commit updated reviews
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Add the transformed reviews file
+          git add src/data/judgeme-reviews.json
+
+          # Commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to reviews"
+          else
+            git commit -m "chore: update Judge.me reviews [skip ci]"
+            git push
+            echo "Reviews updated and pushed to repository"
+          fi
