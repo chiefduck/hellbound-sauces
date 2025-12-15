@@ -213,11 +213,12 @@ export function Footer({ showNewsletter = true }: FooterProps) {
             <p className="text-muted-foreground text-sm">
               © {new Date().getFullYear()} Hellbound Hot Sauce. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
-              <img src="/placeholder.svg" alt="Visa" className="h-6 opacity-50" />
-              <img src="/placeholder.svg" alt="Mastercard" className="h-6 opacity-50" />
-              <img src="/placeholder.svg" alt="PayPal" className="h-6 opacity-50" />
-              <img src="/placeholder.svg" alt="Apple Pay" className="h-6 opacity-50" />
+            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+              <span className="px-2 py-1 border border-border rounded bg-card font-medium">VISA</span>
+              <span className="px-2 py-1 border border-border rounded bg-card font-medium">MASTERCARD</span>
+              <span className="px-2 py-1 border border-border rounded bg-card font-medium">AMEX</span>
+              <span className="px-2 py-1 border border-border rounded bg-card font-medium">DISCOVER</span>
+              <span className="px-2 py-1 border border-border rounded bg-card font-medium">PAYPAL</span>
             </div>
           </div>
         </div>
