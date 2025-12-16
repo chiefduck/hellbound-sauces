@@ -18,6 +18,7 @@ export interface Product {
   variants?: { id: string; title: string; price: number }[];
   reviews?: { rating: number; count: number };
   shopifyVariantId?: string; // Shopify variant ID for checkout
+  tags?: string[]; // Shopify product tags for filtering
 }
 
 export interface Collection {
@@ -237,7 +238,7 @@ export const products: Product[] = [
     handle: 'bbq-masters-collection',
     title: 'BBQ Masters Collection',
     description: 'All three premium BBQ rubs: Beekeepers Blend, Aztec Gold, and Wildwood Maple.',
-    longDescription: 'Everything you need for award-winning BBQ. Get all three of our premium rubs and save. Perfect for the serious pitmaster.',
+    longDescription: 'Everything you need for exceptional BBQ. Get all three of our premium rubs and save. Perfect for the serious pitmaster.',
     price: 40.00,
     compareAtPrice: 45.00,
     images: ['/placeholder.svg'],

@@ -147,7 +147,7 @@ export default function ElmoBoydPage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" className="bg-gradient-fire">
-                <Link to="/collections/hot-sauce">
+                <Link to="/collections/hot-sauce?series=series-2">
                   Shop Series 2
                 </Link>
               </Button>

@@ -58,7 +58,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-6 justify-center lg:justify-start mt-12 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Award className="h-5 w-5 text-gold" />
-                <span className="text-sm">Award Winning</span>
+                <span className="text-sm">Premium Quality</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Leaf className="h-5 w-5 text-green-500" />

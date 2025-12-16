@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { useShopifyCollection, useShopifyProducts } from '@/hooks/useShopifyProducts';
@@ -51,14 +51,24 @@ function suggestAlternativeHandles(handle: string): string[] {
 
 export default function CollectionPage() {
   const { handle } = useParams<{ handle: string }>();
+  const [searchParams] = useSearchParams();
   const { collection, loading, error } = useShopifyCollection(handle || '');
   const { products: allProducts, loading: loadingAllProducts } = useShopifyProducts();
 
   // Filter states
-  const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'name'>('featured');
+  const [sortBy, setSortBy] = useState<'all' | 'featured' | 'price-asc' | 'price-desc' | 'name'>('all');
   const [filterCategory, setFilterCategory] = useState<'all' | 'hot-sauce' | 'rub' | 'bundle' | 'merch'>('all');
   const [filterHeatLevel, setFilterHeatLevel] = useState<'all' | 1 | 2 | 3 | 4 | 5>('all');
+  const [filterSeries, setFilterSeries] = useState<'all' | 'series-1' | 'series-2' | 'series-3'>('all');
   const [showFilters, setShowFilters] = useState(false);
+
+  // Initialize series filter from URL query parameter
+  useEffect(() => {
+    const seriesParam = searchParams.get('series');
+    if (seriesParam === 'series-1' || seriesParam === 'series-2' || seriesParam === 'series-3') {
+      setFilterSeries(seriesParam);
+    }
+  }, [searchParams]);
 
   // Handle "all" collection - show all products
   const isAllCollection = handle === 'all';
@@ -77,9 +87,24 @@ export default function CollectionPage() {
       products = products.filter(p => p.heatLevel && p.heatLevel === filterHeatLevel);
     }
 
+    // Apply series filter (filter by Shopify tags)
+    if (filterSeries !== 'all') {
+      products = products.filter(p => {
+        // Debug: log tags for first product
+        if (products.indexOf(p) === 0) {
+          console.log('Product tags:', p.tags, 'Looking for:', filterSeries);
+        }
+        // Check if tags array includes the series tag (case-insensitive)
+        return p.tags?.some(tag => tag.toLowerCase() === filterSeries.toLowerCase());
+      });
+    }
+
     // Apply sorting
     const sorted = [...products];
     switch (sortBy) {
+      case 'all':
+        // No sorting, keep original order
+        break;
       case 'price-asc':
         sorted.sort((a, b) => a.price - b.price);
         break;
@@ -90,16 +115,16 @@ export default function CollectionPage() {
         sorted.sort((a, b) => a.title.localeCompare(b.title));
         break;
       case 'featured':
-      default:
         sorted.sort((a, b) => {
           if (a.featured && !b.featured) return -1;
           if (!a.featured && b.featured) return 1;
           return 0;
         });
+        break;
     }
 
     return sorted;
-  }, [isAllCollection, allProducts, collection, filterCategory, filterHeatLevel, sortBy]);
+  }, [isAllCollection, allProducts, collection, filterCategory, filterHeatLevel, filterSeries, sortBy]);
 
   if (loading || (isAllCollection && loadingAllProducts)) {
     return (
@@ -185,6 +210,7 @@ export default function CollectionPage() {
                   onChange={(e) => setSortBy(e.target.value as any)}
                   className="px-4 py-2 rounded-lg bg-card border border-border text-sm font-heading uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-primary"
                 >
+                  <option value="all">All Products</option>
                   <option value="featured">Featured</option>
                   <option value="price-asc">Price: Low to High</option>
                   <option value="price-desc">Price: High to Low</option>
@@ -216,6 +242,18 @@ export default function CollectionPage() {
                   <option value="3">🌶️🌶️🌶️ Hot</option>
                   <option value="4">🌶️🌶️🌶️🌶️ Very Hot</option>
                   <option value="5">🌶️🌶️🌶️🌶️🌶️ Extreme</option>
+                </select>
+
+                {/* Series Filter */}
+                <select
+                  value={filterSeries}
+                  onChange={(e) => setFilterSeries(e.target.value as any)}
+                  className="px-4 py-2 rounded-lg bg-card border border-border text-sm font-heading uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="all">All Series</option>
+                  <option value="series-1">Series 1</option>
+                  <option value="series-2">Series 2</option>
+                  <option value="series-3">Series 3</option>
                 </select>
               </div>
             </div>
@@ -321,6 +359,7 @@ export default function CollectionPage() {
                 onChange={(e) => setSortBy(e.target.value as any)}
                 className="px-4 py-2 rounded-lg bg-card border border-border text-sm font-heading uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-primary"
               >
+                <option value="all">All Products</option>
                 <option value="featured">Featured</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
@@ -340,6 +379,18 @@ export default function CollectionPage() {
                 <option value="3">🌶️🌶️🌶️ Hot</option>
                 <option value="4">🌶️🌶️🌶️🌶️ Very Hot</option>
                 <option value="5">🌶️🌶️🌶️🌶️🌶️ Extreme</option>
+              </select>
+
+              {/* Series Filter */}
+              <select
+                value={filterSeries}
+                onChange={(e) => setFilterSeries(e.target.value as any)}
+                className="px-4 py-2 rounded-lg bg-card border border-border text-sm font-heading uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="all">All Series</option>
+                <option value="series-1">Series 1</option>
+                <option value="series-2">Series 2</option>
+                <option value="series-3">Series 3</option>
               </select>
             </div>
           </div>

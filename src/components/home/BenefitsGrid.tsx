@@ -18,8 +18,8 @@ const benefits = [
   },
   {
     icon: Award,
-    title: 'Award Winning',
-    description: 'Recognized at major hot sauce competitions worldwide.',
+    title: 'Premium Quality',
+    description: 'Exceptional flavor profiles that complement food perfectly.',
   },
   {
     icon: Heart,

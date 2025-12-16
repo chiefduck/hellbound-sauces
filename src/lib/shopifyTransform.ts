@@ -74,6 +74,7 @@ export function transformShopifyProduct(shopifyProduct: any): Product & { shopif
     bestSeller: shopifyProduct.tags?.includes('best-seller'),
     new: shopifyProduct.tags?.includes('new'),
     shopifyVariantId: firstVariant?.id,
+    tags: shopifyProduct.tags || [],
     variants: shopifyProduct.variants?.edges?.map((edge: any) => ({
       id: edge.node.id,
       title: edge.node.title,

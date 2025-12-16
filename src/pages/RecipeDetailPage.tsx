@@ -4,6 +4,28 @@ import { SEOHead } from '@/components/seo';
 import { getRecipeById } from '@/data/recipes';
 import { Clock, Users, ChefHat, ArrowLeft, Flame } from 'lucide-react';
 
+// Map recipe product names to product handles (actual Shopify handles)
+const PRODUCT_HANDLE_MAP: Record<string, string> = {
+  // Hot Sauces
+  'Sweet Heat': 'sweet-heat-hot-sauce',
+  'Cucumber Madness': 'series-1-cucumber-madness',
+  'Pineapple-Mango Hot Sauce': 'pineapple-mango-hot-sauce',
+  'Wide Awake Hot Sauce': 'wide-awake',
+  'Leprechaun Lava Hot Sauce': 'leprechaun-lava',
+  'Garlic Reaper': 'garlic-reaper',
+  'Sapphire Dragon Hot Sauce': 'series-3-sapphire-dragon',
+  'Blazin Bee Mustard': 'series-3-blazin-bee-mustard',
+  'Bangkok Burn': 'series-3-bangkok-burn',
+  // BBQ Rubs (need to confirm these handles)
+  "Beekeeper's Blend": 'beekeepers-blend',
+  'Aztec Gold Rub': 'aztec-gold',
+  'Wildwood Maple Rub': 'wildwood-maple',
+};
+
+const getProductHandle = (productName: string): string | null => {
+  return PRODUCT_HANDLE_MAP[productName] || null;
+};
+
 export default function RecipeDetailPage() {
   const { id } = useParams<{ id: string }>();
   const recipe = id ? getRecipeById(id) : undefined;
@@ -83,17 +105,26 @@ export default function RecipeDetailPage() {
               </div>
 
               {/* Hellbound Product */}
-              {recipe.hellboundProduct && (
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Flame className="h-5 w-5 text-primary" />
-                    <p className="font-heading uppercase tracking-wide text-sm">
-                      Featured Product
-                    </p>
+              {recipe.hellboundProduct && (() => {
+                const productHandle = getProductHandle(recipe.hellboundProduct);
+                const content = (
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6 transition-colors hover:bg-primary/10">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Flame className="h-5 w-5 text-primary" />
+                      <p className="font-heading uppercase tracking-wide text-sm">
+                        Featured Product
+                      </p>
+                    </div>
+                    <p className="text-lg font-medium">{recipe.hellboundProduct}</p>
                   </div>
-                  <p className="text-lg font-medium">{recipe.hellboundProduct}</p>
-                </div>
-              )}
+                );
+
+                return productHandle ? (
+                  <Link to={`/products/${productHandle}`}>
+                    {content}
+                  </Link>
+                ) : content;
+              })()}
             </div>
           </div>
         </div>
