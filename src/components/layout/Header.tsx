@@ -25,6 +25,7 @@ const navigation = [
     href: '/about',
     submenu: [
       { name: 'Our Story', href: '/about' },
+      { name: 'Videos', href: '/videos' },
       { name: 'Blog', href: '/blog' },
     ]
   },

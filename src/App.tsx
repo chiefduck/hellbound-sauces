@@ -11,6 +11,7 @@ import CollectionPage from "./pages/CollectionPage";
 import ProductPage from "./pages/ProductPage";
 import AboutPage from "./pages/AboutPage";
 import ArtworkPage from "./pages/ArtworkPage";
+import VideosPage from "./pages/VideosPage";
 import RecipesPage from "./pages/RecipesPage";
 import RecipeDetailPage from "./pages/RecipeDetailPage";
 import HeatGuidePage from "./pages/HeatGuidePage";
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/products/:handle" element={<ProductPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/artwork" element={<ArtworkPage />} />
+            <Route path="/videos" element={<VideosPage />} />
             <Route path="/artists/aldo-gallegos" element={<AldoGallegosPage />} />
             <Route path="/artists/elmo-boyd" element={<ElmoBoydPage />} />
             <Route path="/artists/tony-ciavarro" element={<TonyCiavarroPage />} />
