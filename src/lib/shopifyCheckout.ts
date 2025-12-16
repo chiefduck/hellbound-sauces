@@ -87,30 +87,41 @@ export async function createCheckout(items: CartItem[]) {
   }
 
   const checkoutUrl = response.data.cartCreate.cart.checkoutUrl;
-  const shopifyDomain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
+  const checkoutDomain = 'checkout.hellboundsauces.com';
 
   console.log('=== CHECKOUT URL DEBUG ===');
   console.log('Raw checkout URL from Shopify:', checkoutUrl);
-  console.log('Shopify domain:', shopifyDomain);
+  console.log('Target checkout domain:', checkoutDomain);
   console.log('URL starts with /:', checkoutUrl.startsWith('/'));
-  console.log('URL includes hellboundsauces.com:', checkoutUrl.includes('hellboundsauces.com'));
+  console.log('URL includes checkout.hellboundsauces.com:', checkoutUrl.includes(checkoutDomain));
 
-  // Ensure we have a full URL pointing to Shopify domain
+  // Ensure we have a full URL pointing to checkout domain
   let fullCheckoutUrl = checkoutUrl;
 
   // Case 1: Relative URL (starts with /)
   if (checkoutUrl.startsWith('/')) {
-    fullCheckoutUrl = `https://${shopifyDomain}${checkoutUrl}`;
+    fullCheckoutUrl = `https://${checkoutDomain}${checkoutUrl}`;
     console.log('Converted relative URL to absolute:', fullCheckoutUrl);
   }
-  // Case 2: Full URL with custom domain (contains hellboundsauces.com)
-  else if (checkoutUrl.includes('hellboundsauces.com')) {
-    fullCheckoutUrl = checkoutUrl.replace('hellboundsauces.com', shopifyDomain);
-    console.log('Replaced custom domain with Shopify domain:', fullCheckoutUrl);
+  // Case 2: Already has checkout.hellboundsauces.com - use as is
+  else if (checkoutUrl.includes(checkoutDomain)) {
+    console.log('URL already uses checkout domain - no changes needed');
   }
-  // Case 3: Already a full Shopify URL
+  // Case 3: Has hellboundsauces.com but not checkout subdomain - add checkout subdomain
+  else if (checkoutUrl.includes('hellboundsauces.com')) {
+    fullCheckoutUrl = checkoutUrl.replace('hellboundsauces.com', checkoutDomain);
+    console.log('Updated to use checkout subdomain:', fullCheckoutUrl);
+  }
+  // Case 4: Has myshopify.com domain - replace with checkout domain
+  else if (checkoutUrl.includes('myshopify.com')) {
+    const urlParts = checkoutUrl.split('/');
+    const pathAfterDomain = '/' + urlParts.slice(3).join('/');
+    fullCheckoutUrl = `https://${checkoutDomain}${pathAfterDomain}`;
+    console.log('Replaced Shopify domain with checkout domain:', fullCheckoutUrl);
+  }
+  // Case 5: Unknown format
   else {
-    console.log('URL already appears to be a full Shopify URL');
+    console.log('URL in unexpected format, using as-is:', fullCheckoutUrl);
   }
 
   console.log('Final checkout URL:', fullCheckoutUrl);
@@ -134,19 +145,25 @@ export function redirectToCheckout(checkoutUrl: string) {
     throw new Error('Invalid checkout URL format');
   }
 
-  // Additional safety check: ensure URL uses Shopify domain, not custom domain
-  const shopifyDomain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
+  // Ensure URL uses checkout.hellboundsauces.com
+  const checkoutDomain = 'checkout.hellboundsauces.com';
   let finalCheckoutUrl = checkoutUrl;
 
-  if (checkoutUrl.includes('hellboundsauces.com')) {
-    finalCheckoutUrl = checkoutUrl.replace('hellboundsauces.com', shopifyDomain);
-    console.warn('WARNING: Checkout URL contained custom domain, replaced with Shopify domain');
-    console.log('Original:', checkoutUrl);
-    console.log('Corrected:', finalCheckoutUrl);
+  // If URL doesn't already use checkout.hellboundsauces.com, update it
+  if (!checkoutUrl.includes(checkoutDomain)) {
+    if (checkoutUrl.includes('hellboundsauces.com')) {
+      finalCheckoutUrl = checkoutUrl.replace(/([^.]+\.)?hellboundsauces\.com/, checkoutDomain);
+      console.log('Updated to checkout domain:', finalCheckoutUrl);
+    } else if (checkoutUrl.includes('myshopify.com')) {
+      const urlParts = checkoutUrl.split('/');
+      const pathAfterDomain = '/' + urlParts.slice(3).join('/');
+      finalCheckoutUrl = `https://${checkoutDomain}${pathAfterDomain}`;
+      console.log('Replaced myshopify.com with checkout domain:', finalCheckoutUrl);
+    }
   }
 
   console.log('Final redirect URL:', finalCheckoutUrl);
-  console.log('Shopify domain check:', finalCheckoutUrl.includes(shopifyDomain) ? 'PASS' : 'FAIL');
+  console.log('Checkout domain check:', finalCheckoutUrl.includes(checkoutDomain) ? 'PASS' : 'FAIL');
   console.log('Executing redirect via window.location.replace...');
   console.log('=== END REDIRECT DEBUG ===');
 
