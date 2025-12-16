@@ -176,14 +176,7 @@ export default function CollectionPage() {
 
         {/* Hero */}
         <section className="py-16 lg:py-24 relative overflow-hidden">
-          <div className="absolute inset-0">
-            <img
-              src={allCollection.image}
-              alt="All Products"
-              className="w-full h-full object-cover opacity-20"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background to-background" />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
           <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
             <div className="flex items-center justify-center gap-2 text-primary font-heading text-sm uppercase tracking-widest mb-4">
               <Flame className="h-4 w-4" />
@@ -325,14 +318,7 @@ export default function CollectionPage() {
       ]} />
       {/* Hero */}
       <section className="py-16 lg:py-24 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={collection.image}
-            alt={collection.title}
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background to-background" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
           <div className="flex items-center justify-center gap-2 text-primary font-heading text-sm uppercase tracking-widest mb-4">
             <Flame className="h-4 w-4" />
