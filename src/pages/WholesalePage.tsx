@@ -13,22 +13,36 @@ export default function WholesalePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Honeypot check - if filled, it's a bot
+    const formData = new FormData(e.currentTarget);
+    if (formData.get('website')) return;
+
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      type: 'wholesale',
-      name: formData.get('name'),
+    // Map to Agency Standard Schema
+    const payload = {
+      // Top Level: Standard Fields
+      full_name: formData.get('name'),
       email: formData.get('email'),
-      phone: formData.get('phone'),
-      message: formData.get('message'),
+      phone: String(formData.get('phone') || '').replace(/\D/g, ''), // Strip formatting
+      lead_source: 'Hellbound Sauces - Wholesale Form',
+      message_body: formData.get('message'),
+      website: formData.get('website'), // Honeypot field
+
+      // Metadata: The "Bucket" for everything else
+      metadata: {
+        inquiry_type: 'wholesale',
+        consent: true,
+        consentTimestamp: new Date().toISOString()
+      }
     };
 
     try {
-      const response = await fetch('/.netlify/functions/send-email', {
+      const response = await fetch(import.meta.env.VITE_N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error('Failed to send message');
@@ -131,6 +145,14 @@ export default function WholesalePage() {
               Connect with us to discover how our wholesale program can benefit your business and delight your customers.
             </p>
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot field - hidden from users */}
+              <input
+                type="text"
+                name="website"
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
               <div className="grid sm:grid-cols-2 gap-4">
                 <Input name="name" placeholder="Name *" required className="bg-secondary border-border" />
                 <Input name="email" type="email" placeholder="Email *" required className="bg-secondary border-border" />

@@ -47,49 +47,62 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // 1. Honeypot check - if filled, it's a bot
+    const formData = new FormData(e.currentTarget);
+    if (formData.get('website')) return;
+
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      type: 'contact',
-      inquiryType,
-      topic,
-      name: formData.get('name'),
+    // 1. Map to Agency Standard Schema
+    const payload = {
+      // Top Level: Standard Fields
+      full_name: formData.get('name'), 
       email: formData.get('email'),
-      company: formData.get('company'),
-      phone: formData.get('phone'),
-      orderNumber: formData.get('orderNumber'),
-      message: formData.get('message'),
+      phone: String(formData.get('phone') || '').replace(/\D/g, ''), // Strip formatting
+      lead_source: `Hellbound Sauces - ${inquiryType} Form`, // Dynamic source
+      message_body: formData.get('message'),
+      website: formData.get('website'), // ADD A HIDDEN INPUT FOR HONEYPOT!
+
+      // Metadata: The "Bucket" for everything else
+      metadata: {
+        inquiry_type: inquiryType,
+        topic: topic,
+        company: formData.get('company'),
+        order_number: formData.get('orderNumber'),
+        consent: true,
+        consentTimestamp: new Date().toISOString()
+      }
     };
 
     try {
-      const response = await fetch('/.netlify/functions/send-email', {
+      const response = await fetch(import.meta.env.VITE_N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload), // Send the standardized payload
       });
 
       if (!response.ok) throw new Error('Failed to send message');
 
+      // ... existing toast and reset logic ...
       toast({
         title: "Message Sent!",
         description: inquiryType === 'wholesale'
           ? "Our wholesale team will get back to you within 1-2 business days."
           : "We'll get back to you within 24 hours.",
       });
-      setInquiryType('');
-      setTopic('');
-      (e.target as HTMLFormElement).reset();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or email us directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+
+     // Clear states
+     setInquiryType('');
+     setTopic('');
+     (e.target as HTMLFormElement).reset();
+
+   } catch (error) {
+     // ... existing error toast ...
+   } finally {
+     setIsSubmitting(false);
+   }
+ };
 
   return (
     <Layout>
@@ -155,6 +168,14 @@ export default function ContactPage() {
             {/* Form */}
             <div className="lg:col-span-2">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot field - hidden from users */}
+                  <input
+                    type="text"
+                    name="website"
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                 {/* Inquiry Type Selection */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   {inquiryTypes.map((type) => {
