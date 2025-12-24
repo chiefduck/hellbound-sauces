@@ -3,6 +3,7 @@ import { SEOHead } from '@/components/seo';
 import { Layout } from '@/components/layout/Layout';
 import { Mail, Phone, MapPin, MessageSquare, Building } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { PhoneInput } from '@/components/ui/phone-input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -41,6 +42,7 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [inquiryType, setInquiryType] = useState<string>('');
   const [topic, setTopic] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const { toast } = useToast();
 
   const topics = inquiryType === 'wholesale' ? wholesaleTopics : consumerTopics;
@@ -55,21 +57,21 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     // 1. Map to Agency Standard Schema
-    const payload = {
-      // Top Level: Standard Fields
-      full_name: formData.get('name'), 
-      email: formData.get('email'),
-      phone: String(formData.get('phone') || '').replace(/\D/g, ''), // Strip formatting
-      lead_source: `Hellbound Sauces - ${inquiryType} Form`, // Dynamic source
-      message_body: formData.get('message'),
-      website: formData.get('website'), // ADD A HIDDEN INPUT FOR HONEYPOT!
+    const selectedTopicLabel = topics.find(t => t.value === topic)?.label || topic;
 
-      // Metadata: The "Bucket" for everything else
+    const payload = {
+      full_name: formData.get('name'),
+      email: formData.get('email'),
+      phone: phone, // Already sanitized by PhoneInput
+      lead_source: `Hellbound Sauces - ${inquiryType} Form`,
+      message_body: formData.get('message'),
+      website: formData.get('website'),
+
       metadata: {
         inquiry_type: inquiryType,
-        topic: topic,
-        company: formData.get('company'),
-        order_number: formData.get('orderNumber'),
+        topic: selectedTopicLabel,
+        company: formData.get('company') || "",
+        order_number: formData.get('orderNumber') || "",
         consent: true,
         consentTimestamp: new Date().toISOString()
       }
@@ -95,6 +97,7 @@ export default function ContactPage() {
      // Clear states
      setInquiryType('');
      setTopic('');
+     setPhone('');
      (e.target as HTMLFormElement).reset();
 
    } catch (error) {
@@ -229,6 +232,16 @@ export default function ContactPage() {
                   </div>
                 </div>
 
+                {inquiryType === 'consumer' && (
+                  <div className="space-y-2">
+                    <Label>Phone</Label>
+                    <PhoneInput
+                      onValueChange={setPhone}
+                      className="bg-secondary border-border"
+                    />
+                  </div>
+                )}
+
                 {inquiryType === 'wholesale' && (
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -237,7 +250,10 @@ export default function ContactPage() {
                     </div>
                     <div className="space-y-2">
                       <Label>Phone</Label>
-                      <Input name="phone" type="tel" placeholder="(555) 123-4567" className="bg-secondary border-border" />
+                      <PhoneInput
+                        onValueChange={setPhone}
+                        className="bg-secondary border-border"
+                      />
                     </div>
                   </div>
                 )}

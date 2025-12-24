@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Building2, Package, Truck, Shield, CheckCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { PhoneInput } from '@/components/ui/phone-input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -9,6 +10,7 @@ import { SEOHead } from '@/components/seo';
 
 export default function WholesalePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [phone, setPhone] = useState<string>('');
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,7 +27,7 @@ export default function WholesalePage() {
       // Top Level: Standard Fields
       full_name: formData.get('name'),
       email: formData.get('email'),
-      phone: String(formData.get('phone') || '').replace(/\D/g, ''), // Strip formatting
+      phone: phone, // Already sanitized by PhoneInput
       lead_source: 'Hellbound Sauces - Wholesale Form',
       message_body: formData.get('message'),
       website: formData.get('website'), // Honeypot field
@@ -51,6 +53,7 @@ export default function WholesalePage() {
         title: "Application Received!",
         description: "We'll review your application and get back to you within 48 hours.",
       });
+      setPhone('');
       (e.target as HTMLFormElement).reset();
     } catch (error) {
       toast({
@@ -157,7 +160,10 @@ export default function WholesalePage() {
                 <Input name="name" placeholder="Name *" required className="bg-secondary border-border" />
                 <Input name="email" type="email" placeholder="Email *" required className="bg-secondary border-border" />
               </div>
-              <Input name="phone" type="tel" placeholder="Phone Number" className="bg-secondary border-border" />
+              <PhoneInput
+                onValueChange={setPhone}
+                className="bg-secondary border-border"
+              />
               <Textarea
                 name="message"
                 placeholder="Tell us about your business and how you'd like to stock HellBound Sauces..."

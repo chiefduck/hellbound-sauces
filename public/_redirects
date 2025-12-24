@@ -1,7 +1,5 @@
-/*
-  Redirects for SPA routing
-  https://docs.netlify.com/routing/redirects/
-*/
+# Redirects for SPA routing
+# https://docs.netlify.com/routing/redirects/
 
 # Handle all routes for SPA
 /*    /index.html   200

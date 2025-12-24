@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Minus, Plus, ShoppingCart, Star, Truck, Shield, Loader2 } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, Star, Truck, Shield, Loader2, ExternalLink } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { useShopifyProduct, useShopifyProducts } from '@/hooks/useShopifyProducts';
-import { getReviewsByProductId } from '@/data/reviews';
+import { getProductReviews, getProductRatingStats } from '@/lib/judgeme';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { SEOHead, ProductSchema, BreadcrumbSchema } from '@/components/seo';
@@ -15,10 +15,15 @@ export default function ProductPage() {
   const { handle } = useParams<{ handle: string }>();
   const { product, loading, error } = useShopifyProduct(handle || '');
   const { products: allProducts } = useShopifyProducts();
-  const reviews = product ? getReviewsByProductId(product.id) : [];
+
+  // Get Judge.me reviews for this specific product
+  const judgemeReviews = product ? getProductReviews(product.handle) : [];
+  const ratingStats = product ? getProductRatingStats(product.handle) : { rating: 0, count: 0 };
+
   const relatedProducts = allProducts.filter(p => p.id !== product?.id && p.category === product?.category).slice(0, 4);
 
   const [quantity, setQuantity] = useState(1);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addItem } = useCart();
   const { toast } = useToast();
 
@@ -58,7 +63,7 @@ export default function ProductPage() {
 
   // Use Shopify images
   const productImages = product.images || ['/placeholder.svg'];
-  const mainImage = productImages[0];
+  const mainImage = productImages[selectedImageIndex];
 
   const handleAddToCart = () => {
     addItem(product, quantity);
@@ -102,9 +107,32 @@ export default function ProductPage() {
         <div className="grid lg:grid-cols-2 gap-12 mb-20">
           {/* Images */}
           <div className="relative">
-            <div className="aspect-square rounded-xl overflow-hidden border border-border">
+            <div className="aspect-square rounded-xl overflow-hidden border border-border mb-4">
               <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
             </div>
+
+            {/* Thumbnail Gallery */}
+            {productImages.length > 1 && (
+              <div className="grid grid-cols-4 gap-3">
+                {productImages.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
+                      selectedImageIndex === index
+                        ? 'border-primary ring-2 ring-primary/20'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${product.title} - Image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Product Info */}
@@ -120,15 +148,15 @@ export default function ProductPage() {
 
             <h1 className="font-display text-4xl lg:text-5xl mb-4">{product.title}</h1>
 
-            {product.reviews && (
+            {ratingStats.count > 0 && (
               <div className="flex items-center gap-2 mb-6">
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`h-4 w-4 ${i < Math.round(product.reviews!.rating) ? 'fill-gold text-gold' : 'text-muted/30'}`} />
+                    <Star key={i} className={`h-4 w-4 ${i < Math.round(ratingStats.rating) ? 'fill-gold text-gold' : 'text-muted/30'}`} />
                   ))}
                 </div>
                 <span className="text-sm text-muted-foreground">
-                  {product.reviews.rating} ({product.reviews.count} reviews)
+                  {ratingStats.rating} ({ratingStats.count} {ratingStats.count === 1 ? 'review' : 'reviews'})
                 </span>
               </div>
             )}
@@ -203,28 +231,64 @@ export default function ProductPage() {
         </div>
 
         {/* Reviews */}
-        {reviews.length > 0 && (
-          <section className="mb-20">
-            <h2 className="font-display text-3xl mb-8">Customer Reviews</h2>
+        <section className="mb-20">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+            <h2 className="font-display text-3xl">Customer Reviews</h2>
+            <Button asChild size="lg" className="bg-gradient-fire hover:opacity-90 font-heading tracking-wide group">
+              <a
+                href="https://maps.app.goo.gl/uvBTRmeT7HRJyN4h8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Leave a Review
+                <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Button>
+          </div>
+
+          {judgemeReviews.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {reviews.map((review) => (
+              {judgemeReviews.map((review) => (
                 <div key={review.id} className="p-6 rounded-xl bg-card border border-border">
                   <div className="flex gap-1 mb-3">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className={`h-4 w-4 ${i < review.rating ? 'fill-gold text-gold' : 'text-muted/30'}`} />
                     ))}
                   </div>
-                  <h4 className="font-heading uppercase tracking-wide mb-2">{review.title}</h4>
+                  {review.title && (
+                    <h4 className="font-heading uppercase tracking-wide mb-2">{review.title}</h4>
+                  )}
                   <p className="text-muted-foreground text-sm mb-4">{review.content}</p>
                   <div className="flex justify-between items-center pt-4 border-t border-border">
-                    <span className="text-sm font-medium">{review.author}</span>
+                    <div>
+                      <span className="text-sm font-medium">{review.author}</span>
+                      <p className="text-xs text-muted-foreground">{new Date(review.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    </div>
                     {review.verified && <span className="text-xs text-green-500">✓ Verified</span>}
                   </div>
                 </div>
               ))}
             </div>
-          </section>
-        )}
+          ) : (
+            <div className="text-center py-12 px-6 rounded-xl border-2 border-dashed border-border bg-secondary/30">
+              <Star className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="font-heading text-xl mb-2">Be the First to Review!</h3>
+              <p className="text-muted-foreground mb-6">
+                Share your experience with {product.title} and help others make informed decisions.
+              </p>
+              <Button asChild size="lg" className="bg-gradient-fire hover:opacity-90 font-heading tracking-wide group">
+                <a
+                  href="https://maps.app.goo.gl/uvBTRmeT7HRJyN4h8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Write the First Review
+                  <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </Button>
+            </div>
+          )}
+        </section>
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (

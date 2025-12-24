@@ -104,7 +104,11 @@ export function ProductCard({ product, className }: ProductCardProps) {
           </h3>
         </Link>
 
-        <p className="text-muted-foreground text-sm mt-1 line-clamp-2 whitespace-pre-line leading-relaxed">{product.description}</p>
+        {product.description && product.description.trim() && (
+          <p className="text-muted-foreground text-sm mt-1 line-clamp-2 whitespace-pre-line leading-relaxed">
+            {product.description}
+          </p>
+        )}
 
         <div className="flex items-center justify-between mt-4">
           <div className="flex items-baseline gap-2">

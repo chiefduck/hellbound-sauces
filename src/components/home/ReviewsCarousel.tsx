@@ -1,6 +1,7 @@
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, ExternalLink } from 'lucide-react';
 import { getFeaturedReviews } from '@/data/reviews';
 import { getProductById } from '@/data/products';
+import { Button } from '@/components/ui/button';
 import judgemeReviews from '@/data/judgeme-reviews.json';
 
 /**
@@ -97,6 +98,26 @@ export function ReviewsCarousel() {
               </div>
             );
           })}
+        </div>
+
+        {/* Leave a Review CTA */}
+        <div className="mt-12 text-center">
+          <div className="inline-block p-8 rounded-xl bg-gradient-to-br from-card via-card to-secondary border border-border">
+            <h3 className="font-display text-2xl mb-3">Love Our Sauces?</h3>
+            <p className="text-muted-foreground mb-6 max-w-md">
+              Share your experience and help others discover the perfect heat level for their taste!
+            </p>
+            <Button asChild size="lg" className="bg-gradient-fire hover:opacity-90 font-heading text-lg tracking-wide group">
+              <a
+                href="https://maps.app.goo.gl/uvBTRmeT7HRJyN4h8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Leave a Review
+                <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

@@ -3,6 +3,8 @@
  * Frontend-only review fetching
  */
 
+import judgemeReviewsData from '@/data/judgeme-reviews.json';
+
 const JUDGEME_PUBLIC_TOKEN = import.meta.env.VITE_JUDGEME_PUBLIC_TOKEN;
 const JUDGEME_SHOP_DOMAIN = import.meta.env.VITE_JUDGEME_SHOP_DOMAIN;
 
@@ -26,6 +28,18 @@ export interface JudgeMeResponse {
   current_page: number;
   per_page: number;
   total: number;
+}
+
+export interface CachedReview {
+  id: string;
+  productId: string;
+  author: string;
+  rating: number;
+  title: string | null;
+  content: string;
+  date: string;
+  verified: boolean;
+  helpful: number;
 }
 
 /**
@@ -58,4 +72,45 @@ export async function getHomepageReviews(limit = 10): Promise<JudgeMeResponse> {
   console.log('Judge.me reviews fetched:', data);
 
   return data;
+}
+
+/**
+ * Get cached Judge.me reviews for a specific product by handle
+ * @param productHandle - The Shopify product handle (e.g., 'sweet-heat', 'pineapple-mango')
+ * @returns Array of reviews for the product
+ */
+export function getProductReviews(productHandle: string): CachedReview[] {
+  if (!judgemeReviewsData.reviews || judgemeReviewsData.reviews.length === 0) {
+    return [];
+  }
+
+  // Match product handle with productId in reviews
+  // Handle variations like 'sweet-heat' matching 'sweet-heat-hot-sauce'
+  const normalizedHandle = productHandle.toLowerCase().replace(/-/g, '');
+
+  return judgemeReviewsData.reviews.filter((review) => {
+    const normalizedProductId = review.productId.toLowerCase().replace(/-/g, '');
+    return normalizedProductId.includes(normalizedHandle) || normalizedHandle.includes(normalizedProductId);
+  });
+}
+
+/**
+ * Calculate average rating for a product
+ * @param productHandle - The Shopify product handle
+ * @returns Object with average rating and count
+ */
+export function getProductRatingStats(productHandle: string): { rating: number; count: number } {
+  const reviews = getProductReviews(productHandle);
+
+  if (reviews.length === 0) {
+    return { rating: 0, count: 0 };
+  }
+
+  const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+  const averageRating = totalRating / reviews.length;
+
+  return {
+    rating: Math.round(averageRating * 10) / 10, // Round to 1 decimal
+    count: reviews.length
+  };
 }
