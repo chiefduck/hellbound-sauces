@@ -1,7 +1,18 @@
 {
-  "lastUpdated": "2025-12-15T16:12:17.913Z",
-  "count": 28,
+  "lastUpdated": "2026-01-01T02:32:52.554Z",
+  "count": 29,
   "reviews": [
+    {
+      "id": "1025444747",
+      "productId": "aztec-gold",
+      "author": "Amanda Hogan",
+      "rating": 5,
+      "title": null,
+      "content": "Love !!!! One of my top favorite spices",
+      "date": "2025-12-30",
+      "verified": false,
+      "helpful": 0
+    },
     {
       "id": "890796859",
       "productId": "series-3-bangkok-burn",
@@ -49,7 +60,7 @@
     {
       "id": "815559957",
       "productId": "wildwood-maple",
-      "author": "MATTHEW WHITE",
+      "author": "Steve White",
       "rating": 5,
       "title": "Wildwood maple rub",
       "content": "I tried the Wildwood maple rub on a pork butt. The maple flavor was awesome, the bark tasted like candy, and it was not too salty. The pulled pork came out amazing, and my guests loved it. I’m looking forward to trying more of the rubs..",
@@ -60,7 +71,7 @@
     {
       "id": "806352515",
       "productId": "beekeepers-blend",
-      "author": "Justin Jacobs",
+      "author": "Customer",
       "rating": 5,
       "title": "Amazing",
       "content": "Made some bbq chicken and tried this rub for extra flavor and let me tell you, it did not disappoint!! 100% my new go to bbq rub!",
