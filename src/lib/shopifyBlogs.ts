@@ -47,7 +47,6 @@ const BLOG_ARTICLES_BY_TAG_QUERY = `
             blog {
               handle
             }
-            isPublished
           }
         }
         pageInfo {
@@ -105,7 +104,6 @@ export async function getBlogArticlesByTag(
       console.log(`  ${index + 1}. ${edge.node.title}`, {
         handle: edge.node.handle,
         tags: edge.node.tags || [],
-        isPublished: edge.node.isPublished,
         publishedAt: edge.node.publishedAt,
       });
     });
