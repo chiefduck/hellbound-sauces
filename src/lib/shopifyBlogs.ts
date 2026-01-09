@@ -164,3 +164,72 @@ export async function getAllBlogArticles(
     return [];
   }
 }
+
+const BLOG_ARTICLE_BY_HANDLE_QUERY = `
+  query GetBlogArticleByHandle($blogHandle: String!, $articleHandle: String!) {
+    blog(handle: $blogHandle) {
+      articleByHandle(handle: $articleHandle) {
+        id
+        title
+        handle
+        content
+        contentHtml
+        excerpt
+        excerptHtml
+        image {
+          url
+          altText
+        }
+        tags
+        publishedAt
+        authorV2 {
+          name
+        }
+        blog {
+          handle
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * Fetch a single blog article by handle
+ * @param blogHandle - The handle of the blog (e.g., "recipes")
+ * @param articleHandle - The handle of the article
+ */
+export async function getBlogArticleByHandle(
+  blogHandle: string,
+  articleHandle: string
+): Promise<ShopifyBlogArticle | null> {
+  try {
+    const response = await shopifyFetch(BLOG_ARTICLE_BY_HANDLE_QUERY, {
+      blogHandle,
+      articleHandle,
+    });
+
+    const article = response?.data?.blog?.articleByHandle;
+
+    if (!article) {
+      return null;
+    }
+
+    return {
+      id: article.id,
+      title: article.title,
+      handle: article.handle,
+      content: article.content,
+      contentHtml: article.contentHtml,
+      excerpt: article.excerpt,
+      excerptHtml: article.excerptHtml,
+      image: article.image,
+      tags: article.tags || [],
+      publishedAt: article.publishedAt,
+      author: article.authorV2,
+      blog: article.blog,
+    };
+  } catch (error) {
+    console.error('Error fetching blog article by handle:', error);
+    return null;
+  }
+}

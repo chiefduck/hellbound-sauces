@@ -19,6 +19,11 @@ interface Recipe {
   blogHandle: string;
 }
 
+// Helper function to strip HTML tags from text
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, '').trim();
+}
+
 // Helper function to extract recipe metadata from blog article
 function parseRecipeMetadata(content: string, tags: string[]): Partial<Recipe> {
   const metadata: Partial<Recipe> = {};
@@ -31,16 +36,16 @@ function parseRecipeMetadata(content: string, tags: string[]): Partial<Recipe> {
   // Extract time
   const timeMatch = content.match(/(?:Time|Prep Time|Cook Time):\s*([^\n]+)/i);
   if (timeMatch) {
-    metadata.time = timeMatch[1].trim();
+    metadata.time = stripHtml(timeMatch[1].trim());
   } else {
     // Try to find patterns like "30 min" or "2 hours"
     const timePattern = content.match(/(\d+\s*(?:min|minutes|hour|hours|hr|hrs))/i);
-    metadata.time = timePattern ? timePattern[1] : '30 min';
+    metadata.time = timePattern ? stripHtml(timePattern[1]) : '30 min';
   }
 
   // Extract servings
   const servingsMatch = content.match(/Servings?:\s*([^\n]+)/i);
-  metadata.servings = servingsMatch ? servingsMatch[1].trim() : '4';
+  metadata.servings = servingsMatch ? stripHtml(servingsMatch[1].trim()) : '4';
 
   // Extract difficulty
   const difficultyMatch = content.match(/Difficulty:\s*(Easy|Medium|Hard)/i);
@@ -56,12 +61,12 @@ function parseRecipeMetadata(content: string, tags: string[]): Partial<Recipe> {
   // Extract Hellbound product
   const productMatch = content.match(/(?:Product|Hellbound Product|Featured Product):\s*([^\n]+)/i);
   if (productMatch) {
-    metadata.hellboundProduct = productMatch[1].trim();
+    metadata.hellboundProduct = stripHtml(productMatch[1].trim());
   } else {
     // Try to find Hellbound sauce mentions in content
     const saucePattern = content.match(/(?:Hellbound|HellBound)\s+(?:Sauces?\s+)?([^.,\n]+(?:Sauce|Rub|Mustard))/i);
     if (saucePattern) {
-      metadata.hellboundProduct = saucePattern[1].trim();
+      metadata.hellboundProduct = stripHtml(saucePattern[1].trim());
     }
   }
 
@@ -74,14 +79,14 @@ function blogArticleToRecipe(article: ShopifyBlogArticle): Recipe {
 
   return {
     id: article.handle,
-    title: article.title,
+    title: stripHtml(article.title),
     image: article.image?.url || '/assets/recipes/default-recipe.webp',
     category: metadata.category || 'main-dishes',
-    time: metadata.time || '30 min',
-    servings: metadata.servings || '4',
+    time: stripHtml(metadata.time || '30 min'),
+    servings: stripHtml(metadata.servings || '4'),
     difficulty: metadata.difficulty || 'Medium',
     featured: metadata.featured,
-    hellboundProduct: metadata.hellboundProduct,
+    hellboundProduct: metadata.hellboundProduct ? stripHtml(metadata.hellboundProduct) : undefined,
     handle: article.handle,
     blogHandle: article.blog.handle,
   };
@@ -229,10 +234,10 @@ export default function RecipesPage() {
                 <Link
                   key={recipe.id}
                   to={`/recipes/${recipe.handle}`}
-                  className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all block"
+                  className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all flex flex-col"
                 >
                   {/* Recipe Image */}
-                  <div className="aspect-[4/3] overflow-hidden bg-muted relative">
+                  <div className="aspect-[4/3] overflow-hidden bg-muted relative flex-shrink-0">
                     <img
                       src={recipe.image}
                       alt={recipe.title}
@@ -247,37 +252,37 @@ export default function RecipesPage() {
                   </div>
 
                   {/* Recipe Content */}
-                  <div className="p-5">
-                    <h3 className="font-heading text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                  <div className="p-5 flex flex-col flex-1 min-h-[160px] max-h-[200px]">
+                    <h3 className="font-heading text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
                       {recipe.title}
                     </h3>
 
                     {/* Recipe Meta */}
                     <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
                       <div className="flex items-center gap-1">
-                        <Clock className="h-3.5 w-3.5" />
-                        <span>{recipe.time}</span>
+                        <Clock className="h-3.5 w-3.5 flex-shrink-0" />
+                        <span className="truncate">{recipe.time}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Users className="h-3.5 w-3.5" />
-                        <span>{recipe.servings}</span>
+                        <Users className="h-3.5 w-3.5 flex-shrink-0" />
+                        <span className="truncate">{recipe.servings}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <ChefHat className="h-3.5 w-3.5" />
-                        <span>{recipe.difficulty}</span>
+                        <ChefHat className="h-3.5 w-3.5 flex-shrink-0" />
+                        <span className="truncate">{recipe.difficulty}</span>
                       </div>
                     </div>
 
                     {/* Hellbound Product */}
                     {recipe.hellboundProduct && (
                       <div className="flex items-center gap-1.5 text-xs text-primary font-medium mb-3">
-                        <Flame className="h-3.5 w-3.5" />
-                        <span>{recipe.hellboundProduct}</span>
+                        <Flame className="h-3.5 w-3.5 flex-shrink-0" />
+                        <span className="truncate">{recipe.hellboundProduct}</span>
                       </div>
                     )}
 
                     {/* View Recipe Link */}
-                    <div className="flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                    <div className="flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all mt-auto">
                       <span>View Recipe</span>
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </div>
