@@ -45,8 +45,18 @@ export default function AaronDiezPage() {
     const experienceMatch = content.match(/Experience:\s*([^\n]+)/i);
     if (experienceMatch) metadata.experience = experienceMatch[1].trim();
 
-    const awardsMatch = content.match(/Awards:\s*([^\n]+)/i);
-    if (awardsMatch) metadata.awards = awardsMatch[1].trim();
+    // Extract multiple awards (Award1, Award2, Award3, etc.)
+    const awards: string[] = [];
+    let awardIndex = 1;
+    let awardMatch = content.match(new RegExp(`Award${awardIndex}:\\s*([^\\n]+)`, 'i'));
+    while (awardMatch) {
+      awards.push(awardMatch[1].trim());
+      awardIndex++;
+      awardMatch = content.match(new RegExp(`Award${awardIndex}:\\s*([^\\n]+)`, 'i'));
+    }
+    if (awards.length > 0) {
+      metadata.awards = awards;
+    }
 
     const websiteMatch = content.match(/Website:\s*([^\n]+)/i);
     if (websiteMatch) metadata.website = websiteMatch[1].trim();
@@ -140,12 +150,12 @@ export default function AaronDiezPage() {
                     <span>{metadata.experience}</span>
                   </div>
                 )}
-                {metadata.awards && (
-                  <div className="flex items-center gap-2 text-muted-foreground">
+                {metadata.awards && Array.isArray(metadata.awards) && metadata.awards.map((award: string, index: number) => (
+                  <div key={index} className="flex items-center gap-2 text-muted-foreground">
                     <Award className="h-5 w-5 text-primary" />
-                    <span>{metadata.awards}</span>
+                    <span>{award}</span>
                   </div>
-                )}
+                ))}
               </div>
 
               <div className="flex flex-wrap gap-4">
