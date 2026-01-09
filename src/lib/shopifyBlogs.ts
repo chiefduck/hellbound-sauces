@@ -47,7 +47,12 @@ const BLOG_ARTICLES_BY_TAG_QUERY = `
             blog {
               handle
             }
+            isPublished
           }
+        }
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
         }
       }
     }
@@ -68,13 +73,42 @@ export async function getBlogArticlesByTag(
   try {
     const query = `tag:${tag}`;
 
+    console.log('🔍 Fetching blog articles:', { blogHandle, tag, query, first });
+
     const response = await shopifyFetch(BLOG_ARTICLES_BY_TAG_QUERY, {
       blogHandle,
       first,
       query,
     });
 
+    console.log('📦 Raw Shopify response:', {
+      hasBlog: !!response?.data?.blog,
+      blogHandle: response?.data?.blog ? blogHandle : 'BLOG NOT FOUND',
+      hasArticles: !!response?.data?.blog?.articles,
+      edgesLength: response?.data?.blog?.articles?.edges?.length || 0,
+      fullResponse: response?.data,
+    });
+
+    if (!response?.data?.blog) {
+      console.error(`❌ Blog with handle "${blogHandle}" not found in Shopify!`);
+      console.error('💡 Check that:');
+      console.error('  1. The blog exists in Shopify Admin > Online Store > Blog Posts');
+      console.error('  2. The blog handle is exactly "tattoo-artist"');
+      console.error('  3. The blog has the correct visibility settings');
+      return [];
+    }
+
     const articles = response?.data?.blog?.articles?.edges || [];
+
+    console.log('📝 Articles found:', articles.length);
+    articles.forEach((edge: any, index: number) => {
+      console.log(`  ${index + 1}. ${edge.node.title}`, {
+        handle: edge.node.handle,
+        tags: edge.node.tags || [],
+        isPublished: edge.node.isPublished,
+        publishedAt: edge.node.publishedAt,
+      });
+    });
 
     return articles.map((edge: any) => ({
       id: edge.node.id,
@@ -91,7 +125,7 @@ export async function getBlogArticlesByTag(
       blog: edge.node.blog,
     }));
   } catch (error) {
-    console.error('Error fetching blog articles by tag:', error);
+    console.error('❌ Error fetching blog articles by tag:', error);
     return [];
   }
 }

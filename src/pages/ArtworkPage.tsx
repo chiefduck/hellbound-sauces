@@ -192,16 +192,29 @@ export default function ArtworkPage() {
     async function fetchArtists() {
       try {
         setLoading(true);
+        console.log('🎨 ArtworkPage: Starting to fetch artists...');
+        console.log('🎨 Environment:', {
+          isDev: import.meta.env.DEV,
+          mode: import.meta.env.MODE,
+          hasShopifyDomain: !!import.meta.env.VITE_SHOPIFY_STORE_DOMAIN,
+          hasShopifyToken: !!import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN,
+        });
+
         // Fetch blog articles tagged with "Tattoo Artist" from the "tattoo-artist" blog
         const articles = await getBlogArticlesByTag('tattoo-artist', 'Tattoo Artist');
-        console.log('Artists found:', articles.length);
+        console.log('🎨 ArtworkPage: Articles received:', articles.length);
+
         if (articles.length === 0) {
-          console.log('No artists found - check that blog posts are published and tagged with "Tattoo Artist"');
+          console.warn('⚠️ No artists found - check that blog posts are published and tagged with "Tattoo Artist"');
+        } else {
+          console.log('✅ Artists loaded:', articles.map(a => a.title).join(', '));
         }
+
         const artistsData = articles.map(blogArticleToArtist);
+        console.log('🎨 ArtworkPage: Transformed artists:', artistsData.map(a => a.name).join(', '));
         setArtists(artistsData);
       } catch (error) {
-        console.error('Error fetching artists from Shopify:', error);
+        console.error('❌ Error fetching artists from Shopify:', error);
       } finally {
         setLoading(false);
       }
