@@ -2,8 +2,90 @@ import { Layout } from '@/components/layout/Layout';
 import { ChefHat, Clock, Users, Flame, Utensils, Egg, Salad, ArrowRight } from 'lucide-react';
 import { SEOHead } from '@/components/seo';
 import { Link } from 'react-router-dom';
-import { recipes, getRecipesByCategory, getFeaturedRecipes } from '@/data/recipes';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getBlogArticlesByTag, ShopifyBlogArticle } from '@/lib/shopifyBlogs';
+
+interface Recipe {
+  id: string;
+  title: string;
+  image: string;
+  category: 'appetizers' | 'main-dishes' | 'bbq-grilling' | 'breakfast' | 'sides' | string;
+  time: string;
+  servings: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  featured?: boolean;
+  hellboundProduct?: string;
+  handle: string;
+  blogHandle: string;
+}
+
+// Helper function to extract recipe metadata from blog article
+function parseRecipeMetadata(content: string, tags: string[]): Partial<Recipe> {
+  const metadata: Partial<Recipe> = {};
+
+  // Extract category from tags
+  const categoryTags = ['appetizers', 'main-dishes', 'bbq-grilling', 'breakfast', 'sides'];
+  const foundCategory = tags.find(tag => categoryTags.includes(tag.toLowerCase()));
+  metadata.category = foundCategory || 'main-dishes';
+
+  // Extract time
+  const timeMatch = content.match(/(?:Time|Prep Time|Cook Time):\s*([^\n]+)/i);
+  if (timeMatch) {
+    metadata.time = timeMatch[1].trim();
+  } else {
+    // Try to find patterns like "30 min" or "2 hours"
+    const timePattern = content.match(/(\d+\s*(?:min|minutes|hour|hours|hr|hrs))/i);
+    metadata.time = timePattern ? timePattern[1] : '30 min';
+  }
+
+  // Extract servings
+  const servingsMatch = content.match(/Servings?:\s*([^\n]+)/i);
+  metadata.servings = servingsMatch ? servingsMatch[1].trim() : '4';
+
+  // Extract difficulty
+  const difficultyMatch = content.match(/Difficulty:\s*(Easy|Medium|Hard)/i);
+  if (difficultyMatch) {
+    metadata.difficulty = difficultyMatch[1] as 'Easy' | 'Medium' | 'Hard';
+  } else {
+    metadata.difficulty = 'Medium';
+  }
+
+  // Check if featured
+  metadata.featured = tags.some(tag => tag.toLowerCase() === 'featured');
+
+  // Extract Hellbound product
+  const productMatch = content.match(/(?:Product|Hellbound Product|Featured Product):\s*([^\n]+)/i);
+  if (productMatch) {
+    metadata.hellboundProduct = productMatch[1].trim();
+  } else {
+    // Try to find Hellbound sauce mentions in content
+    const saucePattern = content.match(/(?:Hellbound|HellBound)\s+(?:Sauces?\s+)?([^.,\n]+(?:Sauce|Rub|Mustard))/i);
+    if (saucePattern) {
+      metadata.hellboundProduct = saucePattern[1].trim();
+    }
+  }
+
+  return metadata;
+}
+
+// Convert Shopify blog article to Recipe format
+function blogArticleToRecipe(article: ShopifyBlogArticle): Recipe {
+  const metadata = parseRecipeMetadata(article.content, article.tags);
+
+  return {
+    id: article.handle,
+    title: article.title,
+    image: article.image?.url || '/assets/recipes/default-recipe.webp',
+    category: metadata.category || 'main-dishes',
+    time: metadata.time || '30 min',
+    servings: metadata.servings || '4',
+    difficulty: metadata.difficulty || 'Medium',
+    featured: metadata.featured,
+    hellboundProduct: metadata.hellboundProduct,
+    handle: article.handle,
+    blogHandle: article.blog.handle,
+  };
+}
 
 const recipeCategories = [
   {
@@ -34,15 +116,42 @@ const recipeCategories = [
 
 export default function RecipesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const featuredRecipes = getFeaturedRecipes();
-  const totalRecipes = recipes.length;
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchRecipes() {
+      try {
+        setLoading(true);
+        // Fetch blog articles tagged with "Recipes" from the "recipes" blog
+        const articles = await getBlogArticlesByTag('recipes', 'Recipes');
+        console.log('Recipes found:', articles.length);
+        if (articles.length === 0) {
+          console.log('No recipes found - check that blog posts are published and tagged with "Recipes"');
+        }
+        const recipesData = articles.map(blogArticleToRecipe);
+        setRecipes(recipesData);
+      } catch (error) {
+        console.error('Error fetching recipes from Shopify:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchRecipes();
+  }, []);
 
   const getFilteredRecipes = () => {
     if (selectedCategory === 'all') return recipes;
-    return getRecipesByCategory(selectedCategory as any);
+    return recipes.filter(recipe => recipe.category === selectedCategory);
+  };
+
+  const getRecipesByCategory = (category: string) => {
+    return recipes.filter(recipe => recipe.category === category);
   };
 
   const filteredRecipes = getFilteredRecipes();
+  const totalRecipes = recipes.length;
 
   return (
     <Layout>
@@ -59,7 +168,7 @@ export default function RecipesPage() {
             <span className="text-gradient-fire">Recipes</span>
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground">
-            Explore {totalRecipes} bold recipes featuring HellBound Sauces
+            {loading ? 'Loading recipes...' : `Explore ${totalRecipes} bold recipes featuring HellBound Sauces`}
           </p>
         </div>
       </section>
@@ -105,7 +214,11 @@ export default function RecipesPage() {
       {/* Recipes Grid */}
       <section className="py-12 lg:py-16">
         <div className="container mx-auto px-4 lg:px-8">
-          {filteredRecipes.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground">Loading recipes...</p>
+            </div>
+          ) : filteredRecipes.length === 0 ? (
             <div className="text-center py-16">
               <ChefHat className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
               <p className="text-lg text-muted-foreground">No recipes found in this category</p>
@@ -115,7 +228,7 @@ export default function RecipesPage() {
               {filteredRecipes.map((recipe) => (
                 <Link
                   key={recipe.id}
-                  to={`/recipes/${recipe.id}`}
+                  to={`/recipes/${recipe.handle}`}
                   className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all block"
                 >
                   {/* Recipe Image */}

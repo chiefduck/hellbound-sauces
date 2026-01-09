@@ -1,58 +1,89 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Palette, MapPin, Award, Brush, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SEOHead } from '@/components/seo';
-import AldoImage from '@/assets/artists/Aldo_G.webp';
-import ElmoImage from '@/assets/artists/Elmo_Boyd.webp';
-import TonyImage from '@/assets/artists/Tony_C.webp';
-import KrisImage from '@/assets/artists/Kris_Masterson.webp';
+import { getBlogArticlesByTag, ShopifyBlogArticle } from '@/lib/shopifyBlogs';
 
-const artists = [
-  {
-    name: 'Aldo Gallegos',
-    series: 'Series 1',
-    location: 'Albuquerque, New Mexico',
-    studio: 'High Chroma Tattoo Studio',
-    bio: "Aldo is a renowned new school tattoo artist with a background rooted in art and music. He creates bold, story-driven designs that blend cartoon-inspired creativity with lifelike details. Known for pushing boundaries in lighting, texture, and atmosphere, his work captivates tattoo enthusiasts nationwide.",
-    image: AldoImage,
-    icon: Palette,
-    link: '/artists/aldo-gallegos',
-  },
-  {
-    name: 'Elmo Boyd',
-    series: 'Series 2',
-    location: 'Independence, Missouri',
-    experience: 'Over 20 years',
-    awards: '100+ industry awards',
-    bio: "Elmo is an award-winning tattoo artist with over 20 years of experience, 100+ industry awards, and features in multiple magazines. He specializes in creating vibrant, dynamic tattoos that demonstrate his creativity and skill.",
-    image: ElmoImage,
-    icon: Award,
-    link: '/artists/elmo-boyd',
-  },
-  {
-    name: 'Tony Ciavarro',
-    series: 'Series 3',
-    experience: 'Nearly 25 years',
-    bio: 'Tony is a celebrated tattoo artist renowned for his expertise in New School tattoo designs. With nearly 25 years of experience, he is a significant figure in the tattoo industry, pushing the boundaries of artistic expression.',
-    image: TonyImage,
-    icon: Brush,
-    link: '/artists/tony-ciavarro',
-  },
-  {
-    name: 'Kris Masterson',
-    series: 'Series 1 Rubs',
-    location: 'Colorado',
-    experience: 'Tattooing since 2006',
-    bio: 'Kris has a love for comic books, RP games, and all things nerdy. She is known for her bold personality, unmatched creativity, and expertise in anatomy-focused and custom tattoo designs.',
-    image: KrisImage,
-    icon: Palette,
-    link: '/artists/kris-masterson',
-  },
-];
+interface Artist {
+  name: string;
+  series?: string;
+  location?: string;
+  studio?: string;
+  experience?: string;
+  awards?: string;
+  bio: string;
+  image: string;
+  icon: typeof Palette;
+  link: string;
+}
 
-function ArtistCard({ artist }: { artist: typeof artists[0] }) {
+// Helper function to extract metadata from blog article content
+function parseArtistMetadata(content: string, excerpt?: string): Partial<Artist> {
+  const metadata: Partial<Artist> = {};
+
+  // Try to extract location (looks for patterns like "Location: City, State")
+  const locationMatch = content.match(/Location:\s*([^\n]+)/i);
+  if (locationMatch) metadata.location = locationMatch[1].trim();
+
+  // Try to extract studio
+  const studioMatch = content.match(/Studio:\s*([^\n]+)/i);
+  if (studioMatch) metadata.studio = studioMatch[1].trim();
+
+  // Try to extract series
+  const seriesMatch = content.match(/Series:\s*([^\n]+)/i);
+  if (seriesMatch) metadata.series = seriesMatch[1].trim();
+
+  // Try to extract experience
+  const experienceMatch = content.match(/Experience:\s*([^\n]+)/i);
+  if (experienceMatch) metadata.experience = experienceMatch[1].trim();
+
+  // Try to extract awards
+  const awardsMatch = content.match(/Awards:\s*([^\n]+)/i);
+  if (awardsMatch) metadata.awards = awardsMatch[1].trim();
+
+  // Use excerpt or first paragraph as bio
+  if (excerpt) {
+    metadata.bio = excerpt;
+  } else {
+    const bioMatch = content.match(/Bio:\s*([^\n]+(?:\n(?!##)[^\n]+)*)/i);
+    if (bioMatch) {
+      metadata.bio = bioMatch[1].trim();
+    } else {
+      // Fall back to first paragraph
+      const firstPara = content.split('\n\n')[0];
+      metadata.bio = firstPara?.replace(/^#+\s*/, '').trim() || '';
+    }
+  }
+
+  return metadata;
+}
+
+// Convert Shopify blog article to Artist format
+function blogArticleToArtist(article: ShopifyBlogArticle): Artist {
+  const metadata = parseArtistMetadata(article.content, article.excerpt);
+
+  // Determine icon based on series or default
+  let icon = Palette;
+  if (metadata.awards) icon = Award;
+  else if (metadata.experience) icon = Brush;
+
+  return {
+    name: article.title,
+    series: metadata.series,
+    location: metadata.location,
+    studio: metadata.studio,
+    experience: metadata.experience,
+    awards: metadata.awards,
+    bio: metadata.bio || article.excerpt || 'Featured artist',
+    image: article.image?.url || '/assets/artists/default.webp',
+    icon,
+    link: `/artists/${article.handle}`,
+  };
+}
+
+function ArtistCard({ artist }: { artist: Artist }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const Icon = artist.icon;
 
@@ -154,6 +185,31 @@ function ArtistCard({ artist }: { artist: typeof artists[0] }) {
 }
 
 export default function ArtworkPage() {
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchArtists() {
+      try {
+        setLoading(true);
+        // Fetch blog articles tagged with "Tattoo Artist" from the "tattoo-artist" blog
+        const articles = await getBlogArticlesByTag('tattoo-artist', 'Tattoo Artist');
+        console.log('Artists found:', articles.length);
+        if (articles.length === 0) {
+          console.log('No artists found - check that blog posts are published and tagged with "Tattoo Artist"');
+        }
+        const artistsData = articles.map(blogArticleToArtist);
+        setArtists(artistsData);
+      } catch (error) {
+        console.error('Error fetching artists from Shopify:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchArtists();
+  }, []);
+
   return (
     <Layout>
       <SEOHead
@@ -180,11 +236,21 @@ export default function ArtworkPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <h2 className="font-display text-4xl text-center mb-4">Featured Artists</h2>
           <p className="text-center text-muted-foreground mb-12">Hover or tap to learn more</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            {artists.map((artist) => (
-              <ArtistCard key={artist.name} artist={artist} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground">Loading artists...</p>
+            </div>
+          ) : artists.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground">No artists found. Check back soon!</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+              {artists.map((artist) => (
+                <ArtistCard key={artist.name} artist={artist} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
