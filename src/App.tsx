@@ -29,7 +29,7 @@ import AldoGallegosPage from "./pages/artists/AldoGallegosPage";
 import ElmoBoydPage from "./pages/artists/ElmoBoydPage";
 import TonyCiavarroPage from "./pages/artists/TonyCiavarroPage";
 import KrisMastersonPage from "./pages/artists/KrisMastersonPage";
-import AaronDiezPage from "./pages/artists/AaronDiezPage";
+import AaronDiazPage from "./pages/artists/AaronDiazPage";
 import ShopifyTestPage from "./pages/ShopifyTestPage";
 import NotFound from "./pages/NotFound";
 
@@ -55,7 +55,7 @@ const App = () => (
             <Route path="/artists/elmo-boyd" element={<ElmoBoydPage />} />
             <Route path="/artists/tony-ciavarro" element={<TonyCiavarroPage />} />
             <Route path="/artists/kris-masterson" element={<KrisMastersonPage />} />
-            <Route path="/artists/aaron-diez" element={<AaronDiezPage />} />
+            <Route path="/artists/aaron-diaz" element={<AaronDiazPage />} />
             <Route path="/recipes" element={<RecipesPage />} />
             <Route path="/recipes/:id" element={<RecipeDetailPage />} />
             <Route path="/heat-guide" element={<HeatGuidePage />} />

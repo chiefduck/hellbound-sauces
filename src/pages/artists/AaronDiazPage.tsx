@@ -1,12 +1,12 @@
 import { Layout } from '@/components/layout/Layout';
 import { SEOHead } from '@/components/seo';
-import { ArrowLeft, MapPin, Award, ExternalLink, Palette, Brush } from 'lucide-react';
+import { ArrowLeft, MapPin, ExternalLink, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { getBlogArticlesByTag, ShopifyBlogArticle } from '@/lib/shopifyBlogs';
 
-export default function AaronDiezPage() {
+export default function AaronDiazPage() {
   const [artist, setArtist] = useState<ShopifyBlogArticle | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -15,13 +15,13 @@ export default function AaronDiezPage() {
       try {
         setLoading(true);
         const articles = await getBlogArticlesByTag('tattoo-artist', 'Tattoo Artist');
-        // Find Aaron Diez's blog post
+        // Find Aaron Diaz's blog post
         const aaronPost = articles.find(article =>
-          article.title.toLowerCase().includes('aaron') && article.title.toLowerCase().includes('diez')
+          article.title.toLowerCase().includes('aaron') && article.title.toLowerCase().includes('diaz')
         );
         setArtist(aaronPost || null);
       } catch (error) {
-        console.error('Error fetching Aaron Diez data:', error);
+        console.error('Error fetching Aaron Diaz data:', error);
       } finally {
         setLoading(false);
       }
@@ -30,44 +30,6 @@ export default function AaronDiezPage() {
     fetchArtistData();
   }, []);
 
-  // Helper function to extract metadata
-  const extractMetadata = (content: string) => {
-    const metadata: any = {};
-    const locationMatch = content.match(/Location:\s*([^\n]+)/i);
-    if (locationMatch) metadata.location = locationMatch[1].trim();
-
-    const studioMatch = content.match(/Studio:\s*([^\n]+)/i);
-    if (studioMatch) metadata.studio = studioMatch[1].trim();
-
-    const seriesMatch = content.match(/Series:\s*([^\n]+)/i);
-    if (seriesMatch) metadata.series = seriesMatch[1].trim();
-
-    const experienceMatch = content.match(/Experience:\s*([^\n]+)/i);
-    if (experienceMatch) metadata.experience = experienceMatch[1].trim();
-
-    // Extract multiple awards (Award1, Award2, Award3, etc.)
-    const awards: string[] = [];
-    let awardIndex = 1;
-    let awardMatch = content.match(new RegExp(`Award${awardIndex}:\\s*([^\\n]+)`, 'i'));
-    while (awardMatch) {
-      awards.push(awardMatch[1].trim());
-      awardIndex++;
-      awardMatch = content.match(new RegExp(`Award${awardIndex}:\\s*([^\\n]+)`, 'i'));
-    }
-    if (awards.length > 0) {
-      metadata.awards = awards;
-    }
-
-    const websiteMatch = content.match(/Website:\s*([^\n]+)/i);
-    if (websiteMatch) metadata.website = websiteMatch[1].trim();
-
-    const instagramMatch = content.match(/Instagram:\s*([^\n]+)/i);
-    if (instagramMatch) metadata.instagram = instagramMatch[1].trim();
-
-    return metadata;
-  };
-
-  const metadata = artist ? extractMetadata(artist.content) : {};
   const artistImage = artist?.image?.url || '/assets/artists/default.webp';
 
   if (loading) {
@@ -98,7 +60,7 @@ export default function AaronDiezPage() {
       <SEOHead
         title={`${artist.title} | Series 1 Artist | HellBound Sauces`}
         description={artist.excerpt || `Meet ${artist.title}, the talented tattoo artist behind HellBound Sauces artwork.`}
-        canonical="/artists/aaron-diez"
+        canonical="/artists/aaron-diaz"
       />
 
       {/* Hero */}
@@ -122,66 +84,37 @@ export default function AaronDiezPage() {
 
             {/* Header Info */}
             <div>
-              {metadata.series && (
-                <span className="text-sm font-heading uppercase tracking-widest text-primary">
-                  {metadata.series}
-                </span>
-              )}
+              <span className="text-sm font-heading uppercase tracking-widest text-primary">
+                Series 1 Artist
+              </span>
               <h1 className="font-display text-5xl lg:text-6xl mt-2 mb-6">
                 <span className="text-gradient-fire">{artist.title}</span>
               </h1>
 
               <div className="flex flex-col gap-3 mb-6">
-                {metadata.location && (
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <MapPin className="h-5 w-5 text-primary" />
-                    <span>{metadata.location}</span>
-                  </div>
-                )}
-                {metadata.studio && (
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Palette className="h-5 w-5 text-primary" />
-                    <span>{metadata.studio}</span>
-                  </div>
-                )}
-                {metadata.experience && (
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Brush className="h-5 w-5 text-primary" />
-                    <span>{metadata.experience}</span>
-                  </div>
-                )}
-                {metadata.awards && Array.isArray(metadata.awards) && metadata.awards.map((award: string, index: number) => (
-                  <div key={index} className="flex items-center gap-2 text-muted-foreground">
-                    <Award className="h-5 w-5 text-primary" />
-                    <span>{award}</span>
-                  </div>
-                ))}
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  <span>Colorado</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Heart className="h-5 w-5 text-primary" />
+                  <span>Lettering</span>
+                </div>
               </div>
 
               <div className="flex flex-wrap gap-4">
-                {metadata.website && (
-                  <Button asChild variant="default" className="bg-gradient-fire">
-                    <a href={metadata.website} target="_blank" rel="noopener noreferrer">
-                      Visit Website
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                )}
-                {metadata.instagram && (
-                  <Button asChild variant="outline">
-                    <a href={metadata.instagram} target="_blank" rel="noopener noreferrer">
-                      Instagram
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                )}
-                {!metadata.website && !metadata.instagram && (
-                  <Button asChild variant="outline">
-                    <Link to="/artwork">
-                      View All Artists
-                    </Link>
-                  </Button>
-                )}
+                <Button asChild variant="default" className="bg-gradient-fire">
+                  <a href="http://www.diaztattoos.com" target="_blank" rel="noopener noreferrer">
+                    Visit Website
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild variant="outline">
+                  <a href="http://www.instagram.com/diaztattoos" target="_blank" rel="noopener noreferrer">
+                    Instagram
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
@@ -207,7 +140,7 @@ export default function AaronDiezPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-display text-4xl mb-6">Experience {artist.title.split(' ')[0]}'s Artwork</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Explore HellBound Sauces {metadata.series || 'collection'} featuring {artist.title.split(' ')[0]}'s striking label designs.
+              Explore HellBound Sauces collection featuring {artist.title.split(' ')[0]}'s striking label designs.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" className="bg-gradient-fire">
