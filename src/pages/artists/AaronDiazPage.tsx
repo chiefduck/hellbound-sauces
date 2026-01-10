@@ -58,7 +58,7 @@ export default function AaronDiazPage() {
   return (
     <Layout>
       <SEOHead
-        title={`${artist.title} | Series 1 Artist | HellBound Sauces`}
+        title={`${artist.title} | 2026 Logo Redesign Artist | HellBound Sauces`}
         description={artist.excerpt || `Meet ${artist.title}, the talented tattoo artist behind HellBound Sauces artwork.`}
         canonical="/artists/aaron-diaz"
       />
@@ -85,7 +85,7 @@ export default function AaronDiazPage() {
             {/* Header Info */}
             <div>
               <span className="text-sm font-heading uppercase tracking-widest text-primary">
-                Series 1 Artist
+              2026 Logo Redesign
               </span>
               <h1 className="font-display text-5xl lg:text-6xl mt-2 mb-6">
                 <span className="text-gradient-fire">{artist.title}</span>
