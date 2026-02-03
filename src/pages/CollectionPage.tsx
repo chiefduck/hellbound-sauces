@@ -52,6 +52,14 @@ function suggestAlternativeHandles(handle: string): string[] {
 export default function CollectionPage() {
   const { handle } = useParams<{ handle: string }>();
   const [searchParams] = useSearchParams();
+
+  // Redirect bundles to all products since bundles collection doesn't exist in Shopify
+  useEffect(() => {
+    if (handle === 'bundles') {
+      window.location.href = '/collections/all';
+    }
+  }, [handle]);
+
   const { collection, loading, error } = useShopifyCollection(handle || '');
   const { products: allProducts, loading: loadingAllProducts } = useShopifyProducts();
 

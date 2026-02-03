@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Minus, Plus, ShoppingCart, Star, Truck, Shield, Loader2, ExternalLink } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
@@ -24,8 +24,87 @@ export default function ProductPage() {
 
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const { addItem } = useCart();
   const { toast } = useToast();
+
+  // Extract unique option types from variants (e.g., "Color", "Size")
+  const optionTypes = useMemo(() => {
+    if (!product?.variants || product.variants.length <= 1) return [];
+
+    const types = new Set<string>();
+    product.variants.forEach(variant => {
+      variant.selectedOptions?.forEach(option => {
+        types.add(option.name);
+      });
+    });
+
+    return Array.from(types);
+  }, [product?.variants]);
+
+  // Get available values for a specific option type
+  const getOptionValues = (optionName: string) => {
+    if (!product?.variants) return [];
+
+    const values = new Set<string>();
+    product.variants.forEach(variant => {
+      const option = variant.selectedOptions?.find(opt => opt.name === optionName);
+      if (option) values.add(option.value);
+    });
+
+    return Array.from(values);
+  };
+
+  // Find variant that matches all selected options
+  const selectedVariant = useMemo(() => {
+    if (!product?.variants) return product?.variants?.[0];
+
+    // If no options selected yet, default to first variant
+    if (Object.keys(selectedOptions).length === 0) {
+      return product.variants[0];
+    }
+
+    // Find variant matching all selected options
+    return product.variants.find(variant => {
+      return variant.selectedOptions?.every(option =>
+        selectedOptions[option.name] === option.value
+      );
+    }) || product.variants[0];
+  }, [product?.variants, selectedOptions]);
+
+  const displayPrice = selectedVariant?.price || product?.price || 0;
+
+  // Initialize selected options with first variant's options
+  useEffect(() => {
+    if (product?.variants && product.variants.length > 0 && Object.keys(selectedOptions).length === 0) {
+      const firstVariant = product.variants[0];
+      if (firstVariant.selectedOptions) {
+        const initialOptions: Record<string, string> = {};
+        firstVariant.selectedOptions.forEach(option => {
+          initialOptions[option.name] = option.value;
+        });
+        setSelectedOptions(initialOptions);
+      }
+    }
+  }, [product?.variants]);
+
+  // Update image when variant changes
+  useEffect(() => {
+    if (selectedVariant?.image && productImages.includes(selectedVariant.image)) {
+      const imageIndex = productImages.findIndex(img => img === selectedVariant.image);
+      if (imageIndex !== -1) {
+        setSelectedImageIndex(imageIndex);
+      }
+    }
+  }, [selectedVariant]);
+
+  // Handle option selection
+  const handleOptionChange = (optionName: string, value: string) => {
+    setSelectedOptions(prev => ({
+      ...prev,
+      [optionName]: value
+    }));
+  };
 
   if (loading) {
     return (
@@ -66,10 +145,21 @@ export default function ProductPage() {
   const mainImage = productImages[selectedImageIndex];
 
   const handleAddToCart = () => {
-    addItem(product, quantity);
+    // Create product with selected variant info
+    const productToAdd = {
+      ...product,
+      price: displayPrice,
+      shopifyVariantId: selectedVariant?.id || product.shopifyVariantId,
+      // Add variant title to product title if it's not "Default Title"
+      title: selectedVariant && selectedVariant.title !== 'Default Title'
+        ? `${product.title} - ${selectedVariant.title}`
+        : product.title
+    };
+
+    addItem(productToAdd, quantity);
     toast({
       title: "Added to cart!",
-      description: `${quantity}x ${product.title} added to your cart.`,
+      description: `${quantity}x ${productToAdd.title} added to your cart.`,
     });
     setQuantity(1);
   };
@@ -162,15 +252,66 @@ export default function ProductPage() {
             )}
 
             <div className="flex items-baseline gap-3 mb-6">
-              <span className="font-display text-4xl text-primary">${product.price.toFixed(2)}</span>
+              <span className="font-display text-4xl text-primary">${displayPrice.toFixed(2)}</span>
               {product.compareAtPrice && (
                 <span className="text-xl text-muted-foreground line-through">${product.compareAtPrice.toFixed(2)}</span>
               )}
             </div>
 
-            <div className="text-lg text-muted-foreground mb-8 whitespace-pre-line leading-relaxed">
-              {product.longDescription || product.description}
+            {/* Description - render HTML for merch products (size charts), plain text for others */}
+            <div className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              {product.category === 'merch' && (product as any).descriptionHtml ? (
+                <div
+                  dangerouslySetInnerHTML={{ __html: (product as any).descriptionHtml }}
+                  className="prose prose-invert max-w-none [&_table]:w-full [&_table]:border-collapse [&_table]:my-4 [&_th]:border [&_th]:border-border [&_th]:bg-secondary/30 [&_th]:p-2 [&_th]:text-left [&_td]:border [&_td]:border-border [&_td]:p-2"
+                />
+              ) : (
+                <div className="whitespace-pre-line">{product.longDescription || product.description}</div>
+              )}
             </div>
+
+            {/* Variant Selectors - Separate selectors for each option type (Color, Size, etc.) */}
+            {optionTypes.length > 0 && (
+              <div className="mb-6 space-y-6">
+                {optionTypes.map((optionType) => {
+                  const values = getOptionValues(optionType);
+                  const isColorOption = optionType.toLowerCase() === 'color';
+
+                  return (
+                    <div key={optionType}>
+                      <h3 className="font-heading text-sm uppercase tracking-wide mb-3">
+                        {optionType}
+                        {selectedOptions[optionType] && (
+                          <span className="text-muted-foreground ml-2">
+                            : {selectedOptions[optionType]}
+                          </span>
+                        )}
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {values.map((value) => {
+                          const isSelected = selectedOptions[optionType] === value;
+
+                          return (
+                            <button
+                              key={value}
+                              onClick={() => handleOptionChange(optionType, value)}
+                              className={`px-4 py-2 rounded-lg border-2 font-heading text-sm uppercase tracking-wide transition-all ${
+                                isSelected
+                                  ? 'border-primary bg-primary/10 text-primary'
+                                  : 'border-border hover:border-primary/50'
+                              }`}
+                              title={value}
+                            >
+                              {value}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
 
             {/* Quantity & Add to Cart */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -321,12 +462,12 @@ export default function ProductPage() {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-          <Button 
-            onClick={handleAddToCart} 
+          <Button
+            onClick={handleAddToCart}
             className="flex-1 bg-gradient-fire hover:opacity-90 font-heading text-base h-12"
           >
             <ShoppingCart className="mr-2 h-5 w-5" />
-            Add to Cart - ${(product.price * quantity).toFixed(2)}
+            Add to Cart - ${(displayPrice * quantity).toFixed(2)}
           </Button>
         </div>
       </div>

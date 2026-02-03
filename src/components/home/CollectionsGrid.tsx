@@ -10,7 +10,6 @@ const collectionIcons = {
 };
 
 export function CollectionsGrid() {
-  // Filter out bundles collection (hidden for now - may use in future)
   const visibleCollections = collections.filter(c => c.handle !== 'bundles' && c.handle !== 'all' && c.handle !== 'merch-and-apparel');
 
   return (

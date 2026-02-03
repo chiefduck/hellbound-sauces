@@ -4,10 +4,11 @@ export interface Product {
   title: string;
   description: string;
   longDescription?: string;
+  descriptionHtml?: string; // Raw HTML description for merch products with size charts
   price: number;
   compareAtPrice?: number;
   images: string[];
-  category: 'hot-sauce' | 'rub' | 'bundle' | 'merch';
+  category: 'hot-sauce' | 'rub' | 'merch';
   heatLevel?: 1 | 2 | 3 | 4 | 5; // Optional for non-food items like merch
   scoville?: string;
   ingredients?: string[];
@@ -15,7 +16,13 @@ export interface Product {
   featured?: boolean;
   bestSeller?: boolean;
   new?: boolean;
-  variants?: { id: string; title: string; price: number }[];
+  variants?: {
+    id: string;
+    title: string;
+    price: number;
+    image?: string; // Variant-specific image
+    selectedOptions?: { name: string; value: string }[]; // e.g., [{name: "Color", value: "Black"}, {name: "Size", value: "Large"}]
+  }[];
   reviews?: { rating: number; count: number };
   shopifyVariantId?: string; // Shopify variant ID for checkout
   tags?: string[]; // Shopify product tags for filtering

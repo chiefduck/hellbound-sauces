@@ -47,13 +47,24 @@ function formatShopifyHtml(html: string): string {
 /**
  * Transform Shopify product data into our app's Product format
  */
-export function transformShopifyProduct(shopifyProduct: any): Product & { shopifyVariantId?: string } {
+export function transformShopifyProduct(shopifyProduct: any): Product & { shopifyVariantId?: string; descriptionHtml?: string } {
   const firstVariant = shopifyProduct.variants?.edges?.[0]?.node;
   const firstImage = shopifyProduct.images?.edges?.[0]?.node;
 
-  // Prioritize HTML description for better formatting, fallback to plain description
+  // Determine category first to decide how to handle description
+  const category = getCategory(shopifyProduct.productType, shopifyProduct.tags);
+
+  // For merch products, preserve HTML (especially tables for size charts)
+  // For other products, convert to plain text
   let formattedDescription = '';
-  if (shopifyProduct.descriptionHtml) {
+  let descriptionHtml = '';
+
+  if (category === 'merch' && shopifyProduct.descriptionHtml) {
+    // Keep raw HTML for merch products
+    descriptionHtml = shopifyProduct.descriptionHtml;
+    formattedDescription = shopifyProduct.description || '';
+  } else if (shopifyProduct.descriptionHtml) {
+    // Convert HTML to formatted text for non-merch products
     formattedDescription = formatShopifyHtml(shopifyProduct.descriptionHtml);
   } else if (shopifyProduct.description) {
     formattedDescription = shopifyProduct.description;
@@ -64,11 +75,12 @@ export function transformShopifyProduct(shopifyProduct: any): Product & { shopif
     handle: shopifyProduct.handle,
     title: shopifyProduct.title,
     description: formattedDescription,
-    longDescription: formattedDescription, // Use same formatted description for both
+    longDescription: formattedDescription,
+    descriptionHtml: descriptionHtml || undefined, // Only set for merch
     price: parseFloat(firstVariant?.price?.amount || '0'),
     compareAtPrice: firstVariant?.compareAtPrice ? parseFloat(firstVariant.compareAtPrice.amount) : undefined,
     images: shopifyProduct.images?.edges?.map((edge: any) => edge.node.url) || [firstImage?.url || '/placeholder.svg'],
-    category: getCategory(shopifyProduct.productType, shopifyProduct.tags),
+    category,
     heatLevel: getHeatLevel(shopifyProduct.tags),
     featured: shopifyProduct.tags?.includes('featured'),
     bestSeller: shopifyProduct.tags?.includes('best-seller'),
@@ -79,6 +91,8 @@ export function transformShopifyProduct(shopifyProduct: any): Product & { shopif
       id: edge.node.id,
       title: edge.node.title,
       price: parseFloat(edge.node.price.amount),
+      image: edge.node.image?.url, // Variant-specific image
+      selectedOptions: edge.node.selectedOptions, // Array of {name, value} pairs like [{name: "Color", value: "Black"}]
     })),
   };
 }
