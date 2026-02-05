@@ -19,9 +19,22 @@ export function ProductCard({ product, className }: ProductCardProps) {
   const { addItem } = useCart();
   const { toast } = useToast();
 
+  // Check if product has any available variants
+  const hasAvailableVariants = product.variants?.some(v => v.availableForSale !== false) ?? true;
+
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!hasAvailableVariants) {
+      toast({
+        title: "Product unavailable",
+        description: "This product is currently sold out.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     addItem(product, 1);
     toast({
       title: "Added to cart!",
@@ -38,13 +51,16 @@ export function ProductCard({ product, className }: ProductCardProps) {
     >
       {/* Badges */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
-        {product.new && (
+        {!hasAvailableVariants && (
+          <Badge className="bg-red-500 text-white font-heading text-xs">SOLD OUT</Badge>
+        )}
+        {product.new && hasAvailableVariants && (
           <Badge className="bg-accent text-accent-foreground font-heading text-xs">NEW</Badge>
         )}
-        {product.bestSeller && (
+        {product.bestSeller && hasAvailableVariants && (
           <Badge className="bg-gold text-background font-heading text-xs">BEST SELLER</Badge>
         )}
-        {product.compareAtPrice && (
+        {product.compareAtPrice && hasAvailableVariants && (
           <Badge className="bg-destructive text-destructive-foreground font-heading text-xs">
             SAVE ${(product.compareAtPrice - product.price).toFixed(0)}
           </Badge>
@@ -60,13 +76,14 @@ export function ProductCard({ product, className }: ProductCardProps) {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-          <Button 
-            size="sm" 
-            className="bg-gradient-fire hover:opacity-90"
+          <Button
+            size="sm"
+            className="bg-gradient-fire hover:opacity-90 disabled:opacity-50"
             onClick={handleQuickAdd}
+            disabled={!hasAvailableVariants}
           >
             <ShoppingCart className="h-4 w-4 mr-2" />
-            Quick Add
+            {hasAvailableVariants ? 'Quick Add' : 'Sold Out'}
           </Button>
         </div>
       </Link>
@@ -74,9 +91,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
       {/* Mobile Quick Add Button */}
       <Button
         size="icon"
-        className="absolute bottom-20 right-3 z-10 lg:hidden bg-gradient-fire hover:opacity-90 h-10 w-10 rounded-full shadow-lg"
+        className="absolute bottom-20 right-3 z-10 lg:hidden bg-gradient-fire hover:opacity-90 h-10 w-10 rounded-full shadow-lg disabled:opacity-50"
         onClick={handleQuickAdd}
-        aria-label={`Add ${product.title} to cart`}
+        disabled={!hasAvailableVariants}
+        aria-label={hasAvailableVariants ? `Add ${product.title} to cart` : `${product.title} - Sold Out`}
       >
         <ShoppingCart className="h-4 w-4" />
       </Button>

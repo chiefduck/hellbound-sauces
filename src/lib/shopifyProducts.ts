@@ -19,7 +19,7 @@ export async function getProducts() {
                 }
               }
             }
-            variants(first: 10) {
+            variants(first: 100) {
               edges {
                 node {
                   id
@@ -70,7 +70,7 @@ export async function getProductByHandle(handle: string) {
             }
           }
         }
-        variants(first: 10) {
+        variants(first: 100) {
           edges {
             node {
               id
@@ -131,7 +131,7 @@ export async function getCollectionByHandle(handle: string) {
                   }
                 }
               }
-              variants(first: 10) {
+              variants(first: 100) {
                 edges {
                   node {
                     id
@@ -143,6 +143,7 @@ export async function getCollectionByHandle(handle: string) {
                       amount
                       currencyCode
                     }
+                    availableForSale
                     image {
                       url
                       altText

@@ -20,6 +20,7 @@ export interface Product {
     id: string;
     title: string;
     price: number;
+    availableForSale?: boolean; // Whether this variant is in stock
     image?: string; // Variant-specific image
     selectedOptions?: { name: string; value: string }[]; // e.g., [{name: "Color", value: "Black"}, {name: "Size", value: "Large"}]
   }[];

@@ -20,6 +20,8 @@ export function useShopifyProducts() {
         const transformed = shopifyProducts.map((edge: any) =>
           transformShopifyProduct(edge.node)
         );
+        console.log(`🔍 Fetched ${transformed.length} products from Shopify`);
+        console.log('Products:', transformed.map(p => ({ title: p.title, category: p.category })));
         setProducts(transformed);
         setError(null);
       } catch (err) {

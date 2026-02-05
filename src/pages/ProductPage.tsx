@@ -55,6 +55,23 @@ export default function ProductPage() {
     return Array.from(values);
   };
 
+  // Check if a specific option value combination results in an out-of-stock variant
+  const isOptionValueAvailable = (optionName: string, value: string) => {
+    if (!product?.variants) return true;
+
+    // Create temporary selected options with this value
+    const tempOptions = { ...selectedOptions, [optionName]: value };
+
+    // Find variant matching these options
+    const matchingVariant = product.variants.find(variant => {
+      return variant.selectedOptions?.every(option =>
+        tempOptions[option.name] === option.value
+      );
+    });
+
+    return matchingVariant?.availableForSale !== false;
+  };
+
   // Find variant that matches all selected options
   const selectedVariant = useMemo(() => {
     if (!product?.variants) return product?.variants?.[0];
@@ -73,6 +90,7 @@ export default function ProductPage() {
   }, [product?.variants, selectedOptions]);
 
   const displayPrice = selectedVariant?.price || product?.price || 0;
+  const isSelectedVariantAvailable = selectedVariant?.availableForSale !== false;
 
   // Initialize selected options with first variant's options
   useEffect(() => {
@@ -164,8 +182,14 @@ export default function ProductPage() {
     setQuantity(1);
   };
 
-  const categoryLabel = product.category === 'hot-sauce' ? 'Hot Sauces' : product.category === 'rub' ? 'BBQ Rubs' : 'Bundles';
-  const categoryHandle = product.category === 'hot-sauce' ? 'hot-sauce' : product.category === 'rub' ? 'bbq-rubs' : 'bundles';
+  const categoryLabel = product.category === 'hot-sauce' ? 'Hot Sauces'
+    : product.category === 'rub' ? 'BBQ Rubs'
+    : product.category === 'merch' ? 'Merch and Apparel'
+    : 'Bundles';
+  const categoryHandle = product.category === 'hot-sauce' ? 'hot-sauce'
+    : product.category === 'rub' ? 'bbq-rubs'
+    : product.category === 'merch' ? 'merch-and-apparel'
+    : 'bundles';
 
   return (
     <Layout>
@@ -187,8 +211,8 @@ export default function ProductPage() {
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
           <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
-          <Link to={`/collections/${product.category === 'hot-sauce' ? 'hot-sauce' : product.category === 'rub' ? 'bbq-rubs' : 'bundles'}`} className="hover:text-foreground transition-colors capitalize">
-            {product.category === 'hot-sauce' ? 'Hot Sauces' : product.category === 'rub' ? 'BBQ Rubs' : 'Bundles'}
+          <Link to={`/collections/${categoryHandle}`} className="hover:text-foreground transition-colors capitalize">
+            {categoryLabel}
           </Link>
           <span>/</span>
           <span className="text-foreground">{product.title}</span>
@@ -290,19 +314,26 @@ export default function ProductPage() {
                       <div className="flex flex-wrap gap-2">
                         {values.map((value) => {
                           const isSelected = selectedOptions[optionType] === value;
+                          const isAvailable = isOptionValueAvailable(optionType, value);
 
                           return (
                             <button
                               key={value}
                               onClick={() => handleOptionChange(optionType, value)}
-                              className={`px-4 py-2 rounded-lg border-2 font-heading text-sm uppercase tracking-wide transition-all ${
+                              disabled={!isAvailable}
+                              className={`px-4 py-2 rounded-lg border-2 font-heading text-sm uppercase tracking-wide transition-all relative ${
                                 isSelected
                                   ? 'border-primary bg-primary/10 text-primary'
+                                  : !isAvailable
+                                  ? 'border-border/50 text-muted-foreground/50 cursor-not-allowed opacity-60'
                                   : 'border-border hover:border-primary/50'
                               }`}
-                              title={value}
+                              title={!isAvailable ? `${value} - Sold Out` : value}
                             >
                               {value}
+                              {!isAvailable && (
+                                <span className="block text-[10px] text-red-500 font-normal mt-0.5">SOLD OUT</span>
+                              )}
                             </button>
                           );
                         })}
@@ -316,19 +347,32 @@ export default function ProductPage() {
             {/* Quantity & Add to Cart */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <div className="flex items-center border border-border rounded-lg">
-                <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.max(1, quantity - 1))} disabled={!isSelectedVariantAvailable}>
                   <Minus className="h-4 w-4" />
                 </Button>
                 <span className="w-12 text-center font-heading">{quantity}</span>
-                <Button variant="ghost" size="icon" onClick={() => setQuantity(quantity + 1)}>
+                <Button variant="ghost" size="icon" onClick={() => setQuantity(quantity + 1)} disabled={!isSelectedVariantAvailable}>
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
-              <Button onClick={handleAddToCart} className="flex-1 bg-gradient-fire hover:opacity-90 font-heading text-lg h-12">
+              <Button
+                onClick={handleAddToCart}
+                disabled={!isSelectedVariantAvailable}
+                className="flex-1 bg-gradient-fire hover:opacity-90 font-heading text-lg h-12 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
+                {isSelectedVariantAvailable ? 'Add to Cart' : 'Sold Out'}
               </Button>
             </div>
+
+            {/* Sold Out Message */}
+            {!isSelectedVariantAvailable && (
+              <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+                <p className="text-red-500 text-sm font-medium">
+                  This variant is currently sold out. Please select a different option or check back later.
+                </p>
+              </div>
+            )}
 
             {/* Trust badges */}
             <div className="grid grid-cols-2 gap-4 p-4 rounded-lg bg-secondary/30 border border-border">
