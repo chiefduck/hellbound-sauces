@@ -14,7 +14,6 @@ const PRODUCT_HANDLE_MAP: Record<string, string> = {
   'Pineapple-Mango Hot Sauce': 'pineapple-mango-hot-sauce',
   'Wide Awake Hot Sauce': 'wide-awake',
   'Leprechaun Lava Hot Sauce': 'leprechaun-lava',
-  'Garlic Reaper': 'garlic-reaper',
   'Clove Keeper': 'series-2-clove-keeper',
   'Sapphire Dragon Hot Sauce': 'series-3-sapphire-dragon',
   'Blazin Bee Mustard': 'series-3-blazin-bee-mustard',

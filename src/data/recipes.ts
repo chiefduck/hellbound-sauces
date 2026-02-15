@@ -650,8 +650,8 @@ export const recipes: Recipe[] = [
   },
   {
     id: 'hellbound-clove-keeper-glazed-pork-tenderloin-warning-spicy',
-    title: 'HellBound Garlic Reaper Glazed Pork Tenderloin',
-    description: 'A bold, flavorful pork tenderloin glazed with HellBound\'s Garlic Reaper sauce, creating a perfect balance of heat, sweetness, and smokiness. ***WARNING SPICY***',
+    title: 'HellBound Clove Keeper Glazed Pork Tenderloin',
+    description: 'A bold, flavorful pork tenderloin glazed with HellBound\'s Clove Keeper sauce, creating a perfect balance of heat, sweetness, and smokiness. ***WARNING SPICY***',
     image: '/assets/recipes/hellbound-garlic-reaper-glazed-pork-tenderloin.webp',
     category: 'main-dishes',
     time: '1 hour',
@@ -660,7 +660,7 @@ export const recipes: Recipe[] = [
     hellboundProduct: 'Clove Keeper',
     ingredients: [
       '1 pork tenderloin (1.5 lbs)',
-      '1/2 cup HellBound Garlic Reaper sauce',
+      '1/2 cup HellBound Clove Keeper sauce',
       '1 tbsp olive oil',
       '1 medium onion, sliced',
       '1 small red bell pepper, sliced',
@@ -710,7 +710,7 @@ export const recipes: Recipe[] = [
         step: 5,
         title: 'Apply the glaze',
         details: [
-          'In a small bowl, mix 1/2 cup HellBound Garlic Reaper sauce with 1 tbsp maple syrup and 1 tbsp agave syrup.',
+          'In a small bowl, mix 1/2 cup HellBound Clove Keeper sauce with 1 tbsp maple syrup and 1 tbsp agave syrup.',
           'Brush half of the glaze over the pork tenderloin.',
         ],
       },
