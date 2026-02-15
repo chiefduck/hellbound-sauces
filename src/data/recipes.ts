@@ -224,7 +224,7 @@ export const recipes: Recipe[] = [
     },
   },
   {
-    id: 'beekeepers-blend-smoked-honey-brisket',
+    id: 'smoked-honey-brisket',
     title: 'BeeKeepers Blend Smoked Honey Brisket',
     description: 'Smoked Brisket Recipe with Sweet & Smoky Honey Dry Rub — Perfectly tender brisket smoked low and slow using HellBound Sauces Beekeeper\'s Blend. This honey-based BBQ rub forms a deep golden crust packed with flavor. Ideal for backyard smokers and BBQ competitions.',
     image: '/assets/recipes/beekeepers-blend-smoked-honey-brisket.webp',
@@ -567,7 +567,7 @@ export const recipes: Recipe[] = [
     ],
   },
   {
-    id: 'fiery-leprechaun-lava-tacos',
+    id: 'fiery-leprechaun-lava-tacos-recipe-a-spicy-flavor-packed-meal-for-hot-sauce-lovers',
     title: 'Fiery Leprechaun Lava Tacos',
     description: 'Looking to spice up your taco night? These Fiery Leprechaun Lava Tacos bring bold flavors, vibrant colors, and a kick of heat with the unique magic of Hellbound Sauces\' Leprechaun Lava Hot Sauce. Whether you\'re a fan of fiery food or just love trying creative recipes, this dish is guaranteed to satisfy your taste buds.',
     image: '/assets/recipes/fiery-leprechaun-lava-tacos.webp',
@@ -649,7 +649,7 @@ export const recipes: Recipe[] = [
     ],
   },
   {
-    id: 'hellbound-garlic-reaper-glazed-pork-tenderloin',
+    id: 'hellbound-clove-keeper-glazed-pork-tenderloin-warning-spicy',
     title: 'HellBound Garlic Reaper Glazed Pork Tenderloin',
     description: 'A bold, flavorful pork tenderloin glazed with HellBound\'s Garlic Reaper sauce, creating a perfect balance of heat, sweetness, and smokiness. ***WARNING SPICY***',
     image: '/assets/recipes/hellbound-garlic-reaper-glazed-pork-tenderloin.webp',
@@ -657,7 +657,7 @@ export const recipes: Recipe[] = [
     time: '1 hour',
     servings: '4-6',
     difficulty: 'Medium',
-    hellboundProduct: 'Garlic Reaper',
+    hellboundProduct: 'Clove Keeper',
     ingredients: [
       '1 pork tenderloin (1.5 lbs)',
       '1/2 cup HellBound Garlic Reaper sauce',

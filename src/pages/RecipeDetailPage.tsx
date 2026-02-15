@@ -1,8 +1,10 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { SEOHead } from '@/components/seo';
-import { getRecipeById } from '@/data/recipes';
+import { getRecipeById, Recipe } from '@/data/recipes';
 import { Clock, Users, ChefHat, ArrowLeft, Flame } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { getBlogArticleByHandle, ShopifyBlogArticle } from '@/lib/shopifyBlogs';
 
 // Map recipe product names to product handles (actual Shopify handles)
 const PRODUCT_HANDLE_MAP: Record<string, string> = {
@@ -13,6 +15,7 @@ const PRODUCT_HANDLE_MAP: Record<string, string> = {
   'Wide Awake Hot Sauce': 'wide-awake',
   'Leprechaun Lava Hot Sauce': 'leprechaun-lava',
   'Garlic Reaper': 'garlic-reaper',
+  'Clove Keeper': 'series-2-clove-keeper',
   'Sapphire Dragon Hot Sauce': 'series-3-sapphire-dragon',
   'Blazin Bee Mustard': 'series-3-blazin-bee-mustard',
   'Bangkok Burn': 'series-3-bangkok-burn',
@@ -28,9 +31,70 @@ const getProductHandle = (productName: string): string | null => {
 
 export default function RecipeDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const recipe = id ? getRecipeById(id) : undefined;
+  const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!recipe) {
+  useEffect(() => {
+    async function loadRecipe() {
+      if (!id) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
+      // First, try to get recipe from static data
+      const staticRecipe = getRecipeById(id);
+
+      if (staticRecipe) {
+        setRecipe(staticRecipe);
+        setLoading(false);
+        return;
+      }
+
+      // If not found in static data, try fetching from Shopify
+      try {
+        const blogArticle = await getBlogArticleByHandle('recipes', id);
+        if (blogArticle) {
+          // Convert blog article to recipe format (simplified version)
+          const shopifyRecipe: Recipe = {
+            id: blogArticle.handle,
+            title: blogArticle.title,
+            description: blogArticle.excerpt || '',
+            image: blogArticle.image?.url || '/assets/recipes/default-recipe.webp',
+            category: 'main-dishes',
+            time: '30 min',
+            servings: '4',
+            difficulty: 'Medium',
+            ingredients: [],
+            instructions: [],
+          };
+          setRecipe(shopifyRecipe);
+        } else {
+          setNotFound(true);
+        }
+      } catch (error) {
+        console.error('Error fetching recipe from Shopify:', error);
+        setNotFound(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadRecipe();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-16 text-center">
+          <p className="text-muted-foreground">Loading recipe...</p>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (notFound || !recipe) {
     return <Navigate to="/recipes" replace />;
   }
 

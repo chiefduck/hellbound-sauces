@@ -1,12 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Minus, Plus, ShoppingCart, Star, Truck, Shield, Loader2, ExternalLink } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, Truck, Shield, Loader2 } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { useShopifyProduct, useShopifyProducts } from '@/hooks/useShopifyProducts';
-import { getProductReviews, getProductRatingStats } from '@/lib/judgeme';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { SEOHead, ProductSchema, BreadcrumbSchema } from '@/components/seo';
@@ -16,11 +15,14 @@ export default function ProductPage() {
   const { product, loading, error } = useShopifyProduct(handle || '');
   const { products: allProducts } = useShopifyProducts();
 
-  // Get Judge.me reviews for this specific product
-  const judgemeReviews = product ? getProductReviews(product.handle) : [];
-  const ratingStats = product ? getProductRatingStats(product.handle) : { rating: 0, count: 0 };
-
   const relatedProducts = allProducts.filter(p => p.id !== product?.id && p.category === product?.category).slice(0, 4);
+
+  // Extract numeric product ID from Shopify GID format
+  const productId = useMemo(() => {
+    if (!product?.id) return '';
+    const match = product.id.match(/\/(\d+)$/);
+    return match ? match[1] : product.id;
+  }, [product?.id]);
 
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -106,6 +108,41 @@ export default function ProductPage() {
     }
   }, [product?.variants]);
 
+  // Initialize Judge.me widgets for SPA
+  useEffect(() => {
+    if (!product || !productId) return;
+
+    const jdgm = (window as any).jdgm;
+
+    // Manually load widget scripts for dynamically added content in SPAs
+    const loadWidgetScripts = () => {
+      if (!jdgm || typeof jdgm.widgetPath !== 'function') return;
+
+      const loadScript = (url: string, id: string) => {
+        if (document.getElementById(id)) return; // Already loaded
+
+        const script = document.createElement('script');
+        script.id = id;
+        script.src = url;
+        script.async = true;
+        document.head.appendChild(script);
+      };
+
+      loadScript(jdgm.widgetPath('jdgm-preview-badge'), 'jdgm-preview-badge-script');
+      loadScript(jdgm.widgetPath('jdgm-review-widget'), 'jdgm-review-widget-script');
+    };
+
+    // Retry loading with delays to ensure Judge.me loader is ready
+    loadWidgetScripts();
+    const timer1 = setTimeout(loadWidgetScripts, 1000);
+    const timer2 = setTimeout(loadWidgetScripts, 2000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [product, productId]);
+
   // Update image when variant changes
   useEffect(() => {
     if (selectedVariant?.image && productImages.includes(selectedVariant.image)) {
@@ -115,6 +152,7 @@ export default function ProductPage() {
       }
     }
   }, [selectedVariant]);
+
 
   // Handle option selection
   const handleOptionChange = (optionName: string, value: string) => {
@@ -262,18 +300,11 @@ export default function ProductPage() {
 
             <h1 className="font-display text-4xl lg:text-5xl mb-4">{product.title}</h1>
 
-            {ratingStats.count > 0 && (
-              <div className="flex items-center gap-2 mb-6">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`h-4 w-4 ${i < Math.round(ratingStats.rating) ? 'fill-gold text-gold' : 'text-muted/30'}`} />
-                  ))}
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  {ratingStats.rating} ({ratingStats.count} {ratingStats.count === 1 ? 'review' : 'reviews'})
-                </span>
-              </div>
-            )}
+            {/* Judge.me Star Rating Badge */}
+            <div
+              className="jdgm-widget jdgm-preview-badge mb-6"
+              data-id={productId}
+            />
 
             <div className="flex items-baseline gap-3 mb-6">
               <span className="font-display text-4xl text-primary">${displayPrice.toFixed(2)}</span>
@@ -415,64 +446,16 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Reviews */}
+        {/* Reviews - Judge.me Widget */}
         <section className="mb-20">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
-            <h2 className="font-display text-3xl">Customer Reviews</h2>
-            <Button asChild size="lg" className="bg-gradient-fire hover:opacity-90 font-heading tracking-wide group">
-              <a
-                href="https://maps.app.goo.gl/uvBTRmeT7HRJyN4h8"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Leave a Review
-                <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </Button>
-          </div>
+          <h2 className="font-display text-3xl mb-8">Customer Reviews</h2>
 
-          {judgemeReviews.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {judgemeReviews.map((review) => (
-                <div key={review.id} className="p-6 rounded-xl bg-card border border-border">
-                  <div className="flex gap-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`h-4 w-4 ${i < review.rating ? 'fill-gold text-gold' : 'text-muted/30'}`} />
-                    ))}
-                  </div>
-                  {review.title && (
-                    <h4 className="font-heading uppercase tracking-wide mb-2">{review.title}</h4>
-                  )}
-                  <p className="text-muted-foreground text-sm mb-4">{review.content}</p>
-                  <div className="flex justify-between items-center pt-4 border-t border-border">
-                    <div>
-                      <span className="text-sm font-medium">{review.author}</span>
-                      <p className="text-xs text-muted-foreground">{new Date(review.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    </div>
-                    {review.verified && <span className="text-xs text-green-500">✓ Verified</span>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 px-6 rounded-xl border-2 border-dashed border-border bg-secondary/30">
-              <Star className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="font-heading text-xl mb-2">Be the First to Review!</h3>
-              <p className="text-muted-foreground mb-6">
-                Share your experience with {product.title} and help others make informed decisions.
-              </p>
-              <Button asChild size="lg" className="bg-gradient-fire hover:opacity-90 font-heading tracking-wide group">
-                <a
-                  href="https://maps.app.goo.gl/uvBTRmeT7HRJyN4h8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Write the First Review
-                  <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              </Button>
-            </div>
-          )}
+          {/* Judge.me Review Widget */}
+          <div
+            className="jdgm-widget jdgm-review-widget jdgm-outside-widget"
+            data-id={productId}
+            data-product-title={product.title}
+          />
         </section>
 
         {/* Related Products */}

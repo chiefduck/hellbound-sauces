@@ -244,3 +244,205 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary));
 }
+
+/* ========================================
+   Judge.me Widget Custom Styles
+   ======================================== */
+
+/* General Widget Styling */
+.jdgm-widget {
+  font-family: 'Source Sans 3', sans-serif !important;
+}
+
+/* Star Rating Badge (near product title) */
+.jdgm-preview-badge {
+  margin: 0 !important;
+}
+
+.jdgm-preview-badge .jdgm-star {
+  color: hsl(var(--gold)) !important;
+  font-size: 16px !important;
+}
+
+.jdgm-preview-badge__text {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 14px !important;
+}
+
+/* Reviews Widget Container */
+.jdgm-rev-widg {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Write Review Button */
+.jdgm-write-rev-link,
+.jdgm-rev-widg__write-rev-link,
+.jdgm-write-rev-btn {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--ember)) 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 0.5rem !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  transition: opacity 0.2s !important;
+}
+
+.jdgm-write-rev-link:hover,
+.jdgm-rev-widg__write-rev-link:hover,
+.jdgm-write-rev-btn:hover {
+  opacity: 0.9 !important;
+}
+
+/* Individual Review Cards */
+.jdgm-rev {
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 0.75rem !important;
+  padding: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.jdgm-rev__title {
+  color: hsl(var(--foreground)) !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.jdgm-rev__body {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+.jdgm-rev__buyer-badge,
+.jdgm-rev__buyer-badge-text,
+.jdgm-rev__verified-buyer {
+  color: hsl(142 76% 36%) !important;
+  font-size: 12px !important;
+}
+
+.jdgm-rev__author {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 500 !important;
+}
+
+.jdgm-rev__timestamp {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 12px !important;
+}
+
+/* Star ratings in reviews */
+.jdgm-rev__rating .jdgm-star,
+.jdgm-star {
+  color: hsl(var(--gold)) !important;
+}
+
+/* Empty Star */
+.jdgm-star.jdgm--grey {
+  color: hsl(var(--muted)) !important;
+}
+
+/* Pagination */
+.jdgm-paginate__page,
+.jdgm-paginate__next,
+.jdgm-paginate__prev {
+  background: hsl(var(--secondary)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-radius: 0.5rem !important;
+}
+
+.jdgm-paginate__page:hover,
+.jdgm-paginate__next:hover,
+.jdgm-paginate__prev:hover {
+  border-color: hsl(var(--primary)) !important;
+}
+
+.jdgm-paginate__page--active {
+  background: hsl(var(--primary)) !important;
+  color: white !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* Review Form Modal */
+.jdgm-form,
+.jdgm-review-form {
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 0.75rem !important;
+  padding: 1.5rem !important;
+}
+
+.jdgm-form__label {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 500 !important;
+}
+
+.jdgm-form__input,
+.jdgm-form__textarea,
+.jdgm-form__select {
+  background: hsl(var(--input)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-radius: 0.5rem !important;
+  padding: 0.75rem !important;
+}
+
+.jdgm-form__input:focus,
+.jdgm-form__textarea:focus,
+.jdgm-form__select:focus {
+  border-color: hsl(var(--primary)) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1) !important;
+}
+
+.jdgm-form__submit,
+.jdgm-form__submit-btn {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--ember)) 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 0.5rem !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+
+.jdgm-form__submit:hover,
+.jdgm-form__submit-btn:hover {
+  opacity: 0.9 !important;
+}
+
+/* Review Summary */
+.jdgm-histogram__row-label,
+.jdgm-histogram__percentage {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.jdgm-histogram__bar-content {
+  background: hsl(var(--primary)) !important;
+}
+
+/* Sorting dropdown */
+.jdgm-sort-dropdown {
+  background: hsl(var(--input)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Hide Judge.me branding (optional - remove this if you want to keep it) */
+.jdgm-powered-by {
+  display: none !important;
+}
