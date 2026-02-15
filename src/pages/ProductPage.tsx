@@ -5,6 +5,7 @@ import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { HeatLevel } from '@/components/ui/HeatLevel';
 import { ProductGrid } from '@/components/product/ProductGrid';
+import { ReviewsSection } from '@/components/ReviewsSection';
 import { useShopifyProduct, useShopifyProducts } from '@/hooks/useShopifyProducts';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
@@ -16,13 +17,6 @@ export default function ProductPage() {
   const { products: allProducts } = useShopifyProducts();
 
   const relatedProducts = allProducts.filter(p => p.id !== product?.id && p.category === product?.category).slice(0, 4);
-
-  // Extract numeric product ID from Shopify GID format
-  const productId = useMemo(() => {
-    if (!product?.id) return '';
-    const match = product.id.match(/\/(\d+)$/);
-    return match ? match[1] : product.id;
-  }, [product?.id]);
 
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -108,40 +102,6 @@ export default function ProductPage() {
     }
   }, [product?.variants]);
 
-  // Initialize Judge.me widgets for SPA
-  useEffect(() => {
-    if (!product || !productId) return;
-
-    const jdgm = (window as any).jdgm;
-
-    // Manually load widget scripts for dynamically added content in SPAs
-    const loadWidgetScripts = () => {
-      if (!jdgm || typeof jdgm.widgetPath !== 'function') return;
-
-      const loadScript = (url: string, id: string) => {
-        if (document.getElementById(id)) return; // Already loaded
-
-        const script = document.createElement('script');
-        script.id = id;
-        script.src = url;
-        script.async = true;
-        document.head.appendChild(script);
-      };
-
-      loadScript(jdgm.widgetPath('jdgm-preview-badge'), 'jdgm-preview-badge-script');
-      loadScript(jdgm.widgetPath('jdgm-review-widget'), 'jdgm-review-widget-script');
-    };
-
-    // Retry loading with delays to ensure Judge.me loader is ready
-    loadWidgetScripts();
-    const timer1 = setTimeout(loadWidgetScripts, 1000);
-    const timer2 = setTimeout(loadWidgetScripts, 2000);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-  }, [product, productId]);
 
   // Update image when variant changes
   useEffect(() => {
@@ -300,12 +260,6 @@ export default function ProductPage() {
 
             <h1 className="font-display text-4xl lg:text-5xl mb-4">{product.title}</h1>
 
-            {/* Judge.me Star Rating Badge */}
-            <div
-              className="jdgm-widget jdgm-preview-badge mb-6"
-              data-id={productId}
-            />
-
             <div className="flex items-baseline gap-3 mb-6">
               <span className="font-display text-4xl text-primary">${displayPrice.toFixed(2)}</span>
               {product.compareAtPrice && (
@@ -446,17 +400,8 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Reviews - Judge.me Widget */}
-        <section className="mb-20">
-          <h2 className="font-display text-3xl mb-8">Customer Reviews</h2>
-
-          {/* Judge.me Review Widget */}
-          <div
-            className="jdgm-widget jdgm-review-widget jdgm-outside-widget"
-            data-id={productId}
-            data-product-title={product.title}
-          />
-        </section>
+        {/* Reviews */}
+        {product.handle && <ReviewsSection productHandle={product.handle} />}
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (

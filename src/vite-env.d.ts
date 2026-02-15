@@ -10,14 +10,3 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
-
-// Judge.me global object
-interface Window {
-  jdgm?: {
-    SHOP_DOMAIN?: string
-    PLATFORM?: string
-    PUBLIC_TOKEN?: string
-    customWidget?: (selector: string) => void
-  }
-  jdgmLoadWidgets?: () => void
-}
