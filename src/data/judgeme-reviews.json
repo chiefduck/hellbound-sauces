@@ -1,7 +1,73 @@
 {
-  "lastUpdated": "2025-12-15T16:12:17.913Z",
-  "count": 28,
+  "lastUpdated": "2026-03-01T03:18:38.993Z",
+  "count": 34,
   "reviews": [
+    {
+      "id": "1067085404",
+      "productId": "series-3-blazin-bee-mustard",
+      "author": "Sean Darnall",
+      "rating": 4,
+      "title": "Hot sauce heroes",
+      "content": "Really good stuff",
+      "date": "2026-02-15",
+      "verified": false,
+      "helpful": 0
+    },
+    {
+      "id": "1048966625",
+      "productId": "series-3-blazin-bee-mustard",
+      "author": "Benjamin Schillinger",
+      "rating": 5,
+      "title": "Best out there",
+      "content": "Best out there for mustard based hot sauces",
+      "date": "2026-01-28",
+      "verified": false,
+      "helpful": 0
+    },
+    {
+      "id": "1036752016",
+      "productId": "sweet-heat-hot-sauce",
+      "author": "Thomas Silkworth",
+      "rating": 5,
+      "title": null,
+      "content": "Love the sweet side of this milder sauce",
+      "date": "2026-01-13",
+      "verified": false,
+      "helpful": 0
+    },
+    {
+      "id": "1036751916",
+      "productId": "series-1-cucumber-madness",
+      "author": "Thomas Silkworth",
+      "rating": 5,
+      "title": null,
+      "content": "Staple in my kitchen",
+      "date": "2026-01-13",
+      "verified": false,
+      "helpful": 0
+    },
+    {
+      "id": "1025444747",
+      "productId": "aztec-gold",
+      "author": "Amanda Hogan",
+      "rating": 5,
+      "title": null,
+      "content": "Love !!!! One of my top favorite spices",
+      "date": "2025-12-30",
+      "verified": false,
+      "helpful": 0
+    },
+    {
+      "id": "978981049",
+      "productId": "series-3-blazin-bee-mustard",
+      "author": "Chris Grant",
+      "rating": 5,
+      "title": "I'm glad we reordered the three sauces that we bought",
+      "content": "I'm glad we reordered the three sauces that we bought.  We love all three of them.  We first meet you guys at the outlet stores in Aspen Grove on Santa Fe Street.  Been a huge fan ever since.",
+      "date": "2025-11-03",
+      "verified": false,
+      "helpful": 0
+    },
     {
       "id": "890796859",
       "productId": "series-3-bangkok-burn",
@@ -49,7 +115,7 @@
     {
       "id": "815559957",
       "productId": "wildwood-maple",
-      "author": "MATTHEW WHITE",
+      "author": "Steve White",
       "rating": 5,
       "title": "Wildwood maple rub",
       "content": "I tried the Wildwood maple rub on a pork butt. The maple flavor was awesome, the bark tasted like candy, and it was not too salty. The pulled pork came out amazing, and my guests loved it. I’m looking forward to trying more of the rubs..",
@@ -147,7 +213,7 @@
     },
     {
       "id": "736048851",
-      "productId": "garlic-reaper",
+      "productId": "series-2-clove-keeper",
       "author": "Alfonso Olguin",
       "rating": 5,
       "title": "Tasty with the perfect kick",
@@ -170,7 +236,7 @@
     {
       "id": "715336019",
       "productId": "pineapple-mango-hot-sauce",
-      "author": "Matthew Hoffman",
+      "author": "Customer",
       "rating": 5,
       "title": "Island twist",
       "content": "So So So good on Pizza is true!!!!  Had to try this on pizza after reading description and my teenager LOVED it! Hawaiian BBq is his favorite but by adding this he seriously will eat any kind of pizza as long as thing on the table.Total game changer! Is my go to sauce for chicken , especially when I want to add a little twist to teriyaki and rice. The level of heat is just enough to heat up a dish that needs a little extra.",
@@ -181,7 +247,7 @@
     {
       "id": "715331391",
       "productId": "series-1-cucumber-madness",
-      "author": "Matthew Hoffman",
+      "author": "Customer",
       "rating": 5,
       "title": "Spot on!",
       "content": "Honestly a bold combo! LOVE this sauce on / with meat of any kind. Have tried it with everything from steak to chicken and truly the serrano and jalapeño  are just the right amount of heat , while the cucumber cools it down . Highly recommend for someone who likes a snap of heat with flavor.",
@@ -192,7 +258,7 @@
     {
       "id": "715325578",
       "productId": "sweet-heat-hot-sauce",
-      "author": "Matthew Hoffman",
+      "author": "Customer",
       "rating": 5,
       "title": "Perfect ratio of sweet and heat!",
       "content": "Perfect on everything from eggs to tacos! Honestly is my go to sauce to put on everything! The absolute best  balance of sweet and heat married together to form an honest  pairing that works on anything .",
@@ -202,7 +268,7 @@
     },
     {
       "id": "706092200",
-      "productId": "garlic-reaper",
+      "productId": "series-2-clove-keeper",
       "author": "Jennifer Severyn",
       "rating": 5,
       "title": "Best .sauce.ever",
@@ -213,7 +279,7 @@
     },
     {
       "id": "697372378",
-      "productId": "garlic-reaper",
+      "productId": "series-2-clove-keeper",
       "author": "James hinton",
       "rating": 5,
       "title": "Delicious",
@@ -269,7 +335,7 @@
     {
       "id": "690540952",
       "productId": "pineapple-mango-hot-sauce",
-      "author": "Customer",
+      "author": "Joanna Brooks",
       "rating": 5,
       "title": "Soooo good!!",
       "content": "This one is our favorite!! Has such a wonderful mix of flavors.   \r\nLove it on everything …chicken, eggs, corn chips and so much more!!",
