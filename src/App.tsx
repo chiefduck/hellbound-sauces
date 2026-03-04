@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { CartProvider } from "@/contexts/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
@@ -30,7 +30,6 @@ import ElmoBoydPage from "./pages/artists/ElmoBoydPage";
 import TonyCiavarroPage from "./pages/artists/TonyCiavarroPage";
 import KrisMastersonPage from "./pages/artists/KrisMastersonPage";
 import AaronDiazPage from "./pages/artists/AaronDiazPage";
-import ShopifyTestPage from "./pages/ShopifyTestPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +48,7 @@ const App = () => (
             <Route path="/collections/:handle" element={<CollectionPage />} />
             <Route path="/products/:handle" element={<ProductPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/our-story" element={<Navigate to="/about" replace />} />
             <Route path="/artwork" element={<ArtworkPage />} />
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/artists/aldo-gallegos" element={<AldoGallegosPage />} />
@@ -69,7 +69,6 @@ const App = () => (
             <Route path="/shipping" element={<ShippingPage />} />
             <Route path="/cancellation" element={<CancellationPage />} />
             <Route path="/refund" element={<RefundPage />} />
-            <Route path="/shopify-test" element={<ShopifyTestPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

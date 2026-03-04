@@ -1,5 +1,5 @@
 import { Layout } from '@/components/layout/Layout';
-import { Flame, Award, Users, Heart } from 'lucide-react';
+import { Flame } from 'lucide-react';
 import { SEOHead } from '@/components/seo';
 import OwnerPic from '@/assets/owner_pic.webp';
 import NyxPic from '@/assets/nyx_dog_480x480.webp';
@@ -37,13 +37,13 @@ export default function AboutPage() {
                 <p>
                   At HellBound Sauces, our journey is rooted in a simple love for flavor and heat. For Scott,
                   it all started in his kitchen, experimenting with ingredients to create sauces that brought
-                  meals to life. What began as a passion project—sharing small-batch creations with family and
-                  friends—quickly grew into something much bigger. The feedback was undeniable: people couldn't
+                  meals to life. What began as a passion project, sharing small-batch creations with family and
+                  friends, quickly grew into something much bigger. The feedback was undeniable: people couldn't
                   get enough, and the requests started pouring in.
                 </p>
                 <p>
                   It wasn't about revolutionizing the hot sauce industry; it was about creating something personal,
-                  authentic, and deeply flavorful. Scott's vision wasn't just about heat—it was about balance. He
+                  authentic, and deeply flavorful. Scott's vision wasn't just about heat, it was about balance. He
                   wanted to craft sauces that complemented food, delivering bold flavors with just the right kick.
                 </p>
               </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
             <h2 className="font-display text-4xl mb-8 text-center">From Hobby to HellBound</h2>
             <div className="space-y-4 text-muted-foreground text-lg">
               <p>
-                As demand grew, Scott realized this wasn't just a hobby anymore—it was an opportunity to turn
+                As demand grew, Scott realized this wasn't just a hobby anymore, it was an opportunity to turn
                 his passion into something more. But he didn't want HellBound Sauces to be just another hot
                 sauce brand. He wanted it to stand out, not only for its flavors but for its personality.
               </p>
@@ -132,12 +132,12 @@ export default function AboutPage() {
             <h2 className="font-display text-4xl mb-6">Join Our Journey</h2>
             <div className="space-y-4 text-muted-foreground text-lg">
               <p>
-                At HellBound Sauces, we're not just selling hot sauce—we're sharing a piece of our story, one
+                At HellBound Sauces, we're not just selling hot sauce, we're sharing a piece of our story, one
                 bottle at a time. Whether you're a die-hard spice enthusiast or just exploring the world of heat,
                 we invite you to join us on this flavorful journey.
               </p>
               <p className="text-xl text-foreground font-heading">
-                From our kitchen to your table, HellBound Sauces is about more than heat—it's about passion,
+                From our kitchen to your table, HellBound Sauces is about more than heat, it's about passion,
                 creativity, and the love of great food.
               </p>
               <p className="text-2xl text-primary font-heading tracking-wide mt-6">
