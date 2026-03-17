@@ -18,30 +18,21 @@ export default function WholesalePage() {
 
     // Honeypot check - if filled, it's a bot
     const formData = new FormData(e.currentTarget);
-    if (formData.get('website')) return;
+    if (formData.get('company')) return;
 
     setIsSubmitting(true);
 
-    // Map to Agency Standard Schema
     const payload = {
-      // Top Level: Standard Fields
-      full_name: formData.get('name'),
+      client: 'hellbound-sauces',
+      name: formData.get('name'),
       email: formData.get('email'),
-      phone: phone, // Already sanitized by PhoneInput
-      lead_source: 'Hellbound Sauces - Wholesale Form',
-      message_body: formData.get('message'),
-      website: formData.get('website'), // Honeypot field
-
-      // Metadata: The "Bucket" for everything else
-      metadata: {
-        inquiry_type: 'wholesale',
-        consent: true,
-        consentTimestamp: new Date().toISOString()
-      }
+      phone: phone,
+      message: formData.get('message'),
+      inquiry_type: 'wholesale',
     };
 
     try {
-      const response = await fetch(import.meta.env.VITE_N8N_WEBHOOK_URL, {
+      const response = await fetch('https://nobunikboeenahklsxgg.supabase.co/functions/v1/form-submission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -151,7 +142,7 @@ export default function WholesalePage() {
               {/* Honeypot field - hidden from users */}
               <input
                 type="text"
-                name="website"
+                name="company"
                 style={{ display: 'none' }}
                 tabIndex={-1}
                 autoComplete="off"

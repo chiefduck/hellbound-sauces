@@ -60,28 +60,22 @@ export default function ContactPage() {
     const selectedTopicLabel = topics.find(t => t.value === topic)?.label || topic;
 
     const payload = {
-      full_name: formData.get('name'),
+      client: 'hellbound-sauces',
+      name: formData.get('name'),
       email: formData.get('email'),
-      phone: phone, // Already sanitized by PhoneInput
-      lead_source: `Hellbound Sauces - ${inquiryType} Form`,
-      message_body: formData.get('message'),
-      website: formData.get('website'),
-
-      metadata: {
-        inquiry_type: inquiryType,
-        topic: selectedTopicLabel,
-        company: formData.get('company') || "",
-        order_number: formData.get('orderNumber') || "",
-        consent: true,
-        consentTimestamp: new Date().toISOString()
-      }
+      phone: phone,
+      message: formData.get('message'),
+      inquiry_type: inquiryType,
+      topic: selectedTopicLabel,
+      company: formData.get('company') || "",
+      order_number: formData.get('orderNumber') || "",
     };
 
     try {
-      const response = await fetch(import.meta.env.VITE_N8N_WEBHOOK_URL, {
+      const response = await fetch('https://nobunikboeenahklsxgg.supabase.co/functions/v1/form-submission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload), // Send the standardized payload
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error('Failed to send message');
