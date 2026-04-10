@@ -1,6 +1,7 @@
-import { Star, Quote, ExternalLink } from 'lucide-react';
+import { Star, Quote, ExternalLink, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { getFeaturedReviews } from '@/data/reviews';
-import { getProductById } from '@/data/products';
+import { getProductByHandle, type Product } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import judgemeReviews from '@/data/judgeme-reviews.json';
 
@@ -38,6 +39,26 @@ function shuffleWithSeed<T>(array: T[], seed: number): T[] {
   return shuffled;
 }
 
+/**
+ * Normalize Judge.me product handles to match local product handles.
+ * Judge.me includes "series-X-" prefixes and "-hot-sauce" suffixes
+ * that the local product data doesn't use.
+ */
+function getProductFromHandle(productId: string): Product | undefined {
+  // Try direct match first
+  const direct = getProductByHandle(productId);
+  if (direct) return direct;
+
+  // Strip "series-X-" prefix (e.g. "series-3-blazin-bee-mustard" → "blazin-bee-mustard")
+  const withoutPrefix = productId.replace(/^series-\d+-/, '');
+  const afterPrefix = getProductByHandle(withoutPrefix);
+  if (afterPrefix) return afterPrefix;
+
+  // Strip "-hot-sauce" suffix (e.g. "sweet-heat-hot-sauce" → "sweet-heat")
+  const withoutSuffix = withoutPrefix.replace(/-hot-sauce$/, '');
+  return getProductByHandle(withoutSuffix);
+}
+
 export function ReviewsCarousel() {
   // Use cached Judge.me reviews if available, otherwise fall back to static reviews
   const hasJudgemeReviews = judgemeReviews.reviews && judgemeReviews.reviews.length > 0;
@@ -61,18 +82,23 @@ export function ReviewsCarousel() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visibleReviews.map((review, index) => {
-            const product = getProductById(review.productId);
+            const product = getProductFromHandle(review.productId);
 
-            return (
-              <div
-                key={review.id}
-                className="p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 animate-fade-in-up"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <Quote className="h-8 w-8 text-primary/30 mb-4" />
+            const cardClassName = "p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 animate-fade-in-up flex flex-col" + (product ? " hover:shadow-md cursor-pointer" : "");
+
+            const cardContent = (
+              <>
+                <div className="flex items-start justify-between mb-3">
+                  <Quote className="h-6 w-6 text-primary/30 shrink-0" />
+                  {product && (
+                    <span className="text-xs font-medium text-primary/80 bg-primary/10 px-2 py-1 rounded-full leading-tight text-right max-w-[60%]">
+                      {product.title}
+                    </span>
+                  )}
+                </div>
 
                 {/* Stars */}
-                <div className="flex gap-1 mb-4">
+                <div className="flex gap-1 mb-3">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
@@ -81,20 +107,41 @@ export function ReviewsCarousel() {
                   ))}
                 </div>
 
-                <h4 className="font-heading text-lg uppercase tracking-wide mb-2">{review.title}</h4>
-                <p className="text-muted-foreground text-sm mb-4">{review.content}</p>
+                {review.title && (
+                  <h4 className="font-heading text-base uppercase tracking-wide mb-2">{review.title}</h4>
+                )}
+                <p className="text-muted-foreground text-sm mb-4 flex-1">{review.content}</p>
 
                 <div className="flex items-center justify-between pt-4 border-t border-border">
-                  <div>
-                    <p className="font-medium text-sm">{review.author}</p>
+                  <p className="font-medium text-sm">{review.author}</p>
+                  <div className="flex items-center gap-2">
+                    {review.verified && (
+                      <span className="text-xs text-green-500 font-medium">✓ Verified</span>
+                    )}
                     {product && (
-                      <p className="text-xs text-muted-foreground">{product.title}</p>
+                      <ArrowRight className="h-3.5 w-3.5 text-primary/50" />
                     )}
                   </div>
-                  {review.verified && (
-                    <span className="text-xs text-green-500 font-medium">✓ Verified</span>
-                  )}
                 </div>
+              </>
+            );
+
+            return product ? (
+              <Link
+                key={review.id}
+                to={`/products/${product.handle}`}
+                className={cardClassName}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {cardContent}
+              </Link>
+            ) : (
+              <div
+                key={review.id}
+                className={cardClassName}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {cardContent}
               </div>
             );
           })}
