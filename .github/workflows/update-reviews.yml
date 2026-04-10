@@ -43,7 +43,7 @@ jobs:
 
           # Fetch reviews from Judge.me API using private token
           HTTP_CODE=$(curl -w "%{http_code}" -o src/data/judgeme-reviews-raw.json \
-            "https://judge.me/api/v1/reviews?shop_domain=${JUDGEME_SHOP_DOMAIN}&api_token=${JUDGEME_PRIVATE_TOKEN}&published=true&per_page=50")
+            "https://judge.me/api/v1/reviews?shop_domain=${JUDGEME_SHOP_DOMAIN}&api_token=${JUDGEME_PRIVATE_TOKEN}&published=true&per_page=250")
 
           if [ "$HTTP_CODE" -ne 200 ]; then
             echo "Error: Judge.me API returned HTTP $HTTP_CODE"
