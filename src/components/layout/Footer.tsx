@@ -57,12 +57,10 @@ export function Footer({ showNewsletter = true }: FooterProps) {
 
     // Map to Agency Standard Schema
     const payload = {
-      // Top Level: Standard Fields
+      client: 'hellbound-sauces',
       email: formData.get('email'),
       lead_source: 'Hellbound Sauces - Newsletter Form',
-      website: formData.get('website'), // Honeypot field
-
-      // Metadata: The "Bucket" for everything else
+      website: formData.get('website'),
       metadata: {
         inquiry_type: 'newsletter',
         consent: true,
@@ -71,7 +69,7 @@ export function Footer({ showNewsletter = true }: FooterProps) {
     };
 
     try {
-      const response = await fetch(import.meta.env.VITE_N8N_WEBHOOK_URL, {
+      const response = await fetch(import.meta.env.VITE_SUPABASE_FUNCTION_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
