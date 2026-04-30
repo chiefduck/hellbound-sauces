@@ -2,19 +2,26 @@ import { useState, useEffect } from 'react';
 import { getProducts, getProductByHandle, getCollectionByHandle } from '@/lib/shopifyProducts';
 import { transformShopifyProduct, transformShopifyCollection } from '@/lib/shopifyTransform';
 import { Product, getProductByHandle as getLocalProduct, getCollectionByHandle as getLocalCollection } from '@/data/products';
+import staticData from '@/data/products-static.json';
+
+const staticProducts: Product[] = staticData.products as unknown as Product[];
+
+function getStaticProduct(handle: string): Product | null {
+  return staticProducts.find(p => p.handle === handle) ?? null;
+}
 
 /**
  * Hook to fetch all products from Shopify
  */
 export function useShopifyProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>(staticProducts);
+  const [loading, setLoading] = useState(staticProducts.length === 0);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     async function fetchProducts() {
       try {
-        setLoading(true);
+        if (staticProducts.length === 0) setLoading(true);
         const response = await getProducts();
         const shopifyProducts = response.data?.products?.edges || [];
         const transformed = shopifyProducts.map((edge: any) =>
@@ -43,7 +50,7 @@ export function useShopifyProducts() {
  * (prevents Soft 404 signals when Google crawls before the Shopify API responds).
  */
 export function useShopifyProduct(handle: string) {
-  const localFallback = handle ? (getLocalProduct(handle) ?? null) : null;
+  const localFallback = handle ? (getStaticProduct(handle) ?? getLocalProduct(handle) ?? null) : null;
   const [product, setProduct] = useState<Product | null>(localFallback);
   const [loading, setLoading] = useState(!localFallback);
   const [error, setError] = useState<Error | null>(null);
