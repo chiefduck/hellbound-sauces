@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getProducts, getProductByHandle, getCollectionByHandle } from '@/lib/shopifyProducts';
 import { transformShopifyProduct, transformShopifyCollection } from '@/lib/shopifyTransform';
-import { Product } from '@/data/products';
+import { Product, getProductByHandle as getLocalProduct, getCollectionByHandle as getLocalCollection } from '@/data/products';
 
 /**
  * Hook to fetch all products from Shopify
@@ -38,11 +38,14 @@ export function useShopifyProducts() {
 }
 
 /**
- * Hook to fetch a single product from Shopify
+ * Hook to fetch a single product from Shopify.
+ * Seeds initial state from local data so the page renders content immediately
+ * (prevents Soft 404 signals when Google crawls before the Shopify API responds).
  */
 export function useShopifyProduct(handle: string) {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
+  const localFallback = handle ? (getLocalProduct(handle) ?? null) : null;
+  const [product, setProduct] = useState<Product | null>(localFallback);
+  const [loading, setLoading] = useState(!localFallback);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -76,11 +79,13 @@ export function useShopifyProduct(handle: string) {
 }
 
 /**
- * Hook to fetch a collection from Shopify
+ * Hook to fetch a collection from Shopify.
+ * Seeds initial state from local data so the page renders content immediately.
  */
 export function useShopifyCollection(handle: string) {
-  const [collection, setCollection] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const localFallback = handle ? (getLocalCollection(handle) ?? null) : null;
+  const [collection, setCollection] = useState<any>(localFallback);
+  const [loading, setLoading] = useState(!localFallback);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
