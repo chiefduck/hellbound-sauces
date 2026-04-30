@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getProducts, getProductByHandle, getCollectionByHandle } from '@/lib/shopifyProducts';
 import { transformShopifyProduct, transformShopifyCollection } from '@/lib/shopifyTransform';
-import { Product, getProductByHandle as getLocalProduct, getCollectionByHandle as getLocalCollection } from '@/data/products';
+import { Product, getProductByHandle as getLocalProduct } from '@/data/products';
 import staticData from '@/data/products-static.json';
 
 const staticProducts: Product[] = staticData.products as unknown as Product[];
@@ -85,14 +85,9 @@ export function useShopifyProduct(handle: string) {
   return { product, loading, error };
 }
 
-/**
- * Hook to fetch a collection from Shopify.
- * Seeds initial state from local data so the page renders content immediately.
- */
 export function useShopifyCollection(handle: string) {
-  const localFallback = handle ? (getLocalCollection(handle) ?? null) : null;
-  const [collection, setCollection] = useState<any>(localFallback);
-  const [loading, setLoading] = useState(!localFallback);
+  const [collection, setCollection] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -103,19 +98,19 @@ export function useShopifyCollection(handle: string) {
       }
 
       try {
-        if (!localFallback) setLoading(true);
+        setLoading(true);
         const response = await getCollectionByHandle(handle);
 
         if (response.data?.collection) {
           const transformed = transformShopifyCollection(response.data.collection);
           setCollection(transformed);
-        } else if (!localFallback) {
+        } else {
           setCollection(null);
         }
         setError(null);
       } catch (err) {
         console.error('Error fetching collection:', err);
-        if (!localFallback) setError(err instanceof Error ? err : new Error('Failed to fetch collection'));
+        setError(err instanceof Error ? err : new Error('Failed to fetch collection'));
       } finally {
         setLoading(false);
       }
