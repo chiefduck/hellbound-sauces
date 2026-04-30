@@ -1,17 +1,24 @@
 import { Layout } from '@/components/layout/Layout';
 import { useShopifyPolicy } from '@/hooks/useShopifyPage';
 import { ShopifyPolicyKey } from '@/lib/shopify';
+import { SEOHead } from '@/components/seo';
 
 interface ShopifyPolicyPageProps {
   policyKey: ShopifyPolicyKey;
   fallbackTitle: string;
+  canonical: string;
 }
 
-export default function ShopifyPolicyPage({ policyKey, fallbackTitle }: ShopifyPolicyPageProps) {
+export default function ShopifyPolicyPage({ policyKey, fallbackTitle, canonical }: ShopifyPolicyPageProps) {
   const { data: policy, isLoading, isError } = useShopifyPolicy(policyKey);
 
   return (
     <Layout>
+      <SEOHead
+        title={fallbackTitle}
+        description={`Hellbound Hot Sauce ${fallbackTitle.toLowerCase()} — everything you need to know about our ${fallbackTitle.toLowerCase()}.`}
+        canonical={canonical}
+      />
       <section className="py-20 lg:py-28">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl mx-auto">
