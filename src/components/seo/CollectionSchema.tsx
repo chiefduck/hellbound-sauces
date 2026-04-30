@@ -26,7 +26,7 @@ export function CollectionSchema({ collection, products }: CollectionSchemaProps
           "@id": `https://hellboundsauces.com/products/${product.handle}`,
           "name": product.title,
           "description": product.description,
-          "image": product.images?.[0],
+          "image": product.images?.[0] || "https://hellboundsauces.com/logo.png",
           "offers": {
             "@type": "Offer",
             "price": product.price.toFixed(2),
