@@ -56,17 +56,17 @@ export function useShopifyProduct(handle: string) {
       }
 
       try {
-        setLoading(true);
+        if (!localFallback) setLoading(true);
         const response = await getProductByHandle(handle);
         if (response.data?.product) {
           const transformed = transformShopifyProduct(response.data.product);
           setProduct(transformed);
-        } else {
+        } else if (!localFallback) {
           setProduct(null);
         }
         setError(null);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Failed to fetch product'));
+        if (!localFallback) setError(err instanceof Error ? err : new Error('Failed to fetch product'));
       } finally {
         setLoading(false);
       }
@@ -96,19 +96,19 @@ export function useShopifyCollection(handle: string) {
       }
 
       try {
-        setLoading(true);
+        if (!localFallback) setLoading(true);
         const response = await getCollectionByHandle(handle);
 
         if (response.data?.collection) {
           const transformed = transformShopifyCollection(response.data.collection);
           setCollection(transformed);
-        } else {
+        } else if (!localFallback) {
           setCollection(null);
         }
         setError(null);
       } catch (err) {
         console.error('Error fetching collection:', err);
-        setError(err instanceof Error ? err : new Error('Failed to fetch collection'));
+        if (!localFallback) setError(err instanceof Error ? err : new Error('Failed to fetch collection'));
       } finally {
         setLoading(false);
       }
