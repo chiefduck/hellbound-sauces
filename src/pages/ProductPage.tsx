@@ -10,6 +10,8 @@ import { useShopifyProduct, useShopifyProducts } from '@/hooks/useShopifyProduct
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { SEOHead, ProductSchema, BreadcrumbSchema } from '@/components/seo';
+import { Badge } from '@/components/ui/badge';
+import { isLowStock } from '@/lib/inventory';
 
 export default function ProductPage() {
   const { handle } = useParams<{ handle: string }>();
@@ -87,6 +89,7 @@ export default function ProductPage() {
 
   const displayPrice = selectedVariant?.price || product?.price || 0;
   const isSelectedVariantAvailable = selectedVariant?.availableForSale !== false;
+  const selectedVariantLowStock = isLowStock(selectedVariant?.quantityAvailable, isSelectedVariantAvailable, product?.category);
 
   // Initialize selected options with first variant's options
   useEffect(() => {
@@ -274,6 +277,9 @@ export default function ProductPage() {
               {product.compareAtPrice && (
                 <span className="text-xl text-muted-foreground line-through">${product.compareAtPrice.toFixed(2)}</span>
               )}
+              {selectedVariantLowStock && (
+                <Badge className="bg-amber-500 text-black font-heading text-xs">LOW STOCK</Badge>
+              )}
             </div>
 
             {/* Description - render HTML for merch products (size charts), plain text for others */}
@@ -364,6 +370,15 @@ export default function ProductPage() {
               <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30">
                 <p className="text-red-500 text-sm font-medium">
                   This variant is currently sold out. Please select a different option or check back later.
+                </p>
+              </div>
+            )}
+
+            {/* Low Stock Message */}
+            {selectedVariantLowStock && (
+              <div className="mb-6 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                <p className="text-amber-500 text-sm font-medium">
+                  Only {selectedVariant?.quantityAvailable} left in stock — order soon.
                 </p>
               </div>
             )}

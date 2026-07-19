@@ -53,6 +53,7 @@ const PRODUCTS_QUERY = `
                 price { amount currencyCode }
                 compareAtPrice { amount currencyCode }
                 availableForSale
+                quantityAvailable
                 image { url altText }
                 selectedOptions { name value }
               }
@@ -118,6 +119,7 @@ function transformProduct(node) {
       title: e.node.title,
       price: parseFloat(e.node.price.amount),
       availableForSale: e.node.availableForSale,
+      quantityAvailable: e.node.quantityAvailable,
       image: e.node.image?.url,
       selectedOptions: e.node.selectedOptions,
     })) || [],

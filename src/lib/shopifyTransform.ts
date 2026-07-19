@@ -92,6 +92,7 @@ export function transformShopifyProduct(shopifyProduct: any): Product & { shopif
       title: edge.node.title,
       price: parseFloat(edge.node.price.amount),
       availableForSale: edge.node.availableForSale,
+      quantityAvailable: edge.node.quantityAvailable,
       image: edge.node.image?.url, // Variant-specific image
       selectedOptions: edge.node.selectedOptions, // Array of {name, value} pairs like [{name: "Color", value: "Black"}]
     })),

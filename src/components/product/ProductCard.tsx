@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { getTotalAvailableQuantity, isLowStock } from '@/lib/inventory';
 
 interface ProductCardProps {
   product: Product;
@@ -21,6 +22,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
   // Check if product has any available variants
   const hasAvailableVariants = product.variants?.some(v => v.availableForSale !== false) ?? true;
+  const totalAvailableQuantity = getTotalAvailableQuantity(product.variants);
+  const lowStock = isLowStock(totalAvailableQuantity, hasAvailableVariants, product.category);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -54,6 +57,9 @@ export function ProductCard({ product, className }: ProductCardProps) {
         {!hasAvailableVariants && (
           <Badge className="bg-red-500 text-white font-heading text-xs">SOLD OUT</Badge>
         )}
+        {lowStock && (
+          <Badge className="bg-amber-500 text-black font-heading text-xs">LOW STOCK</Badge>
+        )}
         {product.new && hasAvailableVariants && (
           <Badge className="bg-accent text-accent-foreground font-heading text-xs">NEW</Badge>
         )}
@@ -86,18 +92,18 @@ export function ProductCard({ product, className }: ProductCardProps) {
             {hasAvailableVariants ? 'Quick Add' : 'Sold Out'}
           </Button>
         </div>
-      </Link>
 
-      {/* Mobile Quick Add Button */}
-      <Button
-        size="icon"
-        className="absolute bottom-20 right-3 z-10 lg:hidden bg-gradient-fire hover:opacity-90 h-10 w-10 rounded-full shadow-lg disabled:opacity-50"
-        onClick={handleQuickAdd}
-        disabled={!hasAvailableVariants}
-        aria-label={hasAvailableVariants ? `Add ${product.title} to cart` : `${product.title} - Sold Out`}
-      >
-        <ShoppingCart className="h-4 w-4" />
-      </Button>
+        {/* Mobile Quick Add Button — anchored to the image, not the card, so it doesn't drift with description height */}
+        <Button
+          size="icon"
+          className="absolute bottom-3 right-3 z-20 lg:hidden bg-gradient-fire hover:opacity-90 h-10 w-10 rounded-full shadow-lg disabled:opacity-50"
+          onClick={handleQuickAdd}
+          disabled={!hasAvailableVariants}
+          aria-label={hasAvailableVariants ? `Add ${product.title} to cart` : `${product.title} - Sold Out`}
+        >
+          <ShoppingCart className="h-4 w-4" />
+        </Button>
+      </Link>
 
       {/* Content */}
       <div className="p-4">

@@ -33,6 +33,7 @@ export async function getProducts() {
                     currencyCode
                   }
                   availableForSale
+                  quantityAvailable
                   image {
                     url
                     altText
@@ -84,6 +85,7 @@ export async function getProductByHandle(handle: string) {
                 currencyCode
               }
               availableForSale
+              quantityAvailable
               image {
                 url
                 altText
@@ -144,6 +146,7 @@ export async function getCollectionByHandle(handle: string) {
                       currencyCode
                     }
                     availableForSale
+                    quantityAvailable
                     image {
                       url
                       altText
