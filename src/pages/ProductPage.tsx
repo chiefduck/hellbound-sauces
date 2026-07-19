@@ -161,6 +161,15 @@ export default function ProductPage() {
   const mainImage = productImages[selectedImageIndex];
 
   const handleAddToCart = () => {
+    if (!isSelectedVariantAvailable) {
+      toast({
+        title: "Product unavailable",
+        description: "This variant is currently sold out.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Create product with selected variant info
     const productToAdd = {
       ...product,
@@ -416,30 +425,33 @@ export default function ProductPage() {
       <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-background/95 backdrop-blur-md border-t border-border p-4 z-40">
         <div className="flex items-center gap-3">
           <div className="flex items-center border border-border rounded-lg">
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="h-10 w-10"
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              disabled={!isSelectedVariantAvailable}
             >
               <Minus className="h-4 w-4" />
             </Button>
             <span className="w-10 text-center font-heading">{quantity}</span>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="h-10 w-10"
               onClick={() => setQuantity(quantity + 1)}
+              disabled={!isSelectedVariantAvailable}
             >
               <Plus className="h-4 w-4" />
             </Button>
           </div>
           <Button
             onClick={handleAddToCart}
-            className="flex-1 bg-gradient-fire hover:opacity-90 font-heading text-base h-12"
+            disabled={!isSelectedVariantAvailable}
+            className="flex-1 bg-gradient-fire hover:opacity-90 font-heading text-base h-12 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ShoppingCart className="mr-2 h-5 w-5" />
-            Add to Cart - ${(displayPrice * quantity).toFixed(2)}
+            {isSelectedVariantAvailable ? `Add to Cart - $${(displayPrice * quantity).toFixed(2)}` : 'Sold Out'}
           </Button>
         </div>
       </div>
