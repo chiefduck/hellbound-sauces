@@ -101,6 +101,7 @@ const handler: Handler = async (event) => {
           <ul>
             ${items.map(p => `<li><strong>${p.title}</strong> — ${p.quantity} left (<a href="${siteUrl}/products/${p.handle}">view product</a>)</li>`).join('')}
           </ul>
+          <p style="color: #666; font-size: 13px;">Inventory is checked daily. You'll get this alert the first time a product dips below 25 units — it won't repeat every day while it stays low, only if it drops again after being restocked.</p>
         `;
         break;
       }
