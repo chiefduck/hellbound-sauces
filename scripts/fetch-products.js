@@ -74,7 +74,9 @@ function getCategory(productType = '', tags = []) {
   }
   if (type.includes('bundle') || tagStr.includes('bundle')) return 'bundle';
   if (type.includes('rub') || tagStr.includes('rub') || tagStr.includes('bbq')) return 'rub';
-  if (type.includes('sauce') || tagStr.includes('sauce') || tagStr.includes('hot')) return 'hot-sauce';
+  // Only trust productType for "sauce"/"hot" — tag-based matching false-positives on
+  // brand/marketing tags like "HellBound Sauces" or "Hot Sauce Lover" applied to merch.
+  if (type.includes('sauce') || type.includes('hot')) return 'hot-sauce';
   return 'merch';
 }
 

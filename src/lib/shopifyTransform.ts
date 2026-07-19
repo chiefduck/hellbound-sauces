@@ -157,8 +157,9 @@ function getCategory(productType: string, tags: string[] = []): 'hot-sauce' | 'r
     return 'rub';
   }
 
-  // Check for hot sauce indicators (handles "Hot Sauces", "hot-sauce", "sauce", etc.)
-  if (type.includes('sauce') || tagString.includes('sauce') || tagString.includes('hot')) {
+  // Only trust productType for "sauce"/"hot" — tag-based matching here false-positives on
+  // brand/marketing tags like "HellBound Sauces" or "Hot Sauce Lover" applied to merch.
+  if (type.includes('sauce') || type.includes('hot')) {
     return 'hot-sauce';
   }
 
