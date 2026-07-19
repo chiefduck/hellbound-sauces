@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 interface EmailData {
-  type: 'contact' | 'wholesale' | 'newsletter';
+  type: 'contact' | 'wholesale' | 'newsletter' | 'low-stock';
   name?: string;
   email: string;
   phone?: string;
@@ -13,6 +13,8 @@ interface EmailData {
   inquiryType?: string;
   topic?: string;
   orderNumber?: string;
+  products?: { title: string; handle: string; quantity: number }[];
+  siteUrl?: string;
 }
 
 const handler: Handler = async (event) => {
@@ -33,6 +35,18 @@ const handler: Handler = async (event) => {
         statusCode: 400,
         body: JSON.stringify({ error: 'Missing required fields' }),
       };
+    }
+
+    // Low-stock alerts come from a scheduled script, not a public form — require
+    // a shared secret so a stranger can't spam Scott's inbox via this public URL.
+    if (data.type === 'low-stock') {
+      const providedSecret = event.headers['x-alert-secret'];
+      if (!providedSecret || providedSecret !== process.env.ALERT_SECRET) {
+        return {
+          statusCode: 401,
+          body: JSON.stringify({ error: 'Unauthorized' }),
+        };
+      }
     }
 
     let subject = '';
@@ -76,6 +90,20 @@ const handler: Handler = async (event) => {
           <p>This subscriber was added through the website newsletter form.</p>
         `;
         break;
+
+      case 'low-stock': {
+        const items = data.products || [];
+        const siteUrl = data.siteUrl || 'https://hellboundsauces.com';
+        subject = `Low Stock Alert — ${items.length} product${items.length === 1 ? '' : 's'} below 25 units`;
+        html = `
+          <h2>Low Stock Alert</h2>
+          <p>The following product${items.length === 1 ? ' is' : 's are'} running low (under 25 units available):</p>
+          <ul>
+            ${items.map(p => `<li><strong>${p.title}</strong> — ${p.quantity} left (<a href="${siteUrl}/products/${p.handle}">view product</a>)</li>`).join('')}
+          </ul>
+        `;
+        break;
+      }
 
       default:
         return {
