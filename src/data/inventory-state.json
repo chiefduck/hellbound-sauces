@@ -5,7 +5,7 @@
   },
   "pineapple-mango-hot-sauce": {
     "low": false,
-    "quantity": 143
+    "quantity": 140
   },
   "wide-awake": {
     "low": false,
@@ -21,15 +21,15 @@
   },
   "series-1-cucumber-madness": {
     "low": false,
-    "quantity": 154
+    "quantity": 153
   },
   "aztec-gold": {
     "low": false,
-    "quantity": 190
+    "quantity": 186
   },
   "beekeepers-blend": {
     "low": false,
-    "quantity": 103
+    "quantity": 100
   },
   "wildwood-maple": {
     "low": false,
@@ -45,6 +45,6 @@
   },
   "series-3-sapphire-dragon": {
     "low": false,
-    "quantity": 575
+    "quantity": 572
   }
 }
