@@ -1,5 +1,1102 @@
 {
-  "lastUpdated": "2025-01-01T00:00:00.000Z",
-  "totalReviews": 0,
-  "products": {}
+  "lastUpdated": "2026-08-05T18:35:33.764Z",
+  "totalReviews": 66,
+  "products": {
+    "wide-awake": {
+      "productHandle": "wide-awake",
+      "productTitle": "Series 2- Wide Awake",
+      "reviews": [
+        {
+          "id": 1285858795,
+          "rating": 5,
+          "title": null,
+          "body": "Live it",
+          "reviewer": {
+            "name": "Leslie Praisuwan (844)",
+            "email": "leslie.praisuwan@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-08-05T16:47:34+00:00",
+          "updatedAt": "2026-08-05T16:52:44+00:00"
+        },
+        {
+          "id": 982694471,
+          "rating": 5,
+          "title": "Love Wide Awake",
+          "body": "Good.   Pretty hot so I use less of this on my food.   But love the taste.",
+          "reviewer": {
+            "name": "Chris Grant",
+            "email": "scubagrant60@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-11-08T01:47:19+00:00",
+          "updatedAt": "2025-11-08T01:51:28+00:00"
+        },
+        {
+          "id": 737210822,
+          "rating": 5,
+          "title": "THIS IS SO WORTH A TRY!!",
+          "body": "I’ve tried a lot of hot sauces, but HellBound Sauces’ “Wide Awake” really caught me off guard—in the best way possible. I wasn’t expecting the espresso kick, but wow, it works so well. It adds this rich, almost smoky bitterness that balances the heat and sweetness perfectly.\r\n\r\nThe heat level is no joke—it starts off slow but keeps building until you’re fully feeling it. But what I love most is that the flavor doesn’t get lost. I’ve had sauces that are just pure burn with nothing else going on, but this one actually enhances the food. I’ve put it on breakfast burritos, burgers, even added a little to a pot of chili, and it took everything to the next level.\r\n\r\nFair warning: don’t overdo it unless you’re ready for some serious heat. I got a little overconfident the first time and paid the price, but I can’t stop reaching for it now. If you’re into bold, unique flavors and not afraid of some serious spice, this one’s a game changer. Highly recommend!",
+          "reviewer": {
+            "name": "Customer",
+            "email": "eklipze.media@outlook.com"
+          },
+          "verified": false,
+          "createdAt": "2025-01-15T18:24:38+00:00",
+          "updatedAt": "2025-01-15T18:24:38+00:00"
+        },
+        {
+          "id": 737208314,
+          "rating": 5,
+          "title": "THIS STUFF IS WORTH IT!!",
+          "body": "If you’re a fan of intense heat and flavor that doesn’t quit, HellBound Sauces’ “Wide Awake” is an absolute must-try. I went into this expecting the usual hot sauce experience—some heat, maybe a tang—but this sauce blew me away with its complexity.\r\n\r\nThe first thing that hits you is the rich aroma of roasted peppers, followed by an unexpected but amazing jolt of espresso. Yes, espresso! It adds a deep, earthy bitterness that balances the sweetness from what I’m guessing is either caramelized onions or a touch of brown sugar. The spice level? Let’s just say it’s not for the faint of heart. The heat builds steadily until your tongue is wide awake (pun intended), but it never overpowers the flavors beneath it.\r\n\r\nI’ve used it on breakfast burritos, burgers, and even drizzled a bit into chili, and every time it adds something unique. The espresso profile especially shines on hearty, savory dishes. One thing to note: a little goes a long way. I made the mistake of being too generous the first time, and my taste buds were on a roller coaster for a while.\r\n\r\nBottom line—if you’re someone who appreciates bold heat with some serious flair, “Wide Awake” is the real deal. It’s not just a hot sauce; it’s an experience in a bottle. HellBound knocked it out of the park with this one!",
+          "reviewer": {
+            "name": "Customer",
+            "email": "eklipze.media@outlook.com"
+          },
+          "verified": false,
+          "createdAt": "2025-01-15T18:19:32+00:00",
+          "updatedAt": "2025-04-25T02:30:04+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 4,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 4
+        }
+      }
+    },
+    "beekeepers-blend": {
+      "productHandle": "beekeepers-blend",
+      "productTitle": "Beekeepers Blend (Large 12.2 OZ)",
+      "reviews": [
+        {
+          "id": 1285858217,
+          "rating": 5,
+          "title": null,
+          "body": "Nicely done Scott",
+          "reviewer": {
+            "name": "Leslie Praisuwan (844)",
+            "email": "leslie.praisuwan@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-08-05T16:47:24+00:00",
+          "updatedAt": "2026-08-05T16:52:35+00:00"
+        },
+        {
+          "id": 986064995,
+          "rating": 5,
+          "title": "Absolutely Fantastic!",
+          "body": "Absolutely fantastic!!!  There is really nothing more to say... ALL of your sauces are A+++++!!!!",
+          "reviewer": {
+            "name": "Ryan Paradis",
+            "email": "pparadis7@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-11-12T16:23:36+00:00",
+          "updatedAt": "2025-11-12T16:33:23+00:00"
+        },
+        {
+          "id": 837271366,
+          "rating": 2,
+          "title": "Misleading labeling",
+          "body": "It does taste great, but most things do when the first ingredient is sugar. Feels like someone went out of their way to hide it with a serving size of .8g.  If you like paying $15 for half a pound of sugar, this is the rub for you. Personally, I feel ripped off.",
+          "reviewer": {
+            "name": "Mark Kusper",
+            "email": "mark.kusper27@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-05-19T21:25:18+00:00",
+          "updatedAt": "2025-05-22T22:52:39+00:00"
+        },
+        {
+          "id": 806352515,
+          "rating": 5,
+          "title": "Amazing",
+          "body": "Made some bbq chicken and tried this rub for extra flavor and let me tell you, it did not disappoint!! 100% my new go to bbq rub!",
+          "reviewer": {
+            "name": "Justin Jacobs",
+            "email": "justinmjacobs1@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-04-14T17:57:34+00:00",
+          "updatedAt": "2025-04-14T17:58:10+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 4.3,
+        "totalReviews": 4,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 1,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        }
+      }
+    },
+    "series-3-bangkok-burn": {
+      "productHandle": "series-3-bangkok-burn",
+      "productTitle": "Series 3- Bangkok Burn",
+      "reviews": [
+        {
+          "id": 1246865024,
+          "rating": 5,
+          "title": "It is fabulous and not vinegar",
+          "body": "It is fabulous and not vinegar tasting!!",
+          "reviewer": {
+            "name": "Angela Potter",
+            "email": "potterang@comcast.net"
+          },
+          "verified": false,
+          "createdAt": "2026-07-06T14:32:52+00:00",
+          "updatedAt": "2026-07-06T14:41:04+00:00"
+        },
+        {
+          "id": 1240544090,
+          "rating": 5,
+          "title": "EXCELLENT hot sauce, totally unique",
+          "body": "EXCELLENT hot sauce, this one isn't quite as fiery as I anticipated with it being \"thai\" but man, the flavor is incredible and it still packs a punch.",
+          "reviewer": {
+            "name": "Alex Motley",
+            "email": "aandamotley@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-06-30T21:18:24+00:00",
+          "updatedAt": "2026-06-30T21:30:57+00:00"
+        },
+        {
+          "id": 1045114523,
+          "rating": 5,
+          "title": "Our favorite sauce with",
+          "body": "Our favorite sauce with Thai",
+          "reviewer": {
+            "name": "Benjamin Schillinger",
+            "email": "be.jammmin@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-01-23T03:17:50+00:00",
+          "updatedAt": "2026-01-23T03:20:59+00:00"
+        },
+        {
+          "id": 914754217,
+          "rating": 5,
+          "title": "Great Thai-Inspired Flavor",
+          "body": "My favorite hot sauce to date. If you like thai food, you'll love this! Highly recommend.",
+          "reviewer": {
+            "name": "Joe",
+            "email": "cretellajt@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-08-19T02:05:43+00:00",
+          "updatedAt": "2025-08-19T02:09:53+00:00"
+        },
+        {
+          "id": 890796859,
+          "rating": 5,
+          "title": null,
+          "body": "Really delicious hot sauces",
+          "reviewer": {
+            "name": "Demetrius Demarcus Bartholomew lll",
+            "email": "rubysanchez171@msn.com"
+          },
+          "verified": false,
+          "createdAt": "2025-07-23T07:15:25+00:00",
+          "updatedAt": "2025-07-23T07:16:03+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 5,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 5
+        }
+      }
+    },
+    "wildwood-maple": {
+      "productHandle": "wildwood-maple",
+      "productTitle": "Wildwood Maple (Large 11 OZ)",
+      "reviews": [
+        {
+          "id": 1245128543,
+          "rating": 5,
+          "title": "What a great dry rub! Used on grilled steak and pork",
+          "body": "What a great dry rub! Used on grilled steak and pork, loved the vibrancy of flavors.",
+          "reviewer": {
+            "name": "Customer",
+            "email": "ear1@comcast.net"
+          },
+          "verified": false,
+          "createdAt": "2026-07-04T17:58:53+00:00",
+          "updatedAt": "2026-07-04T18:04:19+00:00"
+        },
+        {
+          "id": 1063693453,
+          "rating": 5,
+          "title": "Have been using this on smoked chicken breast and its just the right amount of flavor",
+          "body": "Have been using this on smoked chicken breast and its just the right amount of flavor, big fan",
+          "reviewer": {
+            "name": "Thomas Silkworth",
+            "email": "tcsilkwo@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-02-12T13:16:18+00:00",
+          "updatedAt": "2026-02-12T13:19:44+00:00"
+        },
+        {
+          "id": 815559957,
+          "rating": 5,
+          "title": "Wildwood maple rub",
+          "body": "I tried the Wildwood maple rub on a pork butt. The maple flavor was awesome, the bark tasted like candy, and it was not too salty. The pulled pork came out amazing, and my guests loved it. I’m looking forward to trying more of the rubs..",
+          "reviewer": {
+            "name": "Steve White",
+            "email": "fisherdad@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-04-25T02:12:27+00:00",
+          "updatedAt": "2025-04-25T02:12:35+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 3,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        }
+      }
+    },
+    "series-3-blazin-bee-mustard": {
+      "productHandle": "series-3-blazin-bee-mustard",
+      "productTitle": "Series 3- Blazin Bee Mustard",
+      "reviews": [
+        {
+          "id": 1235736998,
+          "rating": 5,
+          "title": "I bought some at the tattoo convention a couple weeks ago and it was so good I bought more for a",
+          "body": "I bought some at the tattoo convention a couple weeks ago and it was so good I bought more for a buddy.  Then a buddy was jealous so I bought more online.... needless to say THIS SHIT IS BOMB!!",
+          "reviewer": {
+            "name": "Tim Bakel",
+            "email": "timbm686@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-06-26T02:10:29+00:00",
+          "updatedAt": "2026-06-26T02:16:51+00:00"
+        },
+        {
+          "id": 1161976580,
+          "rating": 5,
+          "title": "Tried Blazin Bee Mustard and it definitely surprised me",
+          "body": "Tried Blazin Bee Mustard and it definitely surprised me. The flavor is bold and different, in a good way. It’s got a nice balance that makes it stand out from regular mustard. I could easily see this going great on steaks or even steak fries. Definitely worth giving it a try if you want something a little different.",
+          "reviewer": {
+            "name": "Desiree Spadaro",
+            "email": "luckyshmrckgrl@aol.com"
+          },
+          "verified": false,
+          "createdAt": "2026-04-25T14:09:27+00:00",
+          "updatedAt": "2026-04-25T14:18:55+00:00"
+        },
+        {
+          "id": 1067085404,
+          "rating": 4,
+          "title": "Hot sauce heroes",
+          "body": "Really good stuff",
+          "reviewer": {
+            "name": "Sean Darnall",
+            "email": "csean.darnall@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-02-15T13:39:59+00:00",
+          "updatedAt": "2026-02-15T17:56:20+00:00"
+        },
+        {
+          "id": 1048966625,
+          "rating": 5,
+          "title": "Best out there",
+          "body": "Best out there for mustard based hot sauces",
+          "reviewer": {
+            "name": "Benjamin Schillinger",
+            "email": "be.jammmin@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-01-28T05:57:27+00:00",
+          "updatedAt": "2026-02-15T17:56:44+00:00"
+        },
+        {
+          "id": 978981049,
+          "rating": 5,
+          "title": "I'm glad we reordered the three sauces that we bought",
+          "body": "I'm glad we reordered the three sauces that we bought.  We love all three of them.  We first meet you guys at the outlet stores in Aspen Grove on Santa Fe Street.  Been a huge fan ever since.",
+          "reviewer": {
+            "name": "Chris Grant",
+            "email": "scubagrant60@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-11-03T13:23:42+00:00",
+          "updatedAt": "2026-02-15T17:56:46+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 4.8,
+        "totalReviews": 5,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 1,
+          "5": 4
+        }
+      }
+    },
+    "series-2-clove-keeper": {
+      "productHandle": "series-2-clove-keeper",
+      "productTitle": "Series 2- Clove Keeper",
+      "reviews": [
+        {
+          "id": 1179099798,
+          "rating": 5,
+          "title": "Incredible flavor! I literally put it on",
+          "body": "Incredible flavor! I literally put it on everything! Must try!",
+          "reviewer": {
+            "name": "Justin Jacobs",
+            "email": "justinmjacobs1@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-05-09T16:26:18+00:00",
+          "updatedAt": "2026-05-09T16:34:22+00:00"
+        },
+        {
+          "id": 1025379550,
+          "rating": 5,
+          "title": "Hot stuff! ❤️",
+          "body": "My son, who lives in TX, loves unique hot sauces. I gave him a 3 pack for Christmas and he loved all 3.",
+          "reviewer": {
+            "name": "Kathleen Kent",
+            "email": "kathleenkent@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2025-12-30T19:53:50+00:00",
+          "updatedAt": "2025-12-30T19:57:36+00:00"
+        },
+        {
+          "id": 989507323,
+          "rating": 5,
+          "title": "Too yummy not to gift!",
+          "body": "Yummmm, we love the hot sauces and rubs so much that we've been gifting them for birthdays. The flavors are original, complex, with the perfect amount of heat. Loving the variety of new flavors as much as the original. Highly recommend!",
+          "reviewer": {
+            "name": "Michelle Unique",
+            "email": "michellegoyette@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-11-17T14:15:37+00:00",
+          "updatedAt": "2025-11-17T14:20:02+00:00"
+        },
+        {
+          "id": 736048851,
+          "rating": 5,
+          "title": "Tasty with the perfect kick",
+          "body": "It Sauce is fire I love the taste and kick it has I can’t get enough of it! Well balanced in hear and flavor.",
+          "reviewer": {
+            "name": "Alfonso Olguin",
+            "email": "maggots09@hotmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-01-13T23:43:57+00:00",
+          "updatedAt": "2025-01-13T23:44:58+00:00"
+        },
+        {
+          "id": 706092200,
+          "rating": 5,
+          "title": "Best .sauce.ever",
+          "body": "Been buying sauces for years for my son who likes it flavorful and hot! Wow we’ve found it . Garlic reaper is the best . Getting 3 bottles for Christmas \r\nFlavorful , fresh and so good  !",
+          "reviewer": {
+            "name": "Jennifer Severyn",
+            "email": "jbsev@hotmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-30T17:12:08+00:00",
+          "updatedAt": "2024-11-30T17:12:09+00:00"
+        },
+        {
+          "id": 697372378,
+          "rating": 5,
+          "title": "Delicious",
+          "body": "Every bottle taste amazing this is one has a zing flavor profile",
+          "reviewer": {
+            "name": "James hinton",
+            "email": "lowlifextattooer@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-17T21:11:50+00:00",
+          "updatedAt": "2024-11-17T21:12:48+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 6,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 6
+        }
+      }
+    },
+    "aztec-gold": {
+      "productHandle": "aztec-gold",
+      "productTitle": "Aztec Gold (Large 9.2 OZ)",
+      "reviews": [
+        {
+          "id": 1171118506,
+          "rating": 5,
+          "title": "Great on chicken",
+          "body": "Great on chicken, also used it in a roast for shredded beef tacos, very good",
+          "reviewer": {
+            "name": "Joseph M Griggs",
+            "email": "joegriggs82@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-05-04T00:22:43+00:00",
+          "updatedAt": "2026-05-04T00:32:14+00:00"
+        },
+        {
+          "id": 1025444747,
+          "rating": 5,
+          "title": null,
+          "body": "Love !!!! One of my top favorite spices",
+          "reviewer": {
+            "name": "Amanda Hogan",
+            "email": "claytonsmom2001@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2025-12-30T21:36:35+00:00",
+          "updatedAt": "2025-12-30T21:37:11+00:00"
+        },
+        {
+          "id": 1001540346,
+          "rating": 5,
+          "title": "Love this rub/seasoning... maybe too much? =)",
+          "body": "Love this rub/seasoning so much, got three at once! Wellllll, was supposed to gift two, but so far none have left the house, and I have already cracked into the second bottle (and they are big bottles!) because I love it on SO much more than just meat.\nTried it the first time because I love chilis, cumin, cilantro, lime and garlic, keep going back because of the deep collection of flavors that make everything taste so dang good. Used it in a ton of freezer meals, in soups, on veggies, on top of salad, in taco meat, and even at Thanksgiving. Have been getting a ton of compliments on dinner and may let the cat out of the bag on my little secret one of these days. Sorry friends and fam, maybe you'll get your own bottle on my NEXT order haha! In case you can't tell - HIGHLY recommend, but warning, may become your tongue's next flavor addition too.",
+          "reviewer": {
+            "name": "Michelle Unique",
+            "email": "michellegoyette@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-12-01T12:23:09+00:00",
+          "updatedAt": "2025-12-01T12:27:20+00:00"
+        },
+        {
+          "id": 994055194,
+          "rating": 5,
+          "title": "Damned good sauce!! Nothing more to say!",
+          "body": "Damned good sauce!! Nothing more to say!  Fantstic taste!",
+          "reviewer": {
+            "name": "Ryan Paradis",
+            "email": "pparadis7@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-11-22T21:07:50+00:00",
+          "updatedAt": "2025-11-22T21:10:21+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 4,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 4
+        }
+      }
+    },
+    "series-3-sapphire-dragon": {
+      "productHandle": "series-3-sapphire-dragon",
+      "productTitle": "Series 3- Sapphire Dragon",
+      "reviews": [
+        {
+          "id": 1161238417,
+          "rating": 5,
+          "title": "Absolutely Incredible!",
+          "body": "Absolutely incredible! Will def keep buying!",
+          "reviewer": {
+            "name": "Justin Jacobs",
+            "email": "justinmjacobs1@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-04-24T16:27:40+00:00",
+          "updatedAt": "2026-04-24T16:36:17+00:00"
+        },
+        {
+          "id": 907171621,
+          "rating": 5,
+          "title": "Absolutely amazing!",
+          "body": "Literally my favorite sauce ever! Nice and spicy, yet so sweet and flavorful. I put this sh*t on everything!",
+          "reviewer": {
+            "name": "Artur Skrzypczak",
+            "email": "artie_m_s@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2025-08-09T18:55:59+00:00",
+          "updatedAt": "2025-08-09T19:02:18+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 2,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 2
+        }
+      }
+    },
+    "pineapple-mango-hot-sauce": {
+      "productHandle": "pineapple-mango-hot-sauce",
+      "productTitle": "Series 1- Pineapple-Mango",
+      "reviews": [
+        {
+          "id": 1078986299,
+          "rating": 4,
+          "title": "saucy",
+          "body": "all your sauces are really good!",
+          "reviewer": {
+            "name": "Sean Darnall",
+            "email": "csean.darnall@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-02-24T22:58:48+00:00",
+          "updatedAt": "2026-02-24T23:04:07+00:00"
+        },
+        {
+          "id": 966356594,
+          "rating": 5,
+          "title": "Love all the sauces",
+          "body": "We love all three of the sauces that you sent us. We are huge fans.",
+          "reviewer": {
+            "name": "Chris Grant",
+            "email": "scubagrant60@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-10-19T17:39:19+00:00",
+          "updatedAt": "2025-10-19T17:42:23+00:00"
+        },
+        {
+          "id": 884782890,
+          "rating": 5,
+          "title": "Really good flavor",
+          "body": "Really good flavor.  It lasted about 1 week the whole family couldn't have enough",
+          "reviewer": {
+            "name": "Demetrius Demarcus Bartholomew lll",
+            "email": "rubysanchez171@msn.com"
+          },
+          "verified": false,
+          "createdAt": "2025-07-16T05:52:12+00:00",
+          "updatedAt": "2025-07-16T05:54:57+00:00"
+        },
+        {
+          "id": 817461490,
+          "rating": 5,
+          "title": "Make your mouth water!",
+          "body": "This hot sauce was so good on my eggs it had my nose running! It's delicious and you can taste pineapple and mango very distinctively. Will definitely be buying again!",
+          "reviewer": {
+            "name": "VANESSA BARCLAY",
+            "email": "vbarclay86@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-04-27T19:58:17+00:00",
+          "updatedAt": "2025-04-27T19:58:18+00:00"
+        },
+        {
+          "id": 715336019,
+          "rating": 5,
+          "title": "Island twist",
+          "body": "So So So good on Pizza is true!!!!  Had to try this on pizza after reading description and my teenager LOVED it! Hawaiian BBq is his favorite but by adding this he seriously will eat any kind of pizza as long as thing on the table.Total game changer! Is my go to sauce for chicken , especially when I want to add a little twist to teriyaki and rice. The level of heat is just enough to heat up a dish that needs a little extra.",
+          "reviewer": {
+            "name": "Matthew j Hoffman",
+            "email": "devildriver815@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-12-13T17:34:06+00:00",
+          "updatedAt": "2024-12-13T17:36:07+00:00"
+        },
+        {
+          "id": 696937582,
+          "rating": 5,
+          "title": "Absolutely delicious",
+          "body": "This is high quality hot sauce. My whole family puts it on everything.  I love it so much",
+          "reviewer": {
+            "name": "Benjamin Juren",
+            "email": "alexjuren@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-17T04:38:24+00:00",
+          "updatedAt": "2024-11-17T04:39:55+00:00"
+        },
+        {
+          "id": 690540952,
+          "rating": 5,
+          "title": "Soooo good!!",
+          "body": "This one is our favorite!! Has such a wonderful mix of flavors.   \r\nLove it on everything …chicken, eggs, corn chips and so much more!!",
+          "reviewer": {
+            "name": "Joanna Brooks",
+            "email": "asia@justdream.us"
+          },
+          "verified": false,
+          "createdAt": "2024-11-08T03:52:38+00:00",
+          "updatedAt": "2024-11-08T03:53:47+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 4.9,
+        "totalReviews": 7,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 1,
+          "5": 6
+        }
+      }
+    },
+    "sweet-heat-hot-sauce": {
+      "productHandle": "sweet-heat-hot-sauce",
+      "productTitle": "Series 1- Sweet Heat",
+      "reviews": [
+        {
+          "id": 1058742518,
+          "rating": 5,
+          "title": "Love this",
+          "body": "Love this !!!",
+          "reviewer": {
+            "name": "Amanda Hogan",
+            "email": "claytonsmom2001@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2026-02-07T16:47:24+00:00",
+          "updatedAt": "2026-02-07T16:50:58+00:00"
+        },
+        {
+          "id": 1036752016,
+          "rating": 5,
+          "title": null,
+          "body": "Love the sweet side of this milder sauce",
+          "reviewer": {
+            "name": "Thomas Silkworth",
+            "email": "tcsilkwo@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-01-13T23:04:49+00:00",
+          "updatedAt": "2026-01-13T23:05:31+00:00"
+        },
+        {
+          "id": 840737872,
+          "rating": 5,
+          "title": "This hot sauce rocks!!!",
+          "body": "This is my favorite flavor of hot sauces. Unique and very flavorful!",
+          "reviewer": {
+            "name": "Rob Bowman",
+            "email": "robbowman92@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-05-23T03:25:17+00:00",
+          "updatedAt": "2025-05-23T03:30:38+00:00"
+        },
+        {
+          "id": 755950238,
+          "rating": 5,
+          "title": "Can’t wait to order more!",
+          "body": "We stumbled across this sauce at a local Christmas market and cannot wait to order more! It is our favorite by far. The flavor, the heat and the sweet! We put it on everything.",
+          "reviewer": {
+            "name": "Customer",
+            "email": "samantha.m.sobas@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-02-09T14:57:16+00:00",
+          "updatedAt": "2025-02-09T14:58:03+00:00"
+        },
+        {
+          "id": 750988022,
+          "rating": 5,
+          "title": "Great taste with a sneak of heat.",
+          "body": "Very tasty with the right amount of heat. My favorite!",
+          "reviewer": {
+            "name": "Dan Grams",
+            "email": "dangrams@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2025-02-02T19:47:19+00:00",
+          "updatedAt": "2025-02-02T19:47:20+00:00"
+        },
+        {
+          "id": 736490837,
+          "rating": 5,
+          "title": "Sweet heat",
+          "body": "I love it. Went great on my chicken enchiladas",
+          "reviewer": {
+            "name": "Chris Holmes",
+            "email": "compdrywallinc@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-01-14T16:44:58+00:00",
+          "updatedAt": "2025-01-14T16:45:00+00:00"
+        },
+        {
+          "id": 715325578,
+          "rating": 5,
+          "title": "Perfect ratio of sweet and heat!",
+          "body": "Perfect on everything from eggs to tacos! Honestly is my go to sauce to put on everything! The absolute best  balance of sweet and heat married together to form an honest  pairing that works on anything .",
+          "reviewer": {
+            "name": "Matthew j Hoffman",
+            "email": "devildriver815@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-12-13T17:15:00+00:00",
+          "updatedAt": "2024-12-13T17:16:06+00:00"
+        },
+        {
+          "id": 697371607,
+          "rating": 5,
+          "title": "Amazing",
+          "body": "Every hot sauce has a great spicy level but never loses flavor it's amazing and every label is from a real artist so I'm a huge fan for that reason",
+          "reviewer": {
+            "name": "James hinton",
+            "email": "lowlifextattooer@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-17T21:10:24+00:00",
+          "updatedAt": "2024-11-17T21:10:54+00:00"
+        },
+        {
+          "id": 690457353,
+          "rating": 5,
+          "title": "So Good!",
+          "body": "I love this sauce!",
+          "reviewer": {
+            "name": "Treavor Walton",
+            "email": "djtreavor@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-08T00:12:37+00:00",
+          "updatedAt": "2024-11-08T00:12:40+00:00"
+        },
+        {
+          "id": 690421877,
+          "rating": 5,
+          "title": null,
+          "body": "Love love love",
+          "reviewer": {
+            "name": "Beverly lutich",
+            "email": "bevlutich@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-02-08T21:13:55+00:00",
+          "updatedAt": "2024-02-08T21:14:29+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 10,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 10
+        }
+      }
+    },
+    "series-1-cucumber-madness": {
+      "productHandle": "series-1-cucumber-madness",
+      "productTitle": "Series 1- Cucumber Madness",
+      "reviews": [
+        {
+          "id": 1053250681,
+          "rating": 5,
+          "title": "One of our favorites!  Good heat",
+          "body": "One of our favorites!  Good heat, but also refreshing",
+          "reviewer": {
+            "name": "Benjamin Schillinger",
+            "email": "be.jammmin@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-02-02T03:32:50+00:00",
+          "updatedAt": "2026-02-02T03:37:33+00:00"
+        },
+        {
+          "id": 1036751916,
+          "rating": 5,
+          "title": null,
+          "body": "Staple in my kitchen",
+          "reviewer": {
+            "name": "Thomas Silkworth",
+            "email": "tcsilkwo@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2026-01-13T23:04:24+00:00",
+          "updatedAt": "2026-01-13T23:05:02+00:00"
+        },
+        {
+          "id": 1023557508,
+          "rating": 5,
+          "title": "We love Cucumber Madness! It adds great",
+          "body": "We love Cucumber Madness! It adds great freshness and heat!!",
+          "reviewer": {
+            "name": "Sarah Zey",
+            "email": "sarahzey@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2025-12-27T23:23:12+00:00",
+          "updatedAt": "2025-12-27T23:23:19+00:00"
+        },
+        {
+          "id": 946509805,
+          "rating": 5,
+          "title": null,
+          "body": "My favorite hot sauce hands down.",
+          "reviewer": {
+            "name": "Debra Wright",
+            "email": "local12heathen@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-09-24T17:55:01+00:00",
+          "updatedAt": "2025-09-24T17:59:23+00:00"
+        },
+        {
+          "id": 841141895,
+          "rating": 5,
+          "title": null,
+          "body": "This is one of my all time favorite hot sauces.",
+          "reviewer": {
+            "name": "Eli Baker",
+            "email": "elibaker757@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-05-23T14:23:18+00:00",
+          "updatedAt": "2025-05-23T14:51:44+00:00"
+        },
+        {
+          "id": 776687943,
+          "rating": 5,
+          "title": "Awesome flavor combination",
+          "body": "Picked several hot sauces at random based solely on name. This was one of my favorites and honestly something I'll continue to use. Light and heavy use on a meal, and this tastes pretty good",
+          "reviewer": {
+            "name": "CHARLES H RYAN",
+            "email": "charles.henry.ryan1243@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-03-10T12:14:46+00:00",
+          "updatedAt": "2025-03-10T12:16:07+00:00"
+        },
+        {
+          "id": 715331391,
+          "rating": 5,
+          "title": "Spot on!",
+          "body": "Honestly a bold combo! LOVE this sauce on / with meat of any kind. Have tried it with everything from steak to chicken and truly the serrano and jalapeño  are just the right amount of heat , while the cucumber cools it down . Highly recommend for someone who likes a snap of heat with flavor.",
+          "reviewer": {
+            "name": "Matthew j Hoffman",
+            "email": "devildriver815@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-12-13T17:23:45+00:00",
+          "updatedAt": "2024-12-13T17:24:09+00:00"
+        },
+        {
+          "id": 697331914,
+          "rating": 5,
+          "title": "Love this!",
+          "body": "I have found this to be a great breakfast hot sauce! It’s a little bit more mild for first thing in the morning, and super flavorful. A very bright and fresh taste!",
+          "reviewer": {
+            "name": "Customer",
+            "email": "eloraschrader@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-17T19:44:48+00:00",
+          "updatedAt": "2024-11-17T19:46:02+00:00"
+        },
+        {
+          "id": 690469534,
+          "rating": 5,
+          "title": "This is our all time favorite!!",
+          "body": "I was very skeptical when I got this hot sauce because I absolutely hate cucumbers, but when I tried it, it was amazing and I was blown away by the flavor! I highly recommend trying this even if you hate cucumbers, it will definitely change your mind.",
+          "reviewer": {
+            "name": "Scott Walker",
+            "email": "eklipze.media@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-08T01:17:27+00:00",
+          "updatedAt": "2024-11-08T01:18:25+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 9,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 9
+        }
+      }
+    },
+    "leprechaun-lava": {
+      "productHandle": "leprechaun-lava",
+      "productTitle": "Series 2- Leprechaun Lava",
+      "reviews": [
+        {
+          "id": 1037702616,
+          "rating": 5,
+          "title": "Heat with a touch of fruit",
+          "body": "Heat with a touch of fruit. Wonderful addition to all kinds of meats.",
+          "reviewer": {
+            "name": "Kathleen Kent",
+            "email": "kathleenkent@yahoo.com"
+          },
+          "verified": false,
+          "createdAt": "2026-01-14T19:00:29+00:00",
+          "updatedAt": "2026-01-14T19:03:02+00:00"
+        },
+        {
+          "id": 941712448,
+          "rating": 5,
+          "title": "Really delicious",
+          "body": "Really delicious. This was my second bottle. Unique taste. Just the right temp",
+          "reviewer": {
+            "name": "Lisa Drey",
+            "email": "npdrey@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-09-19T02:25:44+00:00",
+          "updatedAt": "2025-09-19T02:25:46+00:00"
+        },
+        {
+          "id": 902547599,
+          "rating": 5,
+          "title": "New Fan",
+          "body": "This one was my first purchase. Love the heat but the flavor that comes with it is out of this world! I put it on pretty much any breakfast I eat and also enjoyed it on my chicken sandwiches as well!",
+          "reviewer": {
+            "name": "Jon Apple",
+            "email": "jonathanapple73@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-08-05T02:28:01+00:00",
+          "updatedAt": "2025-08-05T02:28:16+00:00"
+        },
+        {
+          "id": 736046677,
+          "rating": 5,
+          "title": "Top Tier hot sauce",
+          "body": "I love this sauce it  has a great kick with some great flavor it not just a heat   Bomb! It has the best of both worlds heat and flavor I love it!",
+          "reviewer": {
+            "name": "Alfonso Olguin",
+            "email": "maggots09@hotmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-01-13T23:41:58+00:00",
+          "updatedAt": "2025-01-15T18:25:26+00:00"
+        },
+        {
+          "id": 697332108,
+          "rating": 5,
+          "title": "Pretty and Delicious",
+          "body": "It’s got glitter! Beautiful to look at, and very flavorful. Other brands of hot sauces are JUST hot, with no real flavors besides heat. All of these Hellbound sauces taste of their individual ingredients in perfect harmony. And again, it’s sparkly! 😱",
+          "reviewer": {
+            "name": "Customer",
+            "email": "eloraschrader@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2024-11-17T19:46:43+00:00",
+          "updatedAt": "2024-11-17T19:47:21+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 5,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 5
+        }
+      }
+    },
+    "womens-tee-hellbound-sauces-merch-for-spicy-style": {
+      "productHandle": "womens-tee-hellbound-sauces-merch-for-spicy-style",
+      "productTitle": "Women's Tee - HellBound Sauces Merch for Spicy Style",
+      "reviews": [
+        {
+          "id": 901254831,
+          "rating": 5,
+          "title": "Excellent quality",
+          "body": "Excellent quality. Fits true to size. And I have gotten several comments on the beautiful artwork as well. 10/10 would buy again.",
+          "reviewer": {
+            "name": "Jeanette Haigwood",
+            "email": "cali_gurl_76@hotmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-08-03T19:34:35+00:00",
+          "updatedAt": "2025-08-03T19:34:35+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 1,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 1
+        }
+      }
+    },
+    "hellboundhs-logo-flat-bill-trucker-hat": {
+      "productHandle": "hellboundhs-logo-flat-bill-trucker-hat",
+      "productTitle": "HellBound Sauces Black Logo Flat Bill Trucker Hat",
+      "reviews": [
+        {
+          "id": 736527645,
+          "rating": 5,
+          "title": "Hat",
+          "body": "Hat is fire",
+          "reviewer": {
+            "name": "Chris Holmes",
+            "email": "compdrywallinc@gmail.com"
+          },
+          "verified": false,
+          "createdAt": "2025-01-14T18:23:30+00:00",
+          "updatedAt": "2025-01-14T18:25:57+00:00"
+        }
+      ],
+      "stats": {
+        "averageRating": 5,
+        "totalReviews": 1,
+        "ratingDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 1
+        }
+      }
+    }
+  }
 }

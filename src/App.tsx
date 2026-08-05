@@ -18,6 +18,7 @@ import HeatGuidePage from "./pages/HeatGuidePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import WholesalePage from "./pages/WholesalePage";
+import StoreLocatorPage from "./pages/StoreLocatorPage";
 import ContactPage from "./pages/ContactPage";
 import FAQPage from "./pages/FAQPage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/wholesale" element={<WholesalePage />} />
+            <Route path="/store-locator" element={<StoreLocatorPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />

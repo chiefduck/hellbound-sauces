@@ -20,6 +20,7 @@ const footerLinks = {
     { name: 'About Us', href: '/about' },
     { name: 'Our Story', href: '/about#story' },
     { name: 'Wholesale', href: '/wholesale' },
+    { name: 'Store Locator', href: '/store-locator' },
     { name: 'Contact', href: '/contact' },
   ],
   support: [

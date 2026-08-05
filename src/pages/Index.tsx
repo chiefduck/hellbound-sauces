@@ -7,6 +7,7 @@ import { HeatScaleSection } from '@/components/home/HeatScaleSection';
 import { ReviewsCarousel } from '@/components/home/ReviewsCarousel';
 import { BlogPreview } from '@/components/home/BlogPreview';
 import { BrandStory } from '@/components/home/BrandStory';
+import { VideoSection } from '@/components/home/VideoSection';
 import { WholesaleCTA } from '@/components/home/WholesaleCTA';
 import { EmailCapture } from '@/components/home/EmailCapture';
 import { SEOHead } from '@/components/seo';
@@ -25,6 +26,7 @@ export default function Index() {
       <CollectionsGrid />
       <HeatScaleSection />
       <ReviewsCarousel />
+      <VideoSection />
       <BrandStory />
       <WholesaleCTA />
       <BlogPreview />

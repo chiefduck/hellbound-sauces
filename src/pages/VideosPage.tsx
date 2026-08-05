@@ -4,6 +4,11 @@ import { Play } from 'lucide-react';
 
 const videos = [
   {
+    id: '9lNQb34Lehk',
+    title: 'HellBound Sauces Featured Video',
+    embedUrl: 'https://www.youtube.com/embed/9lNQb34Lehk',
+  },
+  {
     id: 'wm4MqU1IH9g',
     title: 'HellBound Sauces Featured Video',
     embedUrl: 'https://www.youtube.com/embed/wm4MqU1IH9g',

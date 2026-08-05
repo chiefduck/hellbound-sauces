@@ -26,6 +26,7 @@ const navigation = [
       { name: 'Our Story', href: '/about' },
       { name: 'Videos', href: '/videos' },
       { name: 'Blog', href: '/blog' },
+      { name: 'Store Locator', href: '/store-locator' },
     ]
   },
   { name: 'Wholesale', href: '/wholesale' },

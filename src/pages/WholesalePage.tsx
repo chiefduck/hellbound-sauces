@@ -32,7 +32,7 @@ export default function WholesalePage() {
     };
 
     try {
-      const response = await fetch('https://nobunikboeenahklsxgg.supabase.co/functions/v1/form-submission', {
+      const response = await fetch(import.meta.env.VITE_SUPABASE_FUNCTION_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
