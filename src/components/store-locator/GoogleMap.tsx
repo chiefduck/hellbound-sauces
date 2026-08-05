@@ -23,14 +23,22 @@ declare global {
 
 export function GoogleMap({ locations }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<google.maps.Map | null>(null);
+  const markersRef = useRef<google.maps.Marker[]>([]);
 
   useEffect(() => {
     if (!window.google || !mapRef.current) return;
 
-    const map = new window.google.maps.Map(mapRef.current, {
-      center: { lat: 39.8283, lng: -98.5795 },
-      zoom: 4,
-    });
+    if (!mapInstanceRef.current) {
+      mapInstanceRef.current = new window.google.maps.Map(mapRef.current, {
+        center: { lat: 39.8283, lng: -98.5795 },
+        zoom: 4,
+      });
+    }
+    const map = mapInstanceRef.current;
+
+    markersRef.current.forEach((marker) => marker.setMap(null));
+    markersRef.current = [];
 
     const bounds = new window.google.maps.LatLngBounds();
     let pointCount = 0;
@@ -59,6 +67,7 @@ export function GoogleMap({ locations }: GoogleMapProps) {
         infoWindow.open(map, marker);
       });
 
+      markersRef.current.push(marker);
       bounds.extend(position);
       pointCount += 1;
     });

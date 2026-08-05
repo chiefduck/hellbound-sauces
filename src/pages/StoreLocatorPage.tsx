@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Papa from 'papaparse';
 import { MapPin, Search } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
@@ -58,18 +58,20 @@ export default function StoreLocatorPage() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const filteredLocations = locations.filter((location) => {
+  const filteredLocations = useMemo(() => {
     const term = searchTerm.toLowerCase();
-    return (
-      location.name.toLowerCase().includes(term) ||
-      location.city.toLowerCase().includes(term) ||
-      location.state.toLowerCase().includes(term) ||
-      location.zipCode.includes(searchTerm)
+    return locations.filter(
+      (location) =>
+        location.name.toLowerCase().includes(term) ||
+        location.city.toLowerCase().includes(term) ||
+        location.state.toLowerCase().includes(term) ||
+        location.zipCode.includes(searchTerm)
     );
-  });
+  }, [locations, searchTerm]);
 
-  const mappableLocations = filteredLocations.filter(
-    (location) => location.latitude !== null && location.longitude !== null
+  const mappableLocations = useMemo(
+    () => filteredLocations.filter((location) => location.latitude !== null && location.longitude !== null),
+    [filteredLocations]
   );
 
   return (
