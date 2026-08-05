@@ -32,7 +32,7 @@ export function Hero() {
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-none mb-6 animate-fade-in-up">
               <span className="text-gradient-fire">EMBRACE</span>
               <br />
-              <span className="text-foreground">THE HEAT</span>
+              <span className="text-foreground">THE FLAVOR</span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>

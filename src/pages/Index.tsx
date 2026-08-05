@@ -24,9 +24,9 @@ export default function Index() {
       <BenefitsGrid />
       <FeaturedProducts />
       <CollectionsGrid />
-      <HeatScaleSection />
-      <ReviewsCarousel />
       <VideoSection />
+      <ReviewsCarousel />
+      <HeatScaleSection />
       <BrandStory />
       <WholesaleCTA />
       <BlogPreview />
