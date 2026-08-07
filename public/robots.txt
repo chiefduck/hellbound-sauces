@@ -26,6 +26,9 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: CCBot
+Allow: /
+
 User-agent: Claude-Web
 Allow: /
 
