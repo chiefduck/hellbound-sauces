@@ -9,11 +9,11 @@
   },
   "wide-awake": {
     "low": false,
-    "quantity": 307
+    "quantity": 306
   },
   "leprechaun-lava": {
     "low": false,
-    "quantity": 257
+    "quantity": 255
   },
   "series-2-clove-keeper": {
     "low": false,
@@ -21,7 +21,7 @@
   },
   "series-1-cucumber-madness": {
     "low": true,
-    "quantity": 13
+    "quantity": 12
   },
   "aztec-gold": {
     "low": false,
