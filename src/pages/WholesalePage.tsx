@@ -7,11 +7,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { SEOHead } from '@/components/seo';
+import { useTurnstile } from '@/hooks/useTurnstile';
+
+const TURNSTILE_SITEKEY = '0x4AAAAAAEMLM4SsC_ew6m_T';
 
 export default function WholesalePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [phone, setPhone] = useState<string>('');
   const { toast } = useToast();
+  const { token: turnstileToken, containerRef: turnstileRef, reset: resetTurnstile } = useTurnstile({
+    sitekey: TURNSTILE_SITEKEY,
+    action: 'wholesale',
+  });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,6 +36,7 @@ export default function WholesalePage() {
       phone: phone,
       message: formData.get('message'),
       inquiry_type: 'wholesale',
+      turnstileToken,
     };
 
     try {
@@ -46,12 +54,14 @@ export default function WholesalePage() {
       });
       setPhone('');
       (e.target as HTMLFormElement).reset();
+      resetTurnstile();
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to send application. Please try again or email us directly.",
         variant: "destructive",
       });
+      resetTurnstile();
     } finally {
       setIsSubmitting(false);
     }
@@ -161,6 +171,7 @@ export default function WholesalePage() {
                 required
                 className="bg-secondary border-border min-h-[140px]"
               />
+              <div ref={turnstileRef} />
               <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-fire hover:opacity-90 font-heading text-lg h-12">
                 {isSubmitting ? 'Sending...' : 'Contact Us'}
               </Button>

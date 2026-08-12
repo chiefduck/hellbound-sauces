@@ -4,6 +4,9 @@ import { Flame, Instagram, Facebook, Youtube } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { useTurnstile } from '@/hooks/useTurnstile';
+
+const TURNSTILE_SITEKEY = '0x4AAAAAAEMLM4SsC_ew6m_T';
 
 interface FooterProps {
   showNewsletter?: boolean;
@@ -46,6 +49,10 @@ const socialLinks = [
 export function Footer({ showNewsletter = true }: FooterProps) {
   const [isSubscribing, setIsSubscribing] = useState(false);
   const { toast } = useToast();
+  const { token: turnstileToken, containerRef: turnstileRef, reset: resetTurnstile } = useTurnstile({
+    sitekey: TURNSTILE_SITEKEY,
+    action: 'newsletter',
+  });
 
   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,7 +73,8 @@ export function Footer({ showNewsletter = true }: FooterProps) {
         inquiry_type: 'newsletter',
         consent: true,
         consentTimestamp: new Date().toISOString()
-      }
+      },
+      turnstileToken,
     };
 
     try {
@@ -83,12 +91,14 @@ export function Footer({ showNewsletter = true }: FooterProps) {
         description: "You've been added to our newsletter. Check your email for exclusive content!",
       });
       (e.target as HTMLFormElement).reset();
+      resetTurnstile();
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to subscribe. Please try again later.",
         variant: "destructive",
       });
+      resetTurnstile();
     } finally {
       setIsSubscribing(false);
     }
@@ -124,6 +134,7 @@ export function Footer({ showNewsletter = true }: FooterProps) {
                   disabled={isSubscribing}
                   className="bg-secondary border-border focus:border-primary"
                 />
+                <div ref={turnstileRef} />
                 <Button type="submit" disabled={isSubscribing} className="bg-gradient-fire hover:opacity-90 transition-opacity whitespace-nowrap">
                   {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                 </Button>

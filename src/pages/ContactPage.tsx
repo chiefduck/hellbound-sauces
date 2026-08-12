@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
+import { useTurnstile } from '@/hooks/useTurnstile';
+
+const TURNSTILE_SITEKEY = '0x4AAAAAAEMLM4SsC_ew6m_T';
 
 const inquiryTypes = [
   { value: 'consumer', label: 'Consumer Question', icon: MessageSquare },
@@ -44,6 +47,10 @@ export default function ContactPage() {
   const [topic, setTopic] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const { toast } = useToast();
+  const { token: turnstileToken, containerRef: turnstileRef, reset: resetTurnstile } = useTurnstile({
+    sitekey: TURNSTILE_SITEKEY,
+    action: 'contact',
+  });
 
   const topics = inquiryType === 'wholesale' ? wholesaleTopics : consumerTopics;
 
@@ -69,6 +76,7 @@ export default function ContactPage() {
       topic: selectedTopicLabel,
       company: formData.get('company') || "",
       order_number: formData.get('orderNumber') || "",
+      turnstileToken,
     };
 
     try {
@@ -93,9 +101,11 @@ export default function ContactPage() {
      setTopic('');
      setPhone('');
      (e.target as HTMLFormElement).reset();
+     resetTurnstile();
 
    } catch (error) {
      // ... existing error toast ...
+     resetTurnstile();
    } finally {
      setIsSubmitting(false);
    }
@@ -272,9 +282,11 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting || !inquiryType} 
+                <div ref={turnstileRef} />
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !inquiryType}
                   className="bg-gradient-fire hover:opacity-90 font-heading text-lg h-12 px-8"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
