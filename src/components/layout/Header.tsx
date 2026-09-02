@@ -25,7 +25,7 @@ const navigation = [
     submenu: [
       { name: 'Our Story', href: '/about' },
       { name: 'Videos', href: '/videos' },
-      { name: 'Blog', href: '/blog' },
+      { name: 'Blog', href: 'https://blog.hellboundsauces.com' },
       { name: 'Store Locator', href: '/store-locator' },
     ]
   },

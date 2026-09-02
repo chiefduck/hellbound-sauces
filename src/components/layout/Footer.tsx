@@ -28,7 +28,7 @@ const footerLinks = {
   ],
   support: [
     { name: 'Heat Guide', href: '/heat-guide' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Blog', href: 'https://blog.hellboundsauces.com' },
     { name: 'FAQs', href: '/faq' },
     { name: 'Shipping', href: '/shipping' },
     { name: 'Returns & Refunds', href: '/refund' },

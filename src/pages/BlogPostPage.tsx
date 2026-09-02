@@ -39,7 +39,7 @@ export default function BlogPostPage() {
           <h1 className="font-display text-3xl md:text-4xl mb-4">Post Not Found</h1>
           <p className="text-muted-foreground mb-8">The article you're looking for doesn't exist.</p>
           <Button asChild>
-            <Link to="/blog">Back to Blog</Link>
+            <a href="https://blog.hellboundsauces.com">Back to Blog</a>
           </Button>
         </div>
       </Layout>
@@ -86,13 +86,13 @@ export default function BlogPostPage() {
       <article className="pt-6 pb-16 lg:pt-12 lg:pb-24">
         <div className="container mx-auto px-4 lg:px-8">
           {/* Back link */}
-          <Link
-            to="/blog"
+          <a
+            href="https://blog.hellboundsauces.com"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             <span>Back to Blog</span>
-          </Link>
+          </a>
 
           {/* Featured Image - Enhanced */}
           <div className="relative mb-8 lg:mb-12">

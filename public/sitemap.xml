@@ -134,12 +134,6 @@
   </url>
 
   <!-- Blog Index -->
-  <url>
-    <loc>https://hellboundsauces.com/blog</loc>
-    <lastmod>2026-04-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
 
   <!-- Blog Posts -->
   <url>

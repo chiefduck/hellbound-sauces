@@ -1,5 +1,9 @@
 # Redirects for SPA routing
 # https://docs.netlify.com/routing/redirects/
 
+# The blog now lives on Update My SEO's hosted blog at blog.hellboundsauces.com. Send the index
+# there; the nine 2024 posts under /blog/<slug> stay reachable (nothing links to them anymore).
+/blog    https://blog.hellboundsauces.com/    301
+
 # Handle all routes for SPA
 /*    /index.html   200
