@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "dev": "vite",
     "prebuild": "node scripts/fetch-products.js && node scripts/fetch-reviews.js",
     "build": "vite build",
