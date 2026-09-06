@@ -97,28 +97,6 @@
     }
     </script>
 
-    <!-- WebSite Schema with SearchAction -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://hellboundsauces.com/#website",
-      "name": "Hellbound Hot Sauce",
-      "url": "https://hellboundsauces.com",
-      "publisher": {
-        "@id": "https://hellboundsauces.com/#organization"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://hellboundsauces.com/search?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
     <!-- Local Business Schema -->
     <script type="application/ld+json">
     {
@@ -218,23 +196,6 @@
           "item": "https://hellboundsauces.com/collections/hot-sauce"
         }
       ]
-    }
-    </script>
-
-    <!-- Google Sitelinks Search Box Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "url": "https://hellboundsauces.com",
-      "potentialAction": [{
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://hellboundsauces.com/collections/all?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }]
     }
     </script>
 

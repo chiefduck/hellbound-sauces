@@ -5,5 +5,16 @@
 # there; the nine 2024 posts under /blog/<slug> stay reachable (nothing links to them anymore).
 /blog    https://blog.hellboundsauces.com/    301
 
+# Retired Shopify routes still known to Google. Keep these ahead of the SPA fallback.
+/search                                      /collections/all           301
+/pages/contact                               /contact                   301
+/products/garlic-reaper                      /collections/hot-sauce     301
+/products/series-3-sapphire-dragon           /products/sapphire-dragon 301
+/products/series-3-bangkok-burn              /products/bangkok-burn     301
+/products/series-3-blazin-bee-mustard        /products/blazin-bee-mustard 301
+/products/series-1-cucumber-madness          /products/cucumber-madness 301
+/products/sweet-heat-hot-sauce               /products/sweet-heat      301
+/products/pineapple-mango-hot-sauce          /products/pineapple-mango 301
+
 # Handle all routes for SPA
 /*    /index.html   200
