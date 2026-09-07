@@ -1,31 +1,31 @@
 {
   "sweet-heat-hot-sauce": {
     "low": false,
-    "quantity": 491
+    "quantity": 487
   },
   "pineapple-mango-hot-sauce": {
     "low": false,
-    "quantity": 778
+    "quantity": 777
   },
   "wide-awake": {
     "low": false,
-    "quantity": 212
+    "quantity": 210
   },
   "leprechaun-lava": {
     "low": false,
-    "quantity": 152
+    "quantity": 149
   },
   "series-2-clove-keeper": {
     "low": false,
-    "quantity": 885
+    "quantity": 865
   },
   "series-1-cucumber-madness": {
     "low": false,
-    "quantity": 735
+    "quantity": 874
   },
   "aztec-gold": {
     "low": false,
-    "quantity": 117
+    "quantity": 114
   },
   "beekeepers-blend": {
     "low": false,
@@ -33,18 +33,18 @@
   },
   "wildwood-maple": {
     "low": false,
-    "quantity": 219
+    "quantity": 217
   },
   "series-3-bangkok-burn": {
     "low": false,
-    "quantity": 919
+    "quantity": 912
   },
   "series-3-blazin-bee-mustard": {
     "low": false,
-    "quantity": 688
+    "quantity": 829
   },
   "series-3-sapphire-dragon": {
     "low": false,
-    "quantity": 473
+    "quantity": 470
   }
 }
