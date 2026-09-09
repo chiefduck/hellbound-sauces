@@ -28,8 +28,8 @@
     "quantity": 114
   },
   "beekeepers-blend": {
-    "low": false,
-    "quantity": 33
+    "low": true,
+    "quantity": 20
   },
   "wildwood-maple": {
     "low": false,
